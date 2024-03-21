@@ -1,4 +1,4 @@
-# Understanding the Dominant Language in Contemporary Asian-American Novels
+# The Dominant Vocabulary in Contemporary Asian-American Novels
 
 ## Overview
 
