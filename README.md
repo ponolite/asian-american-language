@@ -2,8 +2,7 @@
 
 ## Overview
 
-This repo provides students with a foundation to understand the most repeated and dominant language used by contemporary Asian-American authors to garner the current cultural status of Asian-Americans today. This helps us understand if the current cultural language of the Asian-American population and related trends, especially in regards to racialization and more!
-
+This repo provides students with a foundation to understand the most repeated and dominant language used by contemporary Asian-American authors to garner the current cultural status of Asian-Americans today. This helps us understand the current cultural language of the Asian-American population and related trends, especially in regards to racialization and more.
 
 ## File Structure
 
