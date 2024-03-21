@@ -1,10 +1,8 @@
-# Starter folder
+# Understand The Dominant Language in Contemporary Asian-American Authors
 
 ## Overview
 
-This repo provides students with a foundation for their own projects associated with *Telling Stories with Data*. You do not need every aspect for every paper and you should delete aspects that you do not need.
-
-To use this folder, click the green "Code" button", then "Download ZIP". Move the downloaded folder to where you want to work on your own computer, and then modify it to suit.
+This repo provides students with a foundation to understand the most repeated and dominant language used by contemporary Asian-American authors to garner the current cultural status of Asian-Americans today. This helps us understand if the current cultural language of the Asian-American population and related trends, especially in regards to racialization and more!
 
 
 ## File Structure
