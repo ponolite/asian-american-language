@@ -1,4 +1,4 @@
-# Understand The Dominant Language in Contemporary Asian-American Authors
+# Understand the Dominant Language in Contemporary Asian-American Authors
 
 ## Overview
 
