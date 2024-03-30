@@ -18,7 +18,8 @@ library(dplyr)
 library(ggplot2)
 
 
-# Collect stream-of-conscious authors main texts:
+# Collect stream-of-conscious authors main texts
+# Codes sourced from https://medium.com/the-data-nudge/nlp-basics-exploring-word-frequency-with-the-tidytext-r-package-ac35a6d805f4
 
 all_books <- gutenberg_metadata
 
