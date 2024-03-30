@@ -1,8 +1,8 @@
-# The Dominant Vocabulary in Contemporary Asian-American Novels
+# The Relationships between the Dominant Vocabulary in Famous Stream-of-Consciousness Novels and Mental Health
 
 ## Overview
 
-This repo provides students with a foundation to understand the most repeated and dominant language used by contemporary Asian-American authors to garner the current cultural status of Asian-Americans today. This helps us understand the current cultural language of the Asian-American population and related trends, especially in regards to racialization and more.
+This repo provides students with a foundation to understand the most repeated and dominant language used by transnational stream-of-consciousness authors-namely, James Joyce, Virginia Woolf, Marcel Proust and Fyodor Dostoevsky-to garner more information on their mental landscapes. Through the analysis of these authors' most famous works, we can gain insights into the portrayal of mental health themes such as anxiety, depression, trauma, and existential angst within the stream-of-consciousness genre. This exploration helps us in understand the shared linguistic patterns of the stream-of-consciousness genre and offers a glimpse into the authors' mental landscapes, shedding light on themes of self-identity and others.
 
 ## File Structure
 
