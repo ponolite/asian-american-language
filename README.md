@@ -1,4 +1,4 @@
-# The Relationships between the Vocabulary in Famous Stream-of-Consciousness Novels and Mental Health
+# The Linguistic Landscape of Stream-of-Consciousness Literature: Exploring Mental Health Themes in the Works of Joyce, Woolf, Proust, and Dostoevsky"
 
 ## Overview
 
@@ -8,7 +8,7 @@ This repo provides students with a foundation to understand the most repeated an
 
 The repo is structured as:
 
--   `data/raw_data` contains the raw data as obtained from X.
+-   `data/raw_data` contains the raw data as obtained from Project Gutenberg.
 -   `data/analysis_data` contains the cleaned dataset that was constructed.
 -   `model` contains fitted models. 
 -   `other` contains relevant literature, details about LLM chat interactions, and sketches.
@@ -17,7 +17,7 @@ The repo is structured as:
 
 ## Data Extraction
 
-I accessed data from the Kaggle website for Daily Statistics of the 2022 Iran Protests. Here is the link to the data set: https://www.kaggle.com/datasets/justin2028/daily-statistics-of-the-2022-iran-protests?resource=download The data is behind a sign-in. To download the data, I scrolled down and download the Iran Protests Dataset (Ver 2.21.23).csv, and place it in my project data folder.
+I generated my own dataset using the `gutenbergr` and `tidytext` packages, leveraging existing literature from Project Gutenberg, a volunteer effort to digitize and archive cultural works. Here is the link to the archive: https://www.gutenberg.org. To extract different novels into datasets, I first tokenize, or break the novels down into smaller chunks called tokens or words. Then, using the `tidytext`'s "stop_words" dataset, I use exclude stop words like 'a', 'the', etc., thus enhancing the validity of my own dataset.
 
 ## Statement on LLM usage
 
