@@ -1,4 +1,4 @@
-# The Relationships between the Vocabulary in Famous Stream-of-Consciousness Novels and Mental Health
+# The Relationship between the Vocabulary in Famous Stream-of-Consciousness Novels and Mental Health
 
 ## Overview
 
