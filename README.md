@@ -17,7 +17,7 @@ The repo is structured as:
 
 ## Data Extraction
 
-I generated my own dataset using the `gutenbergr` and `tidytext` packages, leveraging existing literature from Project Gutenberg, a volunteer archive to digitize cultural and literary works. Here is the link to the archive: https://www.gutenberg.org. To extract different novels into datasets, I first tokenize, or break the novels down into smaller chunks called tokens or words. Then, using the `tidytext`'s "stop_words" dataset, I exclude stop words like 'a', 'the', etc., thus enhancing the validity of my own dataset.
+I generated my own dataset using the `gutenbergr` and `tidytext` packages, leveraging existing literature from Project Gutenberg, a volunteer archive to digitize cultural and literary works. Here is the link to the archive: https://www.gutenberg.org. To extract different novels into datasets, I first tokenize, or break the novels which I downloaded from Project Gutenberg into smaller chunks called tokens or words. Then, using the `tidytext`'s "stop_words" dataset, I exclude stop words like 'a', 'the', etc., thus enhancing the validity of each of the novel's dataset.
 
 ## Statement on LLM usage
 
