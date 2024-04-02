@@ -1,10 +1,8 @@
 ---
-title: "My title"
-subtitle: "My subtitle if needed"
-author: 
-  - First author
-  - Another author
-thanks: "Code and data are available at: LINK."
+title: "Stream of Conciousness Genre and Mental Landscapes"
+subtitle: "Word Frequency and Mental Health Themes in Stream of Consciousness Works by James Joyce, Virginia Woolf, Marcel Proust, and Fyodor Dostoevsky from Project Gutenberg"
+author: Quang Mai
+thanks: "Code and data are available at: https://github.com/ponolite/stream-consciousness-language.git"
 date: today
 date-format: long
 abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
@@ -19,7 +17,21 @@ bibliography: references.bib
 #| message: false
 
 library(tidyverse)
-library(palmerpenguins)
+library(tidytext)
+library(rmarkdown)
+library(gutenbergr)
+library(tm)
+library(dplyr)
+library(ggplot2)
+library(scales)
+
+all_books <- read_csv(here::here("data/raw_data/all_books.csv"))
+combined_books <- read_csv(here::here("data/raw_data/combined_books.csv"))
+portrait_words <- read_csv(here::here("data/analysis_data/portrait_words.csv"))
+swann_words <- read_csv(here::here("data/analysis_data/swann_words.csv"))
+dalloway_words <- read_csv(here::here("data/analysis_data/dalloway_words.csv"))
+notes_words <- read_csv(here::here("data/analysis_data/notes_words.csv"))
+
 ```
 
 
@@ -113,10 +125,17 @@ Our results are summarized in @tbl-modelresults.
 #| warning: false
 #| message: false
 
-library(rstanarm)
+frequency <- bind_rows(mutate(portrait_words, author = "James Joyce"),
+                       mutate(swann_words, author = "Marcel Proust"),
+                       mutate(dalloway_words, author = "Virginia Woolf"),
+                       mutate(notes_words, author = "Fyodor Dostoevsky")) |>
+  mutate(word = str_extract(word, "[a-z']+")) |>
+  count(author, word) |>
+  group_by(author) |>
+  mutate(proportion = n / sum(n)) |>
+  select(-n) |>
+  pivot_wider(names_from = author, values_from = proportion) 
 
-first_model <-
-  readRDS(file = here::here("models/first_model.rds"))
 ```
 
 ```{r}
@@ -126,13 +145,28 @@ first_model <-
 #| tbl-cap: "Explanatory models of flight time based on wing width and wing length"
 #| warning: false
 
-modelsummary::modelsummary(
-  list(
-    "First model" = first_model
-  ),
-  statistic = "mad",
-  fmt = 2
-)
+ggplot(frequency, aes(x = proportion, y = `James Joyce`, 
+                            color = abs(`James Joyce` - proportion))) +
+  geom_abline(color = "gray50", lty = 2) +
+  geom_jitter(alpha = 0.1, size = 2.5, width = 0.3, height = 0.3) +
+  geom_text(aes(label = word), check_overlap = TRUE, vjust = 1.5) +
+  scale_x_log10(labels = percent_format()) +
+  scale_y_log10(labels = percent_format()) +
+  scale_color_gradient(limits = c(0, 0.001), 
+                       low = "lightyellow2", high = "gray80") +
+  facet_wrap(~author, ncol = 4) +
+  theme(legend.position="none") +
+  labs(y = "James Joyce", x = NULL)
+
+
+
+# Visualize word frequencies (e.g., bar plot or word cloud)
+# Example using ggplot2 for bar plot
+top_words <- head(word_freq, 20)
+ggplot(top_words, aes(x = reorder(word, -n), y = n)) +
+  geom_bar(stat = "identity") +
+  labs(x = "Word", y = "Frequency", title = "Top 20 Most Frequent Words")
+
 ```
 
 
