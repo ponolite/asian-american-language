@@ -1,4 +1,4 @@
-# The Linguistic Landscape of Stream-of-Consciousness Literature: Exploring Word Frequency and Mental Health Themes in the Works of Joyce, Woolf, Proust, and Dostoevsky from Project Gutenberg"
+# The Linguistic Landscape of Stream-of-Consciousness Literature: Exploring Word Frequency and Mental Health Themes in the Works of Joyce, Woolf, Proust, and Dostoevsky from Project Gutenberg
 
 ## Overview
 
