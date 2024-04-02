@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repo provides students with a foundation to understand the most repeated and dominant language used by transnational stream-of-consciousness authors-namely, James Joyce, Virginia Woolf, Marcel Proust and Fyodor Dostoevsky-to garner more information on their mental landscapes. Through the analysis of these authors' most famous works, we can gain insights into the portrayal of mental health themes such as anxiety, depression, trauma, and existential angst within the stream-of-consciousness genre. This exploration helps us understand the shared linguistic patterns of the stream-of-consciousness genre and offers a glimpse into the authors' mental states, shedding light on themes of self-identity and others.
+This project focuses on understanding the language used by renowned, transnational stream of consciousness authors James Joyce, Virginia Woolf, Marcel Proust, and Fyodor Dostoevsky. By analyzing the word frequency of their famous works-respectively, A Portrait of the Artist as a Young Man, Mrs Dalloway, Swann Way and Notes from Underground-I explore mental health themes like anxiety, depression, trauma, and existential angst. Through word frequency analysis, I aim to uncover shared linguistic patterns and gain insights into the authors' mental states, offering a glimpse into themes of self-identity and existential contemplation
 
 ## File Structure
 
@@ -21,4 +21,4 @@ I generated my own dataset using the `gutenbergr` and `tidytext` packages, lever
 
 ## Statement on LLM usage
 
-Aspects of the code were written with the help of the auto-complete tool, Codriver. The abstract and introduction were written with the help of ChatHorse and the entire chat history is available in inputs/llms/usage.txt.
+Aspects of the code were written with the help of the autocomplete tool, ChatGPT. ChatGPT was mainly used to refine the paper's writing and small lines of codes. The entire chat history is available in inputs/LLM/usage.txt
