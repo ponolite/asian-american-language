@@ -36,7 +36,9 @@ swann_words <- read_csv(here::here("data/analysis_data/swann_words.csv"))
 dalloway_words <- read_csv(here::here("data/analysis_data/dalloway_words.csv"))
 bliss_words <- read_csv(here::here("data/analysis_data/bliss_words.csv"))
 prufrock_words <- read_csv(here::here("data/analysis_data/prufrock_words.csv"))
-
+combined_trigram <- read_csv(here::here("data/analysis_data/combined_trigram.csv"))
+combined_bigram <- read_csv(here::here("data/analysis_data/combined_bigram.csv"))
+combined_text <- read_csv(here::here("data/analysis_data/combined_text.csv"))
 
 ```
 
@@ -74,12 +76,6 @@ The novel texts used for analysis were sourced from Project Gutenberg under the 
 #| tbl-cap: Table of Number of Classes Students Considered for Regrade Requests by Students’ Gender
 
 ```
-
-
-Talk more about it.
-
-And also planes (@fig-planes). (You can change the height and width, but don't worry about doing that until you have finished every other aspect of the paper - Quarto will try to make it look nice and the defaults usually work well once you have enough text.)
-
 
 ```{r}
 #| label: fig-planes
@@ -234,34 +230,6 @@ ggplot(aes(x = n, y = reorder(word, n))) +
 
 ```
 
-```{r}
-#| eval: true
-#| echo: false
-#| message: false
-#| warning: false
-#| label: fig-cloud
-#| layout-ncol: 2
-#| fig-cap: "Comparative Analysis of Word Clouds by Stream of Consciousness Authors' Novels"
-#| fig-subcap: ["James Joyce", "Virginia Woolf", "Marcel Proust", "T.S. Eliot", "Katherine Mansfield"]
-
-
-filtered_portrait <- portrait_words[portrait_words$n >= 2, ] #only select words with a frequency larger or equal to 2
-wordcloud(words = filtered_portrait$word, freq = filtered_portrait$n, scale=c(3,0.5), min.freq = 2, random.order = FALSE, colors=brewer.pal(8, "Dark2"))
-
-filtered_dalloway <- dalloway_words[dalloway_words$n >= 2, ]
-wordcloud(words = filtered_dalloway$word, freq = filtered_dalloway$n, scale=c(3,0.5), min.freq = 2, random.order = FALSE, colors=brewer.pal(8, "Dark2"))
-
-filtered_swann <- swann_words[swann_words$n >= 2, ]
-wordcloud(words = filtered_swann$word, freq = filtered_swann$n, scale=c(3,0.5), min.freq = 2, random.order = FALSE, colors=brewer.pal(8, "Dark2"))
-
-filtered_prufrock <- prufrock_words[prufrock_words$n >= 2, ]
-wordcloud(words = filtered_prufrock$word, freq = filtered_prufrock$n, scale=c(3,0.5), min.freq = 2, random.order = FALSE, colors=brewer.pal(8, "Dark2"))
-
-filtered_bliss <- bliss_words[bliss_words$n >= 2, ]
-wordcloud(words = filtered_bliss$word, freq = filtered_bliss$n, scale=c(3,0.5), min.freq = 2, random.order = FALSE, colors=brewer.pal(8, "Dark2"))
-
-```
-
 
 ## Great Britain as the Center of Stream of Consciousness Literature
 
@@ -300,7 +268,6 @@ ggplot(frequency_britain, aes(x = proportion, y = `Virginia Woolf`, color = abs(
   labs(y = "Virginia Woolf", x = NULL)
 
 ```
-
 
 
 ## Gendered Mental Landscape of Stream of Consciousness Novels
@@ -385,7 +352,6 @@ ggplot(frequency_male, aes(x = proportion, y = `T.S. Eliot`, color = abs(`T.S. E
 ```
 
 
-
 ## Transnational Stream of Consciousness Novels and Mental Health Themes
 
 
@@ -425,6 +391,31 @@ ggplot(frequency_international, aes(x = proportion, y = `Marcel Proust`, color =
 ```
 
 
+## Combined Texts: Trends, Bigram and Trigram Analsis
+
+
+```{r}
+#| eval: true
+#| echo: false
+#| message: false
+#| warning: false
+#| label: fig-cloud
+#| layout-ncol: 2
+#| fig-cap: "Visualizations of Word Frequency when Combining Stream of Consciousness Authors' Novels"
+#| fig-subcap: ["One Word"] #Add "Two Words" and "Three Words" subsequently when uncovering the trends for the previous one
+
+
+filtered_text <- combined_text[combined_text$n >= 2, ] #only select words with a frequency larger or equal to 2
+
+wordcloud(words = filtered_text$word, freq = filtered_text$n, scale=c(3,0.5), min.freq = 2, random.order = FALSE, colors=brewer.pal(8, "Dark2"))
+
+#filtered_bigram <- combined_bigram[combined_bigram$n >= 2, ]
+#wordcloud(words = filtered_bigram$word, freq = filtered_bigram$n, scale=c(3,0.5), min.freq = 2, random.order = #FALSE, colors=brewer.pal(8, "Dark2"))
+
+#filtered_trigram <- combined_trigram[combined_trigram$n >= 2, ]
+#wordcloud(words = filtered_trigram$word, freq = filtered_trigram$n, scale=c(3,0.5), min.freq = 2, random.order #= FALSE, colors=brewer.pal(8, "Dark2"))
+
+```
 
 
 # Discussion
