@@ -1,8 +1,8 @@
-# The Linguistic Landscape of Stream-of-Consciousness Literature: Exploring Mental Health Themes in the Works of Joyce, Woolf, Proust, and Dostoevsky"
+# The Linguistic Landscape of Stream-of-Consciousness Literature: Exploring Word Frequency and Mental Health Themes in the Works of Joyce, Woolf, Proust, Mansfield and Eliot from Project Gutenberg
 
 ## Overview
 
-This repo provides students with a foundation to understand the most repeated and dominant language used by transnational stream-of-consciousness authors-namely, James Joyce, Virginia Woolf, Marcel Proust and Fyodor Dostoevsky-to garner more information on their mental landscapes. Through the analysis of these authors' most famous works, we can gain insights into the portrayal of mental health themes such as anxiety, depression, trauma, and existential angst within the stream-of-consciousness genre. This exploration helps us understand the shared linguistic patterns of the stream-of-consciousness genre and offers a glimpse into the authors' mental states, shedding light on themes of self-identity and others.
+This project focuses on understanding the language used by renowned, transnational stream of consciousness authors James Joyce, Virginia Woolf, Marcel Proust, Katherine Mansfield and T.S Eliot in the modernist era of literature from late 19th century to the mid-20th century. By analyzing the word frequency of their famous works-respectively, A Portrait of the Artist as a Young Man, Dubliners, Mrs Dalloway, Jacob's Room, Swann Way, Bliss, The Garden Party, The Waste Land and The Love Song of J. Alfred Prufrock-I explore mental health themes like anxiety, depression, trauma, and existential angst. Through word frequency analysis, I aim to uncover shared linguistic patterns and gain insights into the authors' mental states, offering a glimpse into themes of self-identity and existential contemplation
 
 ## File Structure
 
@@ -17,8 +17,8 @@ The repo is structured as:
 
 ## Data Extraction
 
-I generated my own dataset using the `gutenbergr` and `tidytext` packages, leveraging existing literature from Project Gutenberg, a volunteer archive to digitize cultural and literary works. Here is the link to the archive: https://www.gutenberg.org. To extract different novels into datasets, I first tokenize, or break the novels which I downloaded from Project Gutenberg into smaller chunks called tokens or words. Then, using the `tidytext`'s "stop_words" dataset, I exclude stop words like 'a', 'the', etc., thus enhancing the validity of each of the novel's dataset.
+I generated my own dataset using the `gutenbergr` and `tidytext` packages, leveraging existing literature from Project Gutenberg, a volunteer archive to digitize cultural and literary works. Here is the link to the archive: https://www.gutenberg.org. To extract different novels into datasets, I first tokenized, or broke the novels which I had downloaded from Project Gutenberg into smaller chunks called tokens or words. Then, using the `tidytext`'s "stop_words" dataset, I exclude stop words like 'a', 'the', etc., thus enhancing the validity of each novel's dataset.
 
 ## Statement on LLM usage
 
-Aspects of the code were written with the help of the auto-complete tool, Codriver. The abstract and introduction were written with the help of ChatHorse and the entire chat history is available in inputs/llms/usage.txt.
+Aspects of the code were written with the help of the autocomplete tool, ChatGPT. ChatGPT was mainly used to refine the paper's writing and codes. The entire chat history is available in inputs/LLM/usage.txt
