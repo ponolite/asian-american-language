@@ -215,7 +215,7 @@ We can use maths by including latex between dollar signs, for instance $\theta$.
 #| warning: false
 #| label: fig-count
 #| layout-ncol: 2
-#| fig-cap: "Comparative Analysis of Top 20 Word Frequencies by Stream of Consciousness Authors' Novels"
+#| fig-cap: "Comparative Analysis of Top 20 Word Frequencies from Famous SOC Authors"
 #| fig-subcap: ["James Joyce", "Virginia Woolf", "Marcel Proust", "T.S. Eliot", "Katherine Mansfield"]
 
 portrait_words |> head(20) |>
@@ -257,7 +257,7 @@ Leveraging setiment analysis from @sentiment
 #| message: false
 #| warning: false
 #| label: fig-sentiment
-#| fig-cap: "Sentiment Analysis of All Stream of Consciousness Books"
+#| fig-cap: "Sentiment Analysis of All SOC Novels"
 
 sentiment_combined <- combined_text |>
   inner_join(get_sentiments("bing")) |>
@@ -290,7 +290,7 @@ ggplot(sentiment_category, aes(x = author, fill = sentiment, y = percentage)) +
 #| message: false
 #| warning: false
 #| label: fig-sentiment-number
-#| fig-cap: "Sentiment Analysis of All Stream of Consciousness Books by Value"
+#| fig-cap: "Sentiment Analysis of All SOC Novels by Sentiment Value"
 
 sentiment_value <- sentiment_combined |>
   inner_join(get_sentiments("bing")) |>
@@ -344,7 +344,7 @@ ggplot(frequency_female, aes(x = proportion, y = `Katherine Mansfield`, color = 
   scale_x_log10(labels = scales::percent_format()) +
   scale_y_log10(labels = scales::percent_format()) +
   scale_color_gradient(limits = c(0, 0.001), 
-                       low = "darkslateblue", high = "gray50") +
+                       low = "blue2", high = "gray50") +
   facet_wrap(~author, ncol = 1) +
   theme(legend.position="none") +
   labs(y = "Katherine Mansfield", x = NULL)
@@ -369,7 +369,7 @@ ggplot(frequency_male, aes(x = proportion, y = `T.S. Eliot`, color = abs(`T.S. E
   scale_x_log10(labels = percent_format()) +
   scale_y_log10(labels = percent_format()) +
   scale_color_gradient(limits = c(0, 0.001), 
-                       low = "darkslateblue", high = "gray100") +
+                       low = "blue2", high = "gray100") +
   facet_wrap(~author, ncol = 2) +
   theme(legend.position="none") +
   labs(y = "T.S. Eliot", x = NULL)
@@ -411,7 +411,7 @@ ggplot(frequency_international, aes(x = proportion, y = `Marcel Proust`, color =
   scale_x_log10(labels = percent_format()) +
   scale_y_log10(labels = percent_format()) +
   scale_color_gradient(limits = c(0, 0.001), 
-                       low = "darkslateblue", high = "gray100") +
+                       low = "blue2", high = "gray100") +
   facet_wrap(~author, ncol = 1) +
   theme(legend.position="none") +
   labs(y = "Marcel Proust", x = NULL)
