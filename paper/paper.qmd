@@ -444,7 +444,7 @@ graph_from_data_frame(d = combined_correlations, #create graphs of networks of w
 #| label: fig-word-networks
 #| layout-ncol: 2
 #| fig-cap: "Word Networks Measured by Frequency and Correlation when Combining All Stream of Consciousness Novels"
-#| fig-subcap: ["100 Frequency, 0.2 Correlation", "200 Frequency, 0.4 Correlation", "200 Frequency, 0.8 Correlation"] #Add "Two Words" and "Three Words" subsequently when uncovering the trends for the previous one
+#| fig-subcap: ["100 Frequency, 0.2 Correlation", "200 Frequency, 0.4 Correlation", "200 Frequency, 0.8 Correlation", "400 Frequency, 1 Correlation"] 
 
 combined_text|>
   generate_word_graph(minimum_n = 100, minimum_correlation = 0.2)
@@ -455,6 +455,9 @@ combined_text|>
 
 combined_text|>
   generate_word_graph(minimum_n = 200, minimum_correlation = 0.8)
+
+combined_text|>
+  generate_word_graph(minimum_n = 400, minimum_correlation = 1)
 ```
 # Discussion
 
@@ -474,6 +477,8 @@ The novels' linguistic patterns reflect the socio-political landscape of the Wes
 ### Lack of Thorough Word Cleaning
 
 ### Limiting Literature Works and Publication Editions
+
+### Uneven Novel Length and Categorization of Authors
 
 ### Project Gutenberg's Focus on the Canon
 
@@ -497,11 +502,10 @@ The novels' linguistic patterns reflect the socio-political landscape of the Wes
 ### Data Gathering
 
 ```{r fig.pos="H"}
-#| echo: false
-#| message: false
-#| label: tbl-reasons-strip-search
-#| tbl-cap: Summary Statistics of Reasons for Police Strip Searches
-
+##| echo: false
+##| message: false
+##| label: tbl-reasons-strip-search
+##| tbl-cap:
   
 ```
 
@@ -509,10 +513,10 @@ The novels' linguistic patterns reflect the socio-political landscape of the Wes
 
 
 ```{r fig.pos="H"}
-#| echo: false
-#| message: false
-#| label: tbl-items-strip-search
-#| tbl-cap: Summary Statistics of Items Found During Police Strip Searches
+##| echo: false
+##| message: false
+##| label: tbl-items-strip-search
+##| tbl-cap: 
 
 
 ```
@@ -522,34 +526,7 @@ The novels' linguistic patterns reflect the socio-political landscape of the Wes
 
 ## Posterior predictive check
 
-```{r}
-#| eval: true
-#| echo: false
-#| message: false
-#| warning: false
-#| label: fig-ppcheckandposteriorvsprior
-#| layout-ncol: 2
-#| fig-cap: "Examining how the model fits, and is affected by, the data"
-#| fig-subcap: ["Posterior prediction check", "Comparing the posterior with the prior"]
-
-```
-
 ## Diagnostics
-
-
-```{r}
-#| echo: false
-#| eval: true
-#| message: false
-#| warning: false
-#| label: fig-stanareyouokay
-#| fig-cap: "Checking the convergence of the MCMC algorithm"
-#| fig-subcap: ["Trace plot", "Rhat plot"]
-#| layout-ncol: 2
-
-
-```
-
 
 
 \newpage
