@@ -94,3 +94,10 @@ make the wordcloud black-shaded
                               
 ChatGPT
 colorRampPalette(c("lightgray", "black"))(9)
+
+
+User
+how to make this lighter:   geom_edge_link(aes(alpha = correlation)) 
+
+ChatGPT
+geom_edge_link(aes(alpha = correlation), alpha = 0.5) 

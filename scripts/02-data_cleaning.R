@@ -15,7 +15,8 @@ library(tm)
 library(dplyr)
 library(ggplot2)
 library(scales)
-
+library(igraph)
+library(widyr)
 
 #### Clean data ####
 portrait <- read_csv("data/raw_data/portrait.csv")
@@ -73,44 +74,40 @@ prufrock_clean <- prufrock_tokenized |>
 
 # Use count() to quickly get the count of the most frequently used words
 portrait_words <- portrait_clean |>
-  count(word, sort = TRUE)
+  count(word, sort = TRUE) |>
+  filter(str_detect(word, "[:alpha:]")) |> # Remove rows where the word column does not contain any alphabetical characters.
+  distinct() # Return distinct words only
 
 swann_words <- swann_clean |>
-  count(word, sort = TRUE)
+  count(word, sort = TRUE) |>
+  filter(str_detect(word, "[:alpha:]")) |>
+  distinct()
 
 dalloway_words <- dalloway_clean |>
-  count(word, sort = TRUE)
+  count(word, sort = TRUE) |>
+  filter(str_detect(word, "[:alpha:]")) |> 
+  distinct()
 
 bliss_words <- bliss_clean |>
-  count(word, sort = TRUE)
+  count(word, sort = TRUE) |>
+  filter(str_detect(word, "[:alpha:]")) |> 
+  distinct()
 
 prufrock_words <- prufrock_clean |>
-  count(word, sort = TRUE)
+  count(word, sort = TRUE) |>
+  filter(str_detect(word, "[:alpha:]")) |> 
+  distinct()
 
 # Combine all texts to find the more general trend of word frequency
 
-## Bigram analysis or analysis by prepositioned words, codes sourced from https://www.youtube.com/watch?v=9T-hr3jinTw
-combined_trigram <-
-  rbind(portrait, swann, dalloway, prufrock, bliss)|>
-  na.omit(portrait, swann, dalloway, prufrock, bliss) |>
-  unnest_tokens(bigram, text, token = "ngrams", n = 3) |>
-  separate(bigram, c("word1", "word2", "word3"), sep = " ") #|>
-  #count(word1, word2, word3, sort = TRUE)
+## Calculate the correlations between all word combinations from all texts
 
-combined_bigram <-
-  rbind(portrait, swann, dalloway, prufrock, bliss)|>
-  na.omit(portrait, swann, dalloway, prufrock, bliss) |>
-  unnest_tokens(bigram, text, token = "ngrams", n = 2) |>
-  separate(bigram, c("word1", "word2"), sep = " ") #|>
-  #count(word1, word2, sort = TRUE)
-
-combined_text <- prufrock |>
+combined_text <- 
   rbind(portrait, swann, dalloway, prufrock, bliss)|>
   na.omit(portrait, swann, dalloway, prufrock, bliss) |>
   unnest_tokens(word, text) |>
   anti_join(stop_words) |>
-  filter(nchar(word) > 1) |>
-  count(word, sort = TRUE)
+  filter(str_detect(word, "[:alpha:]")) 
 
 #### Save data ####
 write_csv(portrait_clean, "data/analysis_data/portrait_clean.csv")
@@ -120,8 +117,9 @@ write_csv(dalloway_words, "data/analysis_data/dalloway_words.csv")
 write_csv(bliss_words, "data/analysis_data/bliss_words.csv")
 write_csv(prufrock_words, "data/analysis_data/prufrock_words.csv")
 write_csv(combined_text, "data/analysis_data/combined_text.csv")
-write_csv(combined_bigram, "data/analysis_data/combined_bigram.csv")
-write_csv(combined_trigram, "data/analysis_data/combined_trigram.csv")
+write_csv(combined_text_count, "data/analysis_data/combined_text_count.csv")
+write_csv(combined_correlations, "data/analysis_data/combined_correlations.csv")
+
 
 
 

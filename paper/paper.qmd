@@ -25,7 +25,9 @@ library(dplyr)
 library(ggplot2)
 library(scales)
 library(knitr)
-library(wordcloud)
+library(igraph)
+library(widyr)
+library(ggraph)
 
 portrait <- read_csv(here::here("data/raw_data/portrait.csv"))
 portrait_clean <- read_csv(here::here("data/analysis_data/portrait_clean.csv"))
@@ -36,8 +38,6 @@ swann_words <- read_csv(here::here("data/analysis_data/swann_words.csv"))
 dalloway_words <- read_csv(here::here("data/analysis_data/dalloway_words.csv"))
 bliss_words <- read_csv(here::here("data/analysis_data/bliss_words.csv"))
 prufrock_words <- read_csv(here::here("data/analysis_data/prufrock_words.csv"))
-combined_trigram <- read_csv(here::here("data/analysis_data/combined_trigram.csv"))
-combined_bigram <- read_csv(here::here("data/analysis_data/combined_bigram.csv"))
 combined_text <- read_csv(here::here("data/analysis_data/combined_text.csv"))
 
 ```
@@ -53,7 +53,7 @@ Thus, my estimand is the correlation between famous stream of consciousness nove
 
 To further understand the correlation between stream of consciousness novels and mental health themes, in [Introduction], our paper briefly discusses the nature of stream of consciousness literature, relevant authors and the works that we've chosen to analyze. Subsequently, in [Data] and [Result], we talk about the nature of the data obtained and analyze the results garnered from the data with suitable tables and charts. Next, [Discussion] provides further insights and future areas of study. Finally, [Conclusion] summarizes our main findings. To complete the paper, [Appendix] clarifies how each variable within each dataset is generated and tables to accordingly demonstrate this.
 
-The novel texts used for analysis were sourced from Project Gutenberg under the library `gutenbergr` [@rGuten] [@rgutenberg]. Data was generated, extracted and cleaned using the open-source statistical programming language R [@r], leveraging functions from `tidyverse` [@rTidyverse], `tidytext` [@rTidytext], `rmarkdown` [@rMark], `dplyr` [@rDplyr], `ggplot2` [@rGgplot2], `scales` [@rScales], `here` [@rHere], `wordcloud` [@rCloud], `tm` [@rTm] and `knitr` [@rKnitr].
+The novel texts used for analysis were sourced from Project Gutenberg under the library `gutenbergr` [@rGuten] [@gutenberg]. Data was generated, extracted and cleaned using the open-source statistical programming language R [@r], leveraging functions from `tidyverse` [@rTidyverse], `tidytext` [@rTidytext], `rmarkdown` [@rMark], `dplyr` [@rDplyr], `ggplot2` [@rGgplot2], `scales` [@rScales], `here` [@rHere], `igraph` [@rIgraph], `widyr` [@rWidy], `ggraph` [@rGg] `tm` [@rTm] and `knitr` [@rKnitr].
 
 # Data {#sec-data}
 
@@ -93,7 +93,7 @@ portrait |>
   rename("Book ID" = gutenberg_id,
          "Text" = text,
          "Book" = book) |>
-  tail(10) |>
+  head(10) |>
   kable(
     col.names = c("Book ID", "Text", "Book"),
     booktabs = TRUE
@@ -170,6 +170,7 @@ frequency |>
 
 ```
 
+### Generating Word Networks
 
 # Model
 
@@ -259,15 +260,16 @@ ggplot(frequency_britain, aes(x = proportion, y = `Virginia Woolf`, color = abs(
 
 ## Gendered Mental Landscape of Stream of Consciousness Novels
 
-### Comparing Female Stream of Consciousness Authors
-
 ```{r}
 #| eval: true
 #| echo: false
 #| message: false
 #| warning: false
-#| label: fig-frequency-female
-#| fig-cap: "Comparative Analysis of Word Frequency in Female Stream of Consciousness Authors"
+#| label: fig-word-gender
+#| layout-ncol: 2
+#| fig-cap: "Comparative Analysis of Word Frequency in Female and Male Stream of Consciousness Authors"
+#| fig-subcap: ["Female Authors", "Male Authors"]
+
 
 # Calculate the word frequency over all unique words and bind all frequency rate of authors together to conduct a comparative comparison
 # Code sourced from https://medium.com/the-data-nudge/nlp-basics-exploring-word-frequency-with-the-tidytext-r-package-ac35a6d805f4
@@ -296,18 +298,6 @@ ggplot(frequency_female, aes(x = proportion, y = `Katherine Mansfield`, color = 
   theme(legend.position="none") +
   labs(y = "Katherine Mansfield", x = NULL)
 
-```
-
-### Comparing Male Stream of Consciousness Authors
-
-```{r}
-#| eval: true
-#| echo: false
-#| message: false
-#| warning: false
-#| label: fig-frequency-male
-#| fig-cap: "Comparative Analysis of Word Frequency in Male Stream of Consciousness Authors"
-
 frequency_male <- bind_rows(
                        mutate(swann_words, author = "Marcel Proust"),
                        mutate(prufrock_words, author = "T.S. Eliot"),
@@ -333,7 +323,13 @@ ggplot(frequency_male, aes(x = proportion, y = `T.S. Eliot`, color = abs(`T.S. E
   theme(legend.position="none") +
   labs(y = "T.S. Eliot", x = NULL)
 
+
 ```
+
+### Comparing Female Stream of Consciousness Authors
+
+### Comparing Male Stream of Consciousness Authors
+
 
 ## Transnational Stream of Consciousness Novels and Mental Health Themes
 
@@ -372,32 +368,68 @@ ggplot(frequency_international, aes(x = proportion, y = `Marcel Proust`, color =
 
 ```
 
-## Combined Texts: Trends, Bigram and Trigram Analsis
+## Combined Texts: Trends, Word Networks, Bigram and Trigram Analsis
 
 ```{r}
 #| eval: true
 #| echo: false
 #| message: false
 #| warning: false
-#| label: fig-cloud
-#| layout-ncol: 2
-#| fig-cap: "Visualizations of Word Frequency when Combining All Stream of Consciousness Novels"
-#| fig-subcap: ["One Word"] #Add "Two Words" and "Three Words" subsequently when uncovering the trends for the previous one
+
+## Code sourced from https://www.youtube.com/watch?v=ae_XVhjHd_o
+
+generate_word_graph <- function(combined_text,
+                                minimum_n = 100,
+                                minimum_correlation = 0.2) {
+
+combined_text_count <- combined_text |>
+  count(word, sort = TRUE) |>
+  filter(n >= 200) 
+
+combined_correlations <- combined_text |>
+  semi_join(combined_text_count, by = "word") |>
+  pairwise_cor(item = word, feature = book) |>
+  filter(correlation >= 0.2)
+
+graph_from_data_frame(d = combined_correlations, #create graphs of networks of words
+                      vertices = combined_text_count |>
+                      semi_join(combined_correlations, by = c("word" = "item1"))) |>
+  ggraph(layout = "fr") +
+  geom_edge_link(aes(alpha = correlation), alpha = 0.05) +
+  geom_node_point() +
+  geom_node_text(aes(color = n, label = name), repel = TRUE)
+
+}
 
 
-filtered_text <- combined_text[combined_text$n >= 300, ] #only select words with a frequency larger or equal to 300
+# Code sourced from
+# filtered_text <- combined_text[combined_text$n >= 100, ] #only select words with a frequency larger or equal to 100
 
-wordcloud(words = filtered_text$word, freq = filtered_text$n, scale=c(3,0.5), min.freq = 2, random.order = FALSE, colors= colorRampPalette(c("lightgray", "black"))(9))
-
-
-#filtered_bigram <- combined_bigram[combined_bigram$n >= 2, ]
-#wordcloud(words = filtered_bigram$word, freq = filtered_bigram$n, scale=c(3,0.5), min.freq = 2, random.order = #FALSE, colors=brewer.pal(8, "Dark2"))
-
-#filtered_trigram <- combined_trigram[combined_trigram$n >= 2, ]
-#wordcloud(words = filtered_trigram$word, freq = filtered_trigram$n, scale=c(3,0.5), min.freq = 2, random.order #= FALSE, colors=brewer.pal(8, "Dark2"))
+# wordcloud(words = filtered_text$word, freq = filtered_text$n, scale=c(3,0.5), min.freq = 2, random.order = FALSE, colors= colorRampPalette(c("lightgray", "black"))(9))
 
 ```
 
+
+```{r}
+#| eval: true
+#| echo: false
+#| message: false
+#| warning: false
+#| label: fig-word-networks
+#| layout-ncol: 2
+#| fig-cap: "Word Networks Measured by Frequency and Correlation when Combining All Stream of Consciousness Novels"
+#| fig-subcap: ["100 Frequency, 0.2 Correlation", "200 Frequency, 0.4 Correlation", "200 Frequency, 0.8 Correlation"] #Add "Two Words" and "Three Words" subsequently when uncovering the trends for the previous one
+
+combined_text|>
+  generate_word_graph(minimum_n = 100, minimum_correlation = 0.2)
+
+
+combined_text|>
+  generate_word_graph(minimum_n = 200, minimum_correlation = 0.4)
+
+combined_text|>
+  generate_word_graph(minimum_n = 200, minimum_correlation = 0.8)
+```
 # Discussion
 
 ## Mental Health Vocabulary: Patterns and Trends 
