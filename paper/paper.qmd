@@ -5,7 +5,7 @@ author: Quang Mai
 thanks: "Code and data are available at: https://github.com/ponolite/stream-consciousness-language.git"
 date: today
 date-format: long
-abstract: "This project focuses on understanding the language used by renowned, transnational stream of consciousness authors James Joyce, Virginia Woolf, Marcel Proust, Katherine Mansfield and T.S Eliot. By analyzing the word frequency of their famous works, I explore mental health themes like anxiety, depression, trauma, and existential angst. Through word frequency analysis of nine novels, I aim to uncover shared linguistic patterns and gain insights into the authors' mental states, offering a glimpse into themes of self-identity and existential contemplation."
+abstract: "This project focuses on understanding the language used by renowned, transnational stream of consciousness authors James Joyce, Virginia Woolf, Marcel Proust, Katherine Mansfield and T.S Eliot. By analyzing the word frequency of their famous works, I explore mental health themes like anxiety, depression, trauma, and existential angst. Through word frequency analysis of nine novels, I aim to uncover shared linguistic patterns and gain insights into the authors' mental states, offering a glimpse into themes of self-identity and existential contemplation. (add one sentence on main results"
 format: pdf
 number-sections: true
 bibliography: references.bib
