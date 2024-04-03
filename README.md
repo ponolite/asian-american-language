@@ -1,8 +1,8 @@
-# The Linguistic Landscape of Stream-of-Consciousness Literature: Exploring Word Frequency and Mental Health Themes in the Works of Joyce, Woolf, Proust, Mansfield and Eliot from Project Gutenberg
+# The Linguistic Landscape of Stream-of-Consciousness Literature: Exploring Word Frequency, Sentiment Value and Mental Health Themes in the Works of Joyce, Woolf, Proust, Mansfield and Eliot from Project Gutenberg
 
 ## Overview
 
-This project focuses on understanding the language used by renowned, transnational stream of consciousness authors James Joyce, Virginia Woolf, Marcel Proust, Katherine Mansfield and T.S Eliot in the modernist era of literature from late 19th century to the mid-20th century. By analyzing the word frequency of their famous works-respectively, A Portrait of the Artist as a Young Man, Chamber Music, Mrs Dalloway, Jacob's Room, Swann Way, Bliss, The Garden Party, The Waste Land and The Love Song of J. Alfred Prufrock-I explore mental health themes like anxiety, depression, trauma, and existential angst. Through word frequency analysis, I aim to uncover shared linguistic patterns and gain insights into the authors' mental states, offering a glimpse into themes of self-identity and existential contemplation
+This project focuses on understanding the language used by renowned, transnational stream of consciousness authors James Joyce, Virginia Woolf, Marcel Proust, Katherine Mansfield and T.S Eliot in the modernist era of literature from late 19th century to the mid-20th century. By analyzing the word frequency and sentiments of their famous works-respectively, A Portrait of the Artist as a Young Man, Chamber Music, Mrs Dalloway, Jacob's Room, Swann Way, Bliss, The Garden Party, The Waste Land and The Love Song of J. Alfred Prufrock-I explore mental health themes like anxiety, depression, trauma, and existential angst. Through word frequency analysis, I aim to uncover shared linguistic patterns and gain insights into the authors' mental states, offering a glimpse into themes of self-identity and existential contemplation
 
 ## File Structure
 
