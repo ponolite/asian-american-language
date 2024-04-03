@@ -1,5 +1,5 @@
 word,n
-swann,603
+swann,602
 time,421
 odette,391
 mme,326
@@ -7,8 +7,8 @@ day,297
 life,266
 de,260
 people,249
-love,244
 moment,244
+love,243
 eyes,218
 house,196
 mind,192
@@ -17,7 +17,7 @@ françoise,164
 days,161
 aunt,158
 verdurin,157
-combray,143
+combray,142
 found,140
 woman,136
 pleasure,135
@@ -43,7 +43,7 @@ forcheville,91
 verdurins,91
 form,90
 suddenly,88
-swann's,88
+swann's,87
 beneath,86
 desire,86
 family,86
@@ -101,10 +101,10 @@ return,59
 water,59
 allowed,58
 des,58
-past,58
 vinteuil,58
 blue,57
 call,57
+past,57
 trees,57
 beauty,56
 fresh,56
@@ -160,12 +160,12 @@ natural,46
 round,46
 sun,46
 tone,46
-company,45
 front,45
 picture,45
 soul,45
 thinking,45
 white,45
+company,44
 ill,44
 sleep,44
 taking,44
@@ -273,7 +273,6 @@ class,33
 faithful,33
 imagined,33
 line,33
-names,33
 reached,33
 ready,33
 sea,33
@@ -291,6 +290,7 @@ husband,32
 ideas,32
 imagination,32
 mistress,32
+names,32
 save,32
 single,32
 spent,32
@@ -2007,7 +2007,6 @@ victims,7
 views,7
 villeparisis,7
 vitality,7
-volume,7
 wake,7
 weeks,7
 wing,7
@@ -2222,7 +2221,6 @@ occupied,6
 opera,6
 operation,6
 outlined,6
-overture,6
 owing,6
 painter's,6
 pavement,6
@@ -2337,6 +2335,7 @@ vieux,6
 visitor,6
 vivid,6
 voices,6
+volume,6
 vulgarity,6
 waking,6
 washed,6
@@ -2549,7 +2548,6 @@ fortnight,5
 foundations,5
 fountains,5
 frame,5
-french,5
 frequented,5
 frequently,5
 fresco,5
@@ -2666,6 +2664,7 @@ opportunities,5
 orange,5
 orangeade,5
 orchestra,5
+overture,5
 panel,5
 paralysed,5
 parlour,5
@@ -2988,7 +2987,6 @@ constraint,4
 contemplate,4
 contemplation,4
 contemptible,4
-contents,4
 conversations,4
 convince,4
 coolness,4
@@ -3099,6 +3097,7 @@ forwards,4
 franc,4
 freedom,4
 freely,4
+french,4
 frenzy,4
 frescoes,4
 freshness,4
@@ -3751,6 +3750,7 @@ constitute,3
 constituted,3
 consumed,3
 contented,3
+contents,3
 contiguous,3
 continuity,3
 contracted,3
@@ -5481,7 +5481,6 @@ heights,2
 heirs,2
 helmets,2
 helped,2
-henry,2
 heralded,2
 heroic,2
 heroism,2
@@ -6091,7 +6090,6 @@ relevance,2
 relieve,2
 religion,2
 reluctant,2
-remembrance,2
 reminiscence,2
 remotely,2
 renew,2
@@ -6681,7 +6679,6 @@ yearned,2
 yellowed,2
 yellowing,2
 zoological,2
-1922,1
 19th,1
 20th,1
 29th,1
@@ -9040,6 +9037,7 @@ heliotrope,1
 hellenes,1
 hen,1
 henceforth,1
+henry,1
 herald,1
 herbinger,1
 herbinger's,1
@@ -9074,7 +9072,6 @@ hoist,1
 hoisted,1
 hoisting,1
 holland,1
-holt,1
 homely,1
 homewards,1
 honestly,1
@@ -9731,7 +9728,6 @@ mantuan,1
 manufacturing,1
 maps,1
 mar,1
-marcel,1
 marched,1
 marching,1
 marchpane,1
@@ -9871,7 +9867,6 @@ mollified,1
 mollify,1
 moment's,1
 momentarily,1
-moncrieff,1
 monkey,1
 monocles,1
 monologue,1
@@ -10556,7 +10551,6 @@ protests,1
 protozoa,1
 protuberance,1
 proudly,1
-proust,1
 providence,1
 providers,1
 province,1
@@ -10770,6 +10764,7 @@ remarking,1
 remedies,1
 remedy,1
 remembers,1
+remembrance,1
 remission,1
 remorseless,1
 remoulded,1
@@ -11015,7 +11010,6 @@ scold,1
 sconce,1
 score,1
 scornful,1
-scott,1
 scourge,1
 scout,1
 scouting,1
@@ -11740,7 +11734,6 @@ transferred,1
 transferring,1
 transfers,1
 transgressions,1
-translated,1
 translucent,1
 transmit,1
 transparence,1
@@ -12205,7 +12198,6 @@ yellowish,1
 ylie,1
 yoked,1
 yolk,1
-york,1
 youthful,1
 zealous,1
 zebra,1

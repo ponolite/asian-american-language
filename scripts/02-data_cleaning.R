@@ -87,6 +87,31 @@ bliss_words <- bliss_clean |>
 prufrock_words <- prufrock_clean |>
   count(word, sort = TRUE)
 
+# Combine all texts to find the more general trend of word frequency
+
+## Bigram analysis or analysis by prepositioned words, codes sourced from https://www.youtube.com/watch?v=9T-hr3jinTw
+combined_trigram <-
+  rbind(portrait, swann, dalloway, prufrock, bliss)|>
+  na.omit(portrait, swann, dalloway, prufrock, bliss) |>
+  unnest_tokens(bigram, text, token = "ngrams", n = 3) |>
+  separate(bigram, c("word1", "word2", "word3"), sep = " ") #|>
+  #count(word1, word2, word3, sort = TRUE)
+
+combined_bigram <-
+  rbind(portrait, swann, dalloway, prufrock, bliss)|>
+  na.omit(portrait, swann, dalloway, prufrock, bliss) |>
+  unnest_tokens(bigram, text, token = "ngrams", n = 2) |>
+  separate(bigram, c("word1", "word2"), sep = " ") #|>
+  #count(word1, word2, sort = TRUE)
+
+combined_text <- prufrock |>
+  rbind(portrait, swann, dalloway, prufrock, bliss)|>
+  na.omit(portrait, swann, dalloway, prufrock, bliss) |>
+  unnest_tokens(word, text) |>
+  anti_join(stop_words) |>
+  filter(nchar(word) > 1) |>
+  count(word, sort = TRUE)
+
 #### Save data ####
 write_csv(portrait_clean, "data/analysis_data/portrait_clean.csv")
 write_csv(portrait_words, "data/analysis_data/portrait_words.csv")
@@ -94,4 +119,11 @@ write_csv(swann_words, "data/analysis_data/swann_words.csv")
 write_csv(dalloway_words, "data/analysis_data/dalloway_words.csv")
 write_csv(bliss_words, "data/analysis_data/bliss_words.csv")
 write_csv(prufrock_words, "data/analysis_data/prufrock_words.csv")
+write_csv(combined_text, "data/analysis_data/combined_text.csv")
+write_csv(combined_bigram, "data/analysis_data/combined_bigram.csv")
+write_csv(combined_trigram, "data/analysis_data/combined_trigram.csv")
+
+
+
+
 

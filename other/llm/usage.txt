@@ -58,3 +58,25 @@ wordcloud(words = names(word_freq), freq = word_freq, scale=c(3,0.5),
 
 # Add title
 title(main = "Word Cloud Example")
+
+
+User
+how to rank the word from highest to lowest 
+
+ChatGPT
+aes(x = n, y = reorder(word, n))
+The reorder(word, n) function inside aes() is used to reorder the words based on their frequency (n)
+
+
+User
+how to show the bottom 10 rows of a dataset
+
+ChatGPT
+tail(my_dataset, 10)
+
+
+User
+how to reduce the number of word in a word count: wordcloud(words = portrait_words$word, freq = portrait_words$n, scale=c(3,0.5), min.freq = 2, random.order = FALSE, colors=brewer.pal(8, "Dark2"))
+
+ChatGPT
+filtered_words <- portrait_words[portrait_words$n >= 2, ]

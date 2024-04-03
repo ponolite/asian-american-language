@@ -38,7 +38,7 @@ ts_books <- all_books %>%
 
 
 
-combined_books <- rbind(joyce_books, woolf_books, dostoevsky_books, proust_books, ts_books, mansf)
+combined_books <- rbind(joyce_books, woolf_books, dostoevsky_books, proust_books, ts_books, mansfield_books)
 
 
 # Download the more famous stream-of-consciousness work of each author:
