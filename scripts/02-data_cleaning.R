@@ -117,8 +117,6 @@ write_csv(dalloway_words, "data/analysis_data/dalloway_words.csv")
 write_csv(bliss_words, "data/analysis_data/bliss_words.csv")
 write_csv(prufrock_words, "data/analysis_data/prufrock_words.csv")
 write_csv(combined_text, "data/analysis_data/combined_text.csv")
-write_csv(combined_text_count, "data/analysis_data/combined_text_count.csv")
-write_csv(combined_correlations, "data/analysis_data/combined_correlations.csv")
 
 
 

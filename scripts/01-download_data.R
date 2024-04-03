@@ -45,22 +45,27 @@ combined_books <- rbind(joyce_books, woolf_books, dostoevsky_books, proust_books
 
 portrait <- gutenberg_download(c('4217', '2817')) |>
   mutate(book = ifelse(gutenberg_id == 4217, "A Portrait of the Artist as a Young Man", "Chamber Music")) |>
+  mutate(author = ifelse(gutenberg_id == 4217, "James Joyce", "James Joyce")) |>
   slice(-(1:20))
 
 swann_way <- gutenberg_download(c('7178')) |>
   mutate(book = ifelse(gutenberg_id == 7178, "Swann's Way", "NA")) |>
+  mutate(author = ifelse(gutenberg_id == 7178, "Marcel Proust", "Marcel Proust")) |>
   slice(-(1:33))
 
 mrs_dalloway <- gutenberg_download(c('63107', '5670')) |>
   mutate(book = ifelse(gutenberg_id == 63107, "Mrs Dalloway", "Jacob's Room")) |>
+  mutate(author = ifelse(gutenberg_id == 63107, "Virigina Woolf", "Virginia Woolf")) |>
   slice(-(1:25))
 
 prufrock <- gutenberg_download(c('1321', '1459')) |>
   mutate(book = ifelse(gutenberg_id == 1321, "The Waste Land", "Prufrock and Other Observations")) |>
+  mutate(author = ifelse(gutenberg_id == 63107, "T.S. Eliot", "T.S. Eliot")) |>
   slice(-(1:35))
 
 bliss <- gutenberg_download(c('44385', '1429')) |>
   mutate(book = ifelse(gutenberg_id == 1321, "Bliss", "The Garden Party")) |>
+  mutate(author = ifelse(gutenberg_id == 63107, "Katherine Mansfield", "Katherine Mansfield")) |>
   slice(-(1:34))
 
 #### Save data ####

@@ -5,7 +5,7 @@ author: Quang Mai
 thanks: "Code and data are available at: https://github.com/ponolite/stream-consciousness-language.git"
 date: today
 date-format: long
-abstract: "This project focuses on understanding the language used by renowned, transnational stream of consciousness authors James Joyce, Virginia Woolf, Marcel Proust, Katherine Mansfield and T.S Eliot. By analyzing the word frequency of their famous works, I explore mental health themes like anxiety, depression, trauma, and existential angst. Through word frequency analysis of nine novels, I aim to uncover shared linguistic patterns and gain insights into the authors' mental states, offering a glimpse into themes of self-identity and existential contemplation. (add one sentence on main results"
+abstract: "This project focuses on understanding the language used by renowned, transnational stream of consciousness authors James Joyce, Virginia Woolf, Marcel Proust, Katherine Mansfield and T.S Eliot. By conducting word frequency analysis and sentiment analysis of their famous works, I explore mental health themes like anxiety, depression, trauma, and existential angst. Through word frequency analysis of nine novels, I aim to uncover shared linguistic patterns and gain insights into the authors' mental states, offering a glimpse into themes of self-identity and existential contemplation. (add one sentence on main results)"
 format: pdf
 number-sections: true
 bibliography: references.bib
@@ -29,6 +29,7 @@ library(knitr)
 library(igraph)
 library(widyr)
 library(ggraph)
+library(textdata)
 
 portrait <- read_csv(here::here("data/raw_data/portrait.csv"))
 portrait_clean <- read_csv(here::here("data/analysis_data/portrait_clean.csv"))
@@ -43,18 +44,17 @@ combined_text <- read_csv(here::here("data/analysis_data/combined_text.csv"))
 
 ```
 
-
 # Introduction
 
 Stream of consciousness is a narrative technique that aims to capture the continuous flow of thoughts, feelings, and sensations experienced by a character without conventional organization or punctuation  [@resampling]. It mirrors the unpredictable and interconnected nature of human thought processes, often revealing the inner workings of the character's mind in an intimate and unfiltered manner [@flow]. In literature, most scholars agree that stream of consciousness reveals the complexities of mental-scapes, shedding light on the nuances of characters' emotional well-being and psychological struggles [@pathology]. Its relationship to mental health lies in its ability to offer insight into the depths of consciousness, providing a platform to explore themes such as anxiety, trauma, and existential questioning. As such, this paper has mined the texts of a total of nine novels from the volunteer archive, Project Gutenberg, to examine the mental health themes of famous stream of consciousness authors, namely by Joyce, Woolf, Proust, Mansfield and Eliot, from the modernist era of literature, spanning from late 19th century to the mid-20th century [@gutenberg]. (more stats and data mentioned here)
 
-By analyzing these textual datasets, I seek to pose and answer crucial questions: \textit{What are some important factors contributing to this relationship between mental health, disassociation and stream of consciousness? Moreover, how does this relationship vary differently across differnet demographics of authors, for instance, authors with different geographical locations and genders?} Understanding these dynamics is crucial in having an informed understanding of the West's late 19th to mid-20th century socio-political landscape, especially in regards to how authors and creative writers navigate and deal with then-taboo topics such as existential angst, mental health issues and disabilities.
+By analyzing these textual datasets through word frequency and sentiment analysis, I seek to pose and answer crucial questions: \textit{What are some important factors contributing to this relationship between mental health, disassociation and stream of consciousness? Moreover, how does this relationship vary differently across differnet demographics of authors, for instance, authors with different geographical locations and genders?} Understanding these dynamics is crucial in having an informed understanding of the West's late 19th to mid-20th century socio-political landscape, especially in regards to how authors and creative writers navigate and deal with then-taboo topics such as existential angst, mental health issues and disabilities.
 
 Thus, my estimand is the correlation between famous stream of consciousness novels, words related to mental health themes and their frequency. This is considered in terms of the nine selected novels only, namely Joyce's A Portrait of the Artist as a Young Man and Chamber Music; Woolf's Mrs Dalloway and Jacob's Room; Proust's Swann Way; Mansfield's Bliss and The Garden Party; and Eliot's The Waste Land and The Love Song of J. Alfred Prufrock. Through our analysis, we found that (percentage, number and data here, main results)...
 
 To further understand the correlation between stream of consciousness novels and mental health themes, in [Introduction], our paper briefly discusses the nature of stream of consciousness literature, relevant authors and the works that we've chosen to analyze. Subsequently, in [Data] and [Result], we talk about the nature of the data obtained and analyze the results garnered from the data with suitable tables and charts. Next, [Discussion] provides further insights and future areas of study. Finally, [Conclusion] summarizes our main findings. To complete the paper, [Appendix] clarifies how each variable within each dataset is generated and tables to accordingly demonstrate this.
 
-The novel texts used for analysis were sourced from Project Gutenberg under the library `gutenbergr` [@rGuten] [@gutenberg]. Data was generated, extracted and cleaned using the open-source statistical programming language R [@r], leveraging functions from `tidyverse` [@rTidyverse], `tidytext` [@rTidytext], `rmarkdown` [@rMark], `dplyr` [@rDplyr], `ggplot2` [@rGgplot2], `scales` [@rScales], `here` [@rHere], `igraph` [@rIgraph], `widyr` [@rWidy], `ggraph` [@rGg] `tm` [@rTm] and `knitr` [@rKnitr].
+The novel texts used for analysis were sourced from Project Gutenberg under the library `gutenbergr` [@rGuten] [@gutenberg]. Data was generated, extracted and cleaned using the open-source statistical programming language R [@r], leveraging functions from `tidyverse` [@rTidyverse], `tidytext` [@rTidytext], `rmarkdown` [@rMark], `dplyr` [@rDplyr], `ggplot2` [@rGgplot2], `scales` [@rScales], `here` [@rHere], `igraph` [@rIgraph], `widyr` [@rWidy], `ggraph` [@rGg], `textdata` [@rTextdata], `tm` [@rTm] and `knitr` [@rKnitr].
 
 # Data {#sec-data}
 
@@ -93,10 +93,11 @@ The novel texts used for analysis were sourced from Project Gutenberg under the 
 portrait |>
   rename("Book ID" = gutenberg_id,
          "Text" = text,
-         "Book" = book) |>
+         "Book" = book,
+         "Author" = author) |>
   head(10) |>
   kable(
-    col.names = c("Book ID", "Text", "Book"),
+    col.names = c("Book ID", "Text", "Book", "Author"),
     booktabs = TRUE
   )
 
@@ -113,10 +114,11 @@ portrait |>
 portrait_clean |>
   rename("Book ID" = gutenberg_id,
          "Book" = book,
+         "Author" = author,
          "Word" = word) |>
   tail(10) |>
   kable(
-    col.names = c("Book ID", "Book", "Word"),
+    col.names = c("Book ID", "Book", "Author", "Word"),
     booktabs = TRUE
   )
 
@@ -245,42 +247,67 @@ ggplot(aes(x = n, y = reorder(word, n))) +
 ```
 \newpage
 
-## Great Britain as the Center of Stream of Consciousness Literature
+## Sentiment Analysis
+
+Leveraging setiment analysis from @sentiment
 
 ```{r}
 #| eval: true
 #| echo: false
 #| message: false
 #| warning: false
-#| label: fig-frequency-brit
-#| fig-cap: "Comparative Analysis of Word Frequency in British Stream of Consciousness Authors"
+#| label: fig-sentiment
+#| fig-cap: "Sentiment Analysis of All Stream of Consciousness Books"
 
-frequency_britain <- bind_rows(
-                       mutate(dalloway_words, author = "Virginia Woolf"),
-                       mutate(prufrock_words, author = "T.S. Eliot"),
-                       mutate(portrait_words, author = "James Joyce")) |>
-  mutate(word = str_extract(word, "[a-z']+")) |>
-  count(author, word) |>
+sentiment_combined <- combined_text |>
+  inner_join(get_sentiments("bing")) |>
+  inner_join(get_sentiments("afinn")) |>
+  inner_join(get_sentiments("nrc"))
+
+sentiment_category <- sentiment_combined |>
+  inner_join(get_sentiments("bing")) |>
+  group_by(author, sentiment) |>
+  count() |>
   group_by(author) |>
-  mutate(proportion = n / sum(n)) |>
-  select(-n) |>
-  pivot_wider(names_from = author, values_from = proportion) |>
-  pivot_longer(`T.S. Eliot`:`James Joyce`,
-               names_to = "author", values_to = "proportion")
+  mutate(percentage = n / sum(n) * 100)  
 
-ggplot(frequency_britain, aes(x = proportion, y = `Virginia Woolf`, color = abs(`Virginia Woolf` - proportion))) +
-  geom_abline(color = "gray50", lty = 2) +
-  geom_jitter(alpha = 0.05, size = 1.5, width = 0.7, height = 0.7) +  
-  geom_text(aes(label = word), check_overlap = TRUE, vjust = 1.5) +
-  scale_x_log10(labels = percent_format()) +
-  scale_y_log10(labels = percent_format()) +
-  scale_color_gradient(limits = c(0, 0.001), 
-                       low = "darkslateblue", high = "gray1") +
-  facet_wrap(~author, ncol = 2) +
-  theme(legend.position="none") +
-  labs(y = "Virginia Woolf", x = NULL)
+
+# Plot sentiment values
+ggplot(sentiment_category, aes(x = author, fill = sentiment, y = percentage)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(
+       x = "Author", y = "Percentage") +
+  scale_fill_manual(values = c("positive" = "gray80", "negative" = "gray20", "neutral" = "gray50")) + 
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
 
 ```
+
+```{r}
+#| eval: true
+#| echo: false
+#| message: false
+#| warning: false
+#| label: fig-sentiment-number
+#| fig-cap: "Sentiment Analysis of All Stream of Consciousness Books by Value"
+
+sentiment_value <- sentiment_combined |>
+  inner_join(get_sentiments("bing")) |>
+  group_by(author, value, sentiment) |>
+  count() |>
+  group_by(author) |>
+  mutate(percentage = n / sum(n) * 100)  
+
+ggplot(sentiment_value, aes(x = value, y = percentage, color = sentiment, group = sentiment)) +
+  geom_line() +
+  facet_wrap(~ author, scales = "free") +
+  labs(title = "Sentiment Analysis of Books",
+       x = "Sentiment Value", y = "Percentage") +
+  scale_color_manual(values = c("negative" = "black", "postive" = "gray")) + # Adjust line colors
+  theme_minimal()
+```
+
 \newpage
 ## Gendered Mental Landscape of Stream of Consciousness Novels
 
