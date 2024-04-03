@@ -5,7 +5,7 @@ author: Quang Mai
 thanks: "Code and data are available at: https://github.com/ponolite/stream-consciousness-language.git"
 date: today
 date-format: long
-abstract: "This project focuses on understanding the language used by renowned, transnational stream of consciousness authors James Joyce, Virginia Woolf, Marcel Proust, Katherine Mansfield and T.S Eliot. By conducting word frequency analysis and sentiment analysis of their famous works, I explore mental health themes like anxiety, depression, trauma, and existential angst. Through word frequency analysis of nine novels, I aim to uncover shared linguistic patterns and gain insights into the authors' mental states, offering a glimpse into themes of self-identity and existential contemplation. (add one sentence on main results)"
+abstract: "This project focuses on understanding the language used by renowned stream of consciousness (SOC) authors James Joyce, Virginia Woolf, Marcel Proust, Katherine Mansfield and T.S Eliot. By conducting word frequency analysis and sentiment analysis of these authors' nine novels, I aim to uncover shared linguistic patterns and gain insights into the authors' mental states. Through the analysis on SOC literature, this paper thus attempts to offer insights into themes of self-identity, anxiety, disassciation and existential contemplation within Western society's from late 19th to mid-20th century. (add one sentence on main results)"
 format: pdf
 number-sections: true
 bibliography: references.bib
@@ -46,7 +46,7 @@ combined_text <- read_csv(here::here("data/analysis_data/combined_text.csv"))
 
 # Introduction
 
-Stream of consciousness is a narrative technique that aims to capture the continuous flow of thoughts, feelings, and sensations experienced by a character without conventional organization or punctuation  [@resampling]. It mirrors the unpredictable and interconnected nature of human thought processes, often revealing the inner workings of the character's mind in an intimate and unfiltered manner [@flow]. In literature, most scholars agree that stream of consciousness reveals the complexities of mental-scapes, shedding light on the nuances of characters' emotional well-being and psychological struggles [@pathology]. Its relationship to mental health lies in its ability to offer insight into the depths of consciousness, providing a platform to explore themes such as anxiety, trauma, and existential questioning. As such, this paper has mined the texts of a total of nine novels from the volunteer archive, Project Gutenberg, to examine the mental health themes of famous stream of consciousness authors, namely by Joyce, Woolf, Proust, Mansfield and Eliot, from the modernist era of literature, spanning from late 19th century to the mid-20th century [@gutenberg]. (more stats and data mentioned here)
+Stream of consciousness is a narrative technique that aims to capture the continuous flow of thoughts, feelings, and sensations experienced by a character without conventional organization or punctuation  [@resampling]. It mirrors the unpredictable and interconnected nature of human thought processes, often revealing the inner workings of the character's mind in an intimate and unfiltered manner [@flow]. In literature, most scholars agree that stream of consciousness reveals the complexities of mental-scapes, shedding light on the nuances of characters' emotional well-being and psychological struggles [@pathology]. Its relationship to mental health lies in its ability to offer insight into the depths of consciousness, providing a platform to explore themes such as anxiety, trauma, and existential questioning. As such, this paper has mined the texts of a total of nine novels from the volunteer archive, Project Gutenberg, to examine the mental health themes of famous stream of consciousness authors, namely by Joyce, Woolf, Proust, Mansfield and Eliot, from the modernist era of literature, spanning from late 19th century to mid-20th century [@gutenberg]. (more stats and data mentioned here)
 
 By analyzing these textual datasets through word frequency and sentiment analysis, I seek to pose and answer crucial questions: \textit{What are some important factors contributing to this relationship between mental health, disassociation and stream of consciousness? Moreover, how does this relationship vary differently across differnet demographics of authors, for instance, authors with different geographical locations and genders?} Understanding these dynamics is crucial in having an informed understanding of the West's late 19th to mid-20th century socio-political landscape, especially in regards to how authors and creative writers navigate and deal with then-taboo topics such as existential angst, mental health issues and disabilities.
 
@@ -95,7 +95,7 @@ portrait |>
          "Text" = text,
          "Book" = book,
          "Author" = author) |>
-  head(10) |>
+  head(5) |>
   kable(
     col.names = c("Book ID", "Text", "Book", "Author"),
     booktabs = TRUE
@@ -116,14 +116,14 @@ portrait_clean |>
          "Book" = book,
          "Author" = author,
          "Word" = word) |>
-  tail(10) |>
+  tail(5) |>
   kable(
     col.names = c("Book ID", "Book", "Author", "Word"),
     booktabs = TRUE
   )
 
 ```
-
+\newpage
 
 ```{r}
 #| echo: false
@@ -134,7 +134,7 @@ portrait_clean |>
 
 portrait_words |>
   rename("Word" = word) |>
-  head(10) |>
+  head(5) |>
   kable(
     col.names = c("Word", "Count"),
     booktabs = TRUE
@@ -165,7 +165,7 @@ frequency <- bind_rows(mutate(portrait_words, author = "James Joyce"),
 
 frequency |>
   rename("Word" = word) |>
-  head(12) |>
+  head(5) |>
   kable(
     col.names = c("Word", "James Joyce", "Katherine Mansfield", "Marcel Proust", "T.S. Eliot", "Virignia Woolf"),
     booktabs = TRUE
@@ -206,7 +206,7 @@ We can use maths by including latex between dollar signs, for instance $\theta$.
 
 # Results
 
-## The Dominant Vocabulary of Stream of Consciousness
+## The Dominant Vocabulary of SOC Literature
 
 ```{r}
 #| eval: true
@@ -274,7 +274,7 @@ sentiment_category <- sentiment_combined |>
 
 # Plot sentiment values
 ggplot(sentiment_category, aes(x = author, fill = sentiment, y = percentage)) +
-  geom_bar(stat = "identity", position = "dodge") +
+  geom_bar(stat = "identity") +
   labs(
        x = "Author", y = "Percentage") +
   scale_fill_manual(values = c("positive" = "gray80", "negative" = "gray20", "neutral" = "gray50")) + 
@@ -302,13 +302,13 @@ sentiment_value <- sentiment_combined |>
 ggplot(sentiment_value, aes(x = value, y = percentage, color = sentiment, group = sentiment)) +
   geom_line() +
   facet_wrap(~ author, scales = "free") +
-  labs(title = "Sentiment Analysis of Books",
+  labs(
        x = "Sentiment Value", y = "Percentage") +
-  scale_color_manual(values = c("negative" = "black", "postive" = "gray")) + # Adjust line colors
+  scale_color_manual(values = c("positive" = "black", "negative" = "gray")) + # Adjust line colors
   theme_minimal()
 ```
 
-\newpage
+
 ## Gendered Mental Landscape of Stream of Consciousness Novels
 
 ```{r}
@@ -377,13 +377,11 @@ ggplot(frequency_male, aes(x = proportion, y = `T.S. Eliot`, color = abs(`T.S. E
 
 ```
 
-### Comparing Female Stream of Consciousness Authors
+### Comparing SOC Literature's Female Authors
 
-### Comparing Male Stream of Consciousness Authors
+### Comparing SOC Literature's Male Authors
 
-\newpage
-
-## Transnational Stream of Consciousness Novels and Mental Health Themes
+## Transnational SOC Novels and Mental Health Themes
 
 ```{r}
 #| eval: true
