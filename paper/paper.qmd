@@ -492,10 +492,10 @@ The novels' linguistic patterns reflect the socio-political landscape of the Wes
 ## Additional Data Details
 
 ```{r}
-#| eval: true
-#| echo: false
-#| message: false
-#| warning: false
+##| eval: true
+##| echo: false
+##| message: false
+##| warning: false
 #combined_books 
 ```
 
