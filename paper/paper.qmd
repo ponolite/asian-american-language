@@ -86,7 +86,7 @@ The novel texts used for analysis were sourced from Project Gutenberg under the 
 #| echo: false
 #| eval: true
 #| label: tbl-joyce
-#| tbl-cap: "Examplary Table of Unprocessed Stream of Consciousness Novels (James Joyce)"
+#| tbl-cap: "An Examplary Table Containing Unprocessed Novel Text (James Joyce)"
 #| warning: false
 
 portrait |>
@@ -106,7 +106,7 @@ portrait |>
 #| echo: false
 #| eval: true
 #| label: tbl-joyce-token
-#| tbl-cap: "Examplary Table of Tokenized Stream of Consciousness Novels (James Joyce)"
+#| tbl-cap: "An Examplary Table Containing Tokenzied Novel Text (James Joyce)"
 #| warning: false
 
 portrait_clean |>
@@ -126,7 +126,7 @@ portrait_clean |>
 #| echo: false
 #| eval: true
 #| label: tbl-joyce-words
-#| tbl-cap: "Examplary Table of Word Count of Stream of Consciousness Novels (James Joyce)"
+#| tbl-cap: "An Examplary Table Containing Word Count of Each Word within Novel Texts (James Joyce)"
 #| warning: false
 
 portrait_words |>
@@ -528,5 +528,4 @@ The novels' linguistic patterns reflect the socio-political landscape of the Wes
 \newpage
 
 # References
-
 
