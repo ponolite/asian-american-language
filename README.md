@@ -1,8 +1,8 @@
-# The Linguistic Landscape of Stream-of-Consciousness Literature: Exploring Word Frequency and Mental Health Themes in the Works of Joyce, Woolf, Proust, and Dostoevsky from Project Gutenberg
+# The Linguistic Landscape of Stream-of-Consciousness Literature: Exploring Word Frequency and Mental Health Themes in the Works of Joyce, Woolf, Proust, Mansfield and Eliot from Project Gutenberg
 
 ## Overview
 
-This project focuses on understanding the language used by renowned, transnational stream of consciousness authors James Joyce, Virginia Woolf, Marcel Proust, and Fyodor Dostoevsky. By analyzing the word frequency of their famous works-respectively, A Portrait of the Artist as a Young Man, Mrs Dalloway, Swann Way and Notes from Underground-I explore mental health themes like anxiety, depression, trauma, and existential angst. Through word frequency analysis, I aim to uncover shared linguistic patterns and gain insights into the authors' mental states, offering a glimpse into themes of self-identity and existential contemplation
+This project focuses on understanding the language used by renowned, transnational stream of consciousness authors James Joyce, Virginia Woolf, Marcel Proust, Katherine Mansfield and T.S Eliot. By analyzing the word frequency of their famous works-respectively, A Portrait of the Artist as a Young Man, Dubliners, Mrs Dalloway, Jacob's Room, Swann Way, Bliss, The Garden Story, The Waste Land and The Love Song of J. Alfred Prufrock-I explore mental health themes like anxiety, depression, trauma, and existential angst. Through word frequency analysis, I aim to uncover shared linguistic patterns and gain insights into the authors' mental states, offering a glimpse into themes of self-identity and existential contemplation
 
 ## File Structure
 
@@ -21,4 +21,4 @@ I generated my own dataset using the `gutenbergr` and `tidytext` packages, lever
 
 ## Statement on LLM usage
 
-Aspects of the code were written with the help of the autocomplete tool, ChatGPT. ChatGPT was mainly used to refine the paper's writing and small lines of codes. The entire chat history is available in inputs/LLM/usage.txt
+Aspects of the code were written with the help of the autocomplete tool, ChatGPT. ChatGPT was mainly used to refine the paper's writing and codes. The entire chat history is available in inputs/LLM/usage.txt
