@@ -1,11 +1,11 @@
 ---
-title: "Stream of Conciousness Genre and Mental Landscapes"
-subtitle: "Word Frequency and Mental Health Themes in Stream of Consciousness Works by James Joyce, Virginia Woolf, Marcel Proust, and Fyodor Dostoevsky from Project Gutenberg"
+title: "The Linguistic Landscape of Stream-of-Consciousness Literature"
+subtitle: "Exploring Word Frequency and Mental Health Themes in the Works of Joyce, Woolf, Proust, Mansfield and Eliot from Project Gutenberg"
 author: Quang Mai
 thanks: "Code and data are available at: https://github.com/ponolite/stream-consciousness-language.git"
 date: today
 date-format: long
-abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
+abstract: "This project focuses on understanding the language used by renowned, transnational stream of consciousness authors James Joyce, Virginia Woolf, Marcel Proust, Katherine Mansfield and T.S Eliot. By analyzing the word frequency of their famous works, I explore mental health themes like anxiety, depression, trauma, and existential angst. Through word frequency analysis of nine novels, I aim to uncover shared linguistic patterns and gain insights into the authors' mental states, offering a glimpse into themes of self-identity and existential contemplation"
 format: pdf
 number-sections: true
 bibliography: references.bib
@@ -24,13 +24,19 @@ library(tm)
 library(dplyr)
 library(ggplot2)
 library(scales)
+library(knitr)
+library(wordcloud)
 
+portrait <- read_csv(here::here("data/raw_data/portrait.csv"))
+portrait_clean <- read_csv(here::here("data/analysis_data/portrait_clean.csv"))
 all_books <- read_csv(here::here("data/raw_data/all_books.csv"))
 combined_books <- read_csv(here::here("data/raw_data/combined_books.csv"))
 portrait_words <- read_csv(here::here("data/analysis_data/portrait_words.csv"))
 swann_words <- read_csv(here::here("data/analysis_data/swann_words.csv"))
 dalloway_words <- read_csv(here::here("data/analysis_data/dalloway_words.csv"))
-notes_words <- read_csv(here::here("data/analysis_data/notes_words.csv"))
+bliss_words <- read_csv(here::here("data/analysis_data/bliss_words.csv"))
+prufrock_words <- read_csv(here::here("data/analysis_data/prufrock_words.csv"))
+
 
 ```
 
@@ -39,26 +45,39 @@ notes_words <- read_csv(here::here("data/analysis_data/notes_words.csv"))
 
 You can and should cross-reference sections and sub-sections. We use @citeR and @rohan.
 
-The remainder of this paper is structured as follows. @sec-data....
+The American family landscape is undergoing a significant transformation, marked by a growing trend of childlessness. Traditionally viewed as a social norm, having children now becomes a choice [@voluntaryChild]. We examine factors such as age, gender, education, socioeconomic class, health conditions and marital status, and how they affect childbearing rates from 1972 to 2022. Existing research suggests a complex interplay of factors that contribute to childlessness, including economic considerations, rising educational attainment, shifting social norms related to career and family life, and individual preferences [@voluntaryChild].
 
+Texts from a total of nine novels were retrieved from the volunteer archive to examine the mental health themes of famous stream of consciousness authors from the Modernst Era of literature from late 19th century to the mid-20th century
 
+A Portrait of the Artist as a Young Man, Dubliners, Mrs Dalloway, Jacob's Room, Swann Way, Bliss, The Garden Story, The Waste Land and The Love Song of J. Alfred Prufrock
+
+By analyzing the datasets, I seek to pose and answer crucial questions: What are some important factors contributing to this trend? How does childlessness manifest differently across demographic groups? Finally, what are the potential social, economic, and individual consequences of this new family structure in the United States? Understanding these dynamics is crucial in having an informed policy discussion and navigating the implications of childlessness in a rapidly changing world. 
+
+Thus, the estimand is the correlation between stream of consciousness authors and words related to mental health themes appearing in their famous works. This is considered in terms of those who would have a third birth only if the first two children were of the same sex. Through our analysis, we found that the childless rate is consistently on the rise from 1972 to 2022, with a correlation coefficient of 0.73 between the childless percentage and time (or a 6.99% increase over the last 50 years). Factors that directly contribute to this rise are higher educational attainment, higher socioeconomic class, lower gender disparity, better health status and dissolution of marriages through divorces, separation and being widowed. In addition, global events like pandemics and recessions also heighten the rate of childlessness from 1972-2022, including the AIDs pandemic, 9/11, 2008 Recession and the COVID-19 pandemic. During the 2008 Recession, from 2008 to 2014, the rate of childlessness increases the most, at 3%.
+
+To further understand the correlation between stream of consciousness novels and mental health themes, in [Introduction], our paper briefly discusses the nature of stream of consciousness literature, relevant authors and the works that we've chosen to analyze. Subsequently, in [Data] and [Result], we talk about the nature of the data obtained and analyze the results garnered from the data with suitable tables and charts. Next, [Discussion] provides further insights and future areas of study. Finally, [Conclusion] summarizes our main findings. To complete the paper, [Appendix] clarifies how each variable within each dataset is generated and tables to accordingly demonstrate this.
+
+The novel texts used for analysis were sourced from Project Gutenberg under the library `gutenbergr` [@rguten]. Data was generated, extracted and cleaned using the open-source statistical programming language R [@r], leveraging functions from `tidyverse` [@rTidyverse], `gutenbergr` [@rGuten], `tidytext` [@rTidytext], `rmarkdown` [@rMark], `dplyr` [@rDplyr], `ggplot2` [@rGgplot2], `scales` [@rScales], `here` [@rHere], `wordcloud` [@rCloud], `tm` [@rTm] and `knitr` [@rKnitr].
 
 # Data {#sec-data}
 
 Some of our data is of penguins (@fig-bills), from @palmerpenguins.
 
 ```{r}
-#| label: fig-bills
-#| fig-cap: Bills of penguins
 #| echo: false
+#| message: false
+#| label: tbl-genderclass
+#| tbl-cap: Table of Number of Classes Students Considered for Regrade Requests by Students’ Gender
 
-ggplot(penguins, aes(x = island, fill = species)) +
-  geom_bar(alpha = 0.8) +
-  scale_fill_manual(values = c("darkorange","purple","cyan4"),
-                    guide = "none") +
-  theme_minimal() +
-  facet_wrap(~species, ncol = 1) +
-  coord_flip()
+classes_dta |>
+  filter(consider_regrade != "No") |>
+  rename("Count" = n, "Number of Classes" = num_class, "Consider Regrade" = consider_regrade) |>
+  head(12) |>
+  kable(
+    col.names = c("Number of Classes", "Gender", "Consider Regrade", "Count", "Percentage"),
+    booktabs = TRUE,
+    align = c("c", "c", "c", "c", "c")
+  )
 ```
 
 Talk more about it.
@@ -72,14 +91,13 @@ And also planes (@fig-planes). (You can change the height and width, but don't w
 #| warning: false
 #| message: false
 
-analysis_data <- read_csv(here::here("data/analysis_data/analysis_data.csv"))
+# Visualize word frequencies (e.g., bar plot or word cloud)
+# Example using ggplot2 for bar plot
+top_words <- head(word_freq, 20)
+ggplot(top_words, aes(x = reorder(word, -n), y = n)) +
+  geom_bar(stat = "identity") +
+  labs(x = "Word", y = "Frequency", title = "Top 20 Most Frequent Words")
 
-analysis_data |> 
-  ggplot(aes(x = width, y = length)) +
-  geom_point(alpha = 0.8) +
-  theme_minimal() +
-  labs(x = "Wing width (mm)",
-       y = "Wing length (mm)")
 ```
 
 Talk way more about it. 
@@ -122,13 +140,15 @@ Our results are summarized in @tbl-modelresults.
 ```{r}
 #| echo: false
 #| eval: true
+#| label: tbl-frequency
+#| tbl-cap: "Word Frequency of Stream of Consciousness Novels, A Comparison Between Five Authors "
 #| warning: false
-#| message: false
 
 frequency <- bind_rows(mutate(portrait_words, author = "James Joyce"),
                        mutate(swann_words, author = "Marcel Proust"),
                        mutate(dalloway_words, author = "Virginia Woolf"),
-                       mutate(notes_words, author = "Fyodor Dostoevsky")) |>
+                       mutate(bliss_words, author = "Katherine Mansfield"),
+                       mutate(prufrock_words, author = "T.S. Eliot")) |>
   mutate(word = str_extract(word, "[a-z']+")) |>
   count(author, word) |>
   group_by(author) |>
@@ -136,36 +156,106 @@ frequency <- bind_rows(mutate(portrait_words, author = "James Joyce"),
   select(-n) |>
   pivot_wider(names_from = author, values_from = proportion) 
 
+frequency |>
+  rename("Word" = word) |>
+  head(12) |>
+  kable(
+    col.names = c("Word", "James Joyce", "Katherine Mansfield", "Marcel Proust", "T.S. Eliot", "Virignia Woolf"),
+    booktabs = TRUE,
+    align = c("c", "c", "c", "c")
+  )
+
 ```
 
 ```{r}
-#| echo: false
 #| eval: true
-#| label: tbl-modelresults
-#| tbl-cap: "Explanatory models of flight time based on wing width and wing length"
+#| echo: false
+#| message: false
 #| warning: false
+#| label: fig-frequency
+#| layout-ncol: 2
+#| fig-cap: "Examining how the model fits, and is affected by, the data"
+#| fig-subcap: ["Posterior prediction check", "Comparing the posterior with the prior"]
 
-ggplot(frequency, aes(x = proportion, y = `James Joyce`, 
-                            color = abs(`James Joyce` - proportion))) +
+# Calculate the word frequency over all unique words and bind all frequency rate of authors together to conduct a comparative comparison
+# Code sourced from https://medium.com/the-data-nudge/nlp-basics-exploring-word-frequency-with-the-tidytext-r-package-ac35a6d805f4
+
+
+  
+frequency_female <- bind_rows(mutate(dalloway_words, author = "Virginia Woolf"),
+                              mutate(portrait_words, author = "Katherine Mansfield")) |>
+  mutate(word = str_extract(word, "[a-z']+")) |>
+  count(author, word) |>
+  group_by(author) |>
+  mutate(proportion = n / sum(n)) |>
+  select(-n) |>
+  pivot_wider(names_from = author, values_from = proportion) |>
+  pivot_longer(`Virginia Woolf`,
+               names_to = "author", values_to = "proportion")
+
+ggplot(frequency_female, aes(x = proportion, y = `Katherine Mansfield`, color = abs(`Katherine Mansfield` - proportion))) +
   geom_abline(color = "gray50", lty = 2) +
   geom_jitter(alpha = 0.1, size = 2.5, width = 0.3, height = 0.3) +
   geom_text(aes(label = word), check_overlap = TRUE, vjust = 1.5) +
   scale_x_log10(labels = percent_format()) +
   scale_y_log10(labels = percent_format()) +
   scale_color_gradient(limits = c(0, 0.001), 
-                       low = "lightyellow2", high = "gray80") +
-  facet_wrap(~author, ncol = 4) +
+                       low = "darkslateblue", high = "gray30") +
+  facet_wrap(~author, ncol = 1) +
   theme(legend.position="none") +
-  labs(y = "James Joyce", x = NULL)
+  labs(y = "Katherine Mansfield", x = NULL)
 
 
+frequency_male <- bind_rows(
+                       mutate(swann_words, author = "Marcel Proust"),
+                       mutate(prufrock_words, author = "T.S. Eliot"),
+                       mutate(portrait_words, author = "James Joyce")) |>
+  mutate(word = str_extract(word, "[a-z']+")) |>
+  count(author, word) |>
+  group_by(author) |>
+  mutate(proportion = n / sum(n)) |>
+  select(-n) |>
+  pivot_wider(names_from = author, values_from = proportion) |>
+  pivot_longer(`Marcel Proust`:`James Joyce`,
+               names_to = "author", values_to = "proportion")
 
-# Visualize word frequencies (e.g., bar plot or word cloud)
-# Example using ggplot2 for bar plot
-top_words <- head(word_freq, 20)
-ggplot(top_words, aes(x = reorder(word, -n), y = n)) +
-  geom_bar(stat = "identity") +
-  labs(x = "Word", y = "Frequency", title = "Top 20 Most Frequent Words")
+ggplot(frequency_male, aes(x = proportion, y = `T.S. Eliot`, color = abs(`T.S. Eliot` - proportion))) +
+  geom_abline(color = "gray50", lty = 2) +
+  geom_jitter(alpha = 0.1, size = 2.5, width = 0.3, height = 0.3) +
+  geom_text(aes(label = word), check_overlap = TRUE, vjust = 1.5) +
+  scale_x_log10(labels = percent_format()) +
+  scale_y_log10(labels = percent_format()) +
+  scale_color_gradient(limits = c(0, 0.001), 
+                       low = "darkslateblue", high = "gray30") +
+  facet_wrap(~author, ncol = 2) +
+  theme(legend.position="none") +
+  labs(y = "T.S. Eliot", x = NULL)
+
+frequency_britain <- bind_rows(
+                       mutate(dalloway_words, author = "Virginia Woolf"),
+                       mutate(prufrock_words, author = "T.S. Eliot"),
+                       mutate(portrait_words, author = "James Joyce")) |>
+  mutate(word = str_extract(word, "[a-z']+")) |>
+  count(author, word) |>
+  group_by(author) |>
+  mutate(proportion = n / sum(n)) |>
+  select(-n) |>
+  pivot_wider(names_from = author, values_from = proportion) |>
+  pivot_longer(`T.S. Eliot`:`James Joyce`,
+               names_to = "author", values_to = "proportion")
+
+ggplot(frequency_britain, aes(x = proportion, y = `Virginia Woolf`, color = abs(`Virginia Woolf` - proportion))) +
+  geom_abline(color = "gray50", lty = 2) +
+  geom_jitter(alpha = 0.1, size = 2.5, width = 0.3, height = 0.3) +
+  geom_text(aes(label = word), check_overlap = TRUE, vjust = 1.5) +
+  scale_x_log10(labels = percent_format()) +
+  scale_y_log10(labels = percent_format()) +
+  scale_color_gradient(limits = c(0, 0.001), 
+                       low = "darkslateblue", high = "gray30") +
+  facet_wrap(~author, ncol = 2) +
+  theme(legend.position="none") +
+  labs(y = "Virginia Woolf", x = NULL)
+
 
 ```
 
@@ -248,6 +338,60 @@ plot(first_model, "rhat")
 
 
 \newpage
+
+# Appendix
+
+### Strip Search and Items Found Correlation
+
+@tbl-reasons-strip-search connotes the summary statistics how many reasons the police force attributes to each person prior to conducting strip searches and the number of items found during each search. This table leverages `mutate` to create three new columns on the data's percentages and counts, enabling the data to be proprotionate to one another. "Total Reasons" conveys the total number of reasons a strip search has, while "Items Found Percentage" conveys the percentage of items found for each total of reasons. "Total Searches by Total Reasons" conveys the total number of searches for each total of reasons, while "Searches Percentage" conveys the percentage of each total of reasons out of all strip searches.
+
+
+```{r fig.pos="H"}
+#| echo: false
+#| message: false
+#| label: tbl-reasons-strip-search
+#| tbl-cap: Summary Statistics of Reasons for Police Strip Searches
+
+cleaned_search_reasons_data |>
+  group_by(total_reasons, items_found) |>
+  count() |>
+  rename(count = n) |>
+  group_by(total_reasons) |>
+  mutate(percentage = round(count/sum(count)*100),
+         total_searches = sum(count),
+         percentage_total = round(total_searches/7801*100)) |>
+  kable(
+    col.names = c("Total Reasons", "Items Found", "Count", "Items Found Percentage", "Searches by Total Reasons", "Searches Percentage"),
+    booktabs = TRUE,
+    align = c("c", "c", "c", "c", "c", "c")
+  ) |> 
+  kable_styling(latex_options="scale_down")
+
+  
+```
+
+### Strip Search and Items Found Correlation
+
+@tbl-items-strip-search conveys the total number of strip searches happening in Toronto from 2020 to 2021, and whether or not items were found during each search.
+
+```{r fig.pos="H"}
+#| echo: false
+#| message: false
+#| label: tbl-items-strip-search
+#| tbl-cap: Summary Statistics of Items Found During Police Strip Searches
+
+cleaned_race_gender_data |>
+  group_by(strip_search, items_found) |>
+  count() |>
+  rename(count = n) |>
+  filter(strip_search == "Yes") |>
+  select(items_found, count) |>
+  group_by(strip_search) |>
+  mutate(total_searches = sum(count),
+         percentage_of_items_found = round(count/total_searches*100)) |>
+  kable(col.names = c("Strip Search", "Items Found", "Count", "Total Searches", "Percentage of Items Found"), booktabs = TRUE, align = c("c", "c", "c", "c", "c")
+        )
+```
 
 
 # References
