@@ -1,8 +1,9 @@
-# The Joyceless Landscape of Stream of Consciousness Literature: Exploring Word Frequency, Sentiment Value and Mental Health Themes in the Works of Joyce, Woolf, Proust, Mansfield and Eliot from Project Gutenberg
+# Stream of Consciousness Literature: A 'Joyceless' Linguistic Landscape 
+### Exploring Word Frequency, Sentiment Value and Mental Health Themes in the Works of Joyce, Woolf, Proust, Mansfield and Eliot from Project Gutenberg
 
 ## Overview
 
-This project focuses on understanding the language used by renowned, transnational stream of consciousness authors James Joyce, Virginia Woolf, Marcel Proust, Katherine Mansfield and T.S Eliot in the modernist era of literature from late 19th century to the mid-20th century. By analyzing the word frequency and sentiments of their famous works-respectively, A Portrait of the Artist as a Young Man, Chamber Music, Mrs Dalloway, Jacob's Room, Swann Way, Bliss, The Garden Party, The Waste Land and The Love Song of J. Alfred Prufrock-I explore mental health themes like anxiety, depression, trauma, and existential angst. Through word frequency and sentiment value analysis, I aim to uncover shared linguistic patterns and gain insights into the authors' mental states, offering a glimpse into the socio-political state of Western literature from late 19th century to mid-20th century.
+This project focuses on understanding the language used by renowned, transnational stream of consciousness authors James Joyce, Virginia Woolf, Marcel Proust, Katherine Mansfield and T.S Eliot in the modernist era of literature. By analyzing the word frequency and sentiments of their famous works-respectively, A Portrait of the Artist as a Young Man, Chamber Music, Mrs Dalloway, Jacob's Room, Swann Way, Bliss, The Garden Party, The Waste Land and The Love Song of J. Alfred Prufrock-I explore mental health themes like anxiety, depression, trauma, and existential angst. Through word frequency and sentiment value analysis, I aim to uncover shared linguistic patterns and gain insights into the authors' mental states, offering a glimpse into the socio-political state of Western literature from late 19th century to mid-20th century.
 
 ## File Structure
 
@@ -17,7 +18,7 @@ The repo is structured as:
 
 ## Data Extraction
 
-I generated my own dataset using the `gutenbergr` and `tidytext` packages, leveraging existing literature from Project Gutenberg, a volunteer archive to digitize cultural and literary works. Here is the link to the archive: https://www.gutenberg.org. To extract different novels into datasets, I first tokenized, or broke the novels which I had downloaded from Project Gutenberg into smaller chunks called tokens or words. Then, using the `tidytext`'s "stop_words" dataset, I exclude stop words like 'a', 'the', etc., thus enhancing the validity of each novel's dataset.
+I generated my own datasets using the `gutenbergr` and `tidytext` packages, leveraging existing literature from Project Gutenberg, a volunteer archive to digitize cultural and literary works. Here is the link to the archive: https://www.gutenberg.org. To extract different novels into datasets, I first tokenized, or broke the novels which I had downloaded from Project Gutenberg into smaller chunks called tokens or words. Then, using the `tidytext`'s "stop_words" dataset, I exclude stop words like 'a', 'the', etc., thus enhancing the validity of each novel's dataset.
 
 ## Statement on LLM usage
 
