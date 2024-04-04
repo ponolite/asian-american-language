@@ -1,5 +1,5 @@
 ---
-title: "The Linguistic Landscape of Stream-of-Consciousness Literature"
+title: "A Joyceless Stream-of-Consciousness Book" #The Linguistic Landscape of SOC Literature
 subtitle: "Exploring Word Frequency, Sentiment Value and Mental Health Themes in the Works of Joyce, Woolf, Proust, Mansfield and Eliot from Project Gutenberg"
 author: Quang Mai
 thanks: "Code and data are available at: https://github.com/ponolite/stream-consciousness-language.git"
@@ -46,7 +46,7 @@ combined_text <- read_csv(here::here("data/analysis_data/combined_text.csv"))
 
 # Introduction
 
-Stream of consciousness (SOC) is a narrative technique that aims to capture the continuous flow of thoughts, feelings, and sensations experienced by a character without conventional organization or punctuation  [@resampling]. It mirrors the unpredictable and interconnected nature of human thought processes, often revealing the inner workings of the character's mind in an intimate and unfiltered manner [@flow]. In literature, most scholars agree that stream of consciousness reveals the complexities of mental-scapes, shedding light on the nuances of characters' emotional well-being and psychological struggles [@pathology]. As such, this paper has mined the texts of a total of nine novels from the volunteer archive, Project Gutenberg, to examine the mental health themes of famous stream of consciousness authors, namely by Joyce, Woolf, Proust, Mansfield and Eliot, from the modernist era of literature, spanning from late 19th century to mid-20th century [@gutenberg]. (more stats and data mentioned here)
+Stream of consciousness (SOC) is a narrative technique that aims to capture the continuous flow of thoughts, feelings, and sensations experienced by a character without conventional organization or punctuation  [@resampling]. It mirrors the unpredictable and interconnected nature of human thought processes, often revealing the inner workings of the character's mind in an intimate and unfiltered manner [@flow]. In literature, most scholars agree that stream of consciousness reveals the complexities of mind-scapes, shedding light on the nuances of characters' emotional well-being and psychological struggles [@pathology]. As such, this paper has mined the texts of a total of nine novels from the volunteer archive, Project Gutenberg, to examine the mental health themes of famous stream of consciousness authors, namely by Joyce, Woolf, Proust, Mansfield and Eliot, from the modernist era of literature, spanning from late 19th century to mid-20th century [@gutenberg]. (more stats and data mentioned here)
 
 By analyzing these textual datasets through word frequency and sentiment analysis, I seek to pose and answer crucial questions: \textit{What are some important factors contributing to this relationship between mental health, disassociation and stream of consciousness? Moreover, how does this relationship vary differently across differnet demographics of authors, for instance, authors with different geographical locations and genders?} Understanding these dynamics is crucial in having an informed understanding of the West's late 19th to mid-20th century socio-political landscape, especially in regards to how authors and creative writers navigate and deal with then-taboo topics such as existential angst, mental health issues and disabilities.
 
@@ -59,6 +59,27 @@ The novel texts used for analysis were sourced from Project Gutenberg under the 
 # Data {#sec-data}
 
 ## Measurement
+
+Two central variables in this paper are:
+
+* **Word Frequency:** This variable captures the repetition of a single word (unigram), two-words combination (bigram) or three-words combination (trigram) throughout a SOC novel text, providing us with a thematic understanding of SOC literature.
+* **Sentiment Value:** This variable enables us to analyze how every word is usually perceived emotionally, whether it be positively or negatively. In additon,    in childlessness over time, encompassing the chosen time frame for the survey.
+
+Out of two variables used, the first one, word frequency, is directly quantified through tokenizing the novel texts using the packages @rTidytext [@youtube1] [@youtube2]. To do this, I first downloaded all nine novel texts from @gutenberg, and leveraged functions such as `unnest_tokens()` from @rTidytext to mine the texts, or separating it into individual words. Finally, I used `count()` to quantify the word frequency. 
+
+The second variable used, sentiment value, is based on @sentiment's research, where  questioning to accurately capture respondents' backgrounds. For instance, the General Social Survey (GSS) obtains information on marital status through questions such as, "Are you currently married, widowed, divorced, separated, or have you never been married?", with responses categorized into predefined groups for further analysis [@gssCodebook]. On the other hand, instead of relying on income sources, socioeconomic class is subjectively assessed based on the respondents' answers to this question, "If you were asked to use one of four names for your social class, which would you say you belong in: the lower class, the working class, the middle class, or the upper class?". Some are continuous variables, like age. With respondents' various age groups documented, we can understand the generational disparities in childbearing patterns. Systematic and data-driven, these measurement methods ensure that all data faithfully reflects the American population's childbearing tendencies.
+
+**Family and Childbearing**
+
+(@) Do you currently have any children?
+- Yes
+- No
+
+(@) If yes, how many children have you ever had? Please count all that were born alive at any time (including any you had from a previous marriage).
+(short answer text)
+
+
+Even though considerable attention has been given to the polarity of words (positive and negative) and thecreation of large polarity lexicons, research in emotion analysis has had to rely on limited and small emotionlexicons. In this paper, we show how the combined strength and wisdom of the crowds can be used to generate alarge, high-quality, word–emotion and word–polarity association lexicon quickly and inexpensively. We enumeratethe challenges in emotion annotation in a crowdsourcing scenario and propose solutions to address them. Mostnotably, in addition to questions about emotions associated with terms, we show how the inclusion of a word choicequestion can discourage malicious data entry, help to identify instances where the annotator may not be familiarwith the target term (allowing us to reject such annotations), and help to obtain annotations at sense level (ratherthan at word level). We conducted experiments on how to formulate the emotion-annotation questions, and showthat asking if a term isassociatedwith an emotion leads to markedly higher interannotator agreement than thatobtained by asking if a termevokesan emotion
 
 ## Source Data
 
