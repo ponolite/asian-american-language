@@ -50,24 +50,11 @@ tail(my_dataset, 10)
 
 
 User
-how to reduce the number of word in a word count: wordcloud(words = portrait_words$word, freq = portrait_words$n, scale=c(3,0.5), min.freq = 2, random.order = FALSE, colors=brewer.pal(8, "Dark2"))
-
-ChatGPT
-filtered_words <- portrait_words[portrait_words$n >= 2, ]
-
-User
 the color purple of this graph is too concentratred, i want the data point to be more visibile and disperse: frequency_female <- bind_rows(mutate(dalloway_words, author = "Virginia Woolf"),
                               mutate(bliss_words, author = "Katherine Mansfield")) 
                               
 ChatGPT
 geom_jitter(alpha = 0.5, size = 3, width = 0.3, height = 0.3) +  # Adjust alpha and size here
-
-
-User
-make the wordcloud black-shaded
-                              
-ChatGPT
-colorRampPalette(c("lightgray", "black"))(9)
 
 
 User
