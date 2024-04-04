@@ -4,7 +4,7 @@
 # Date: 30 March 2024 
 # Contact: quangpono@gmail.com
 # License: MIT
-# Pre-requisites: Read four raw datasets containing the novel texts from five authors
+# Pre-requisites: Read four raw datasets containing the novel texts from five authors, namely `portrait.csv`, `swann.csv`. `dalloway.csv`, `bliss.csv` and `prufrock.csv`
 
 #### Workspace setup ####
 library(tidyverse)
@@ -27,7 +27,7 @@ prufrock <- read_csv("data/raw_data/prufrock.csv")
 
 
 # Tokenize the words from the text, breaking the text down into individual words to insert them into individual datasets
-# Codes sourced from https://medium.com/the-data-nudge/nlp-basics-exploring-word-frequency-with-the-tidytext-r-package-ac35a6d805f4
+# Codes referenced from https://medium.com/the-data-nudge/nlp-basics-exploring-word-frequency-with-the-tidytext-r-package-ac35a6d805f4
 
 portrait_tokenized <- portrait |>
   na.omit(portrait) |>
