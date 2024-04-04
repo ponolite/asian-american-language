@@ -7,14 +7,6 @@ why can't i have james joyce as a separate column in this dataset: frequency_mal
                        mutate(swann_words, author = "Marcel Proust"),
                        mutate(dalloway_words, author = "Fyodor Dostoevsky"),
                        mutate(notes_words, author = "James Joyce")) |>
-  mutate(word = str_extract(word, "[a-z']+")) |>
-  count(author, word) |>
-  group_by(author) |>
-  mutate(proportion = n / sum(n)) |>
-  select(-n) |>
-  pivot_wider(names_from = author, values_from = proportion) |>
-  pivot_longer(`Fyodor Dostoevsky`:`Marcel Proust`,
-               names_to = "author", values_to = "proportion")
 
 ChatGPT
 
