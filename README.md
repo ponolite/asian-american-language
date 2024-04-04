@@ -1,4 +1,4 @@
-# Stream of Consciousness Literature: A Joyceless, Linguistic Landscape 
+# Stream of Consciousness Literature: A Joyceless Linguistic Landscape 
 ### Exploring Word Frequency, Sentiment Value and Mental Health Themes in the Works of Joyce, Woolf, Proust, Mansfield and Eliot from Project Gutenberg
 
 ## Overview
