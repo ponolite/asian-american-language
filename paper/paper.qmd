@@ -5,7 +5,7 @@ author: Quang Mai
 thanks: "Code and data are available at: https://github.com/ponolite/stream-consciousness-language.git"
 date: today
 date-format: long
-abstract: "This project focuses on understanding the language used by renowned stream of consciousness (SOC) authors James Joyce, Virginia Woolf, Marcel Proust, Katherine Mansfield and T.S Eliot. By conducting word frequency analysis and sentiment analysis of these authors' nine novels, this paper aims to uncover shared linguistic patterns and gain insights into the authors' mental states. Ultimatlely, this paper attempts to offer insights into themes of self-identity, anxiety, disassociation and existential contemplation within Western society and its literary circle from late 19th to mid-20th century. (add one sentence on main results)"
+abstract: "This project focuses on understanding the language used by renowned stream of consciousness (SOC) authors James Joyce, Virginia Woolf, Marcel Proust, Katherine Mansfield and T.S Eliot. By conducting word frequency analysis and sentiment analysis on these authors' nine novels, this paper aims to uncover shared linguistic patterns and gain insights into the authors' mental states. Ultimately, this paper attempts to offer insights into themes of self-identity, anxiety, disassociation and existential contemplation within Western society and its literary circle from late 19th to mid-20th century. (add one sentence on main results)"
 format: pdf
 number-sections: true
 bibliography: references.bib
@@ -544,11 +544,21 @@ The novels' linguistic patterns reflect the socio-political landscape of the Wes
 
 ### Lack of Thorough Word Cleaning
 
+This includes words such as chapter titles, Roman numbers and personal names, affecting the integrity of data analysis ("Swann" being the most common word)
+
 ### Decontextualized Literature Works and Limiting Publication Editions
+
+Words are singled out and analyzed without context which could have affected their intended meanings, especially in such a complex genre such as stream of consciousness. The limiting novel editions also doesn't make sure that their literary integrity are maintained and the analysis might have missed important texts of other editions. 
 
 ### Uneven Novel Length and Categorization of Authors
 
+Since the novels are chosen based on their worldwide reception and canon, practical constraints like how all novels should be of similar length are ignored. This constraint can prevent one novel having more words than others, which can critically affect the integrity of the word frequency analysis, sentiment value and word networks where one novel dominates the others and skews the results.
+
+In addition, these authors work are expansive and so choosing a select few to bind them to the SOC genre can be limiting as the SOC genre in itself is already an amalgamation of different literary trends. Thus, this can affect the integrity of the datasets.
+
 ### Project Gutenberg's Focus on the Canon
+
+Along the search for other stream of consciousness authors to include in the generated datasets, only a few-those that are in the SOC canon, mostly white authors-are present in Project Gutenberg, without including lesser known SOC authors, which could have steared the data analysis, still, towards their preconception: being rueful and angst-ridden
 
 ## Moving Forward and Next Steps
 
