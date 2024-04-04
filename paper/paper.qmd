@@ -50,7 +50,7 @@ Stream of consciousness (SOC) is a narrative technique that aims to capture the 
 
 By analyzing these textual datasets through word frequency and sentiment analysis, I seek to pose and answer crucial questions: \textit{What are some important factors contributing to this relationship between mental health, disassociation and stream of consciousness? Moreover, how does this relationship vary differently across differnet demographics of authors, for instance, authors with different geographical locations and genders?} Understanding these dynamics is crucial in having an informed understanding of the West's late 19th to mid-20th century literature and even socio-political landscape, especially in regards to how authors and creative writers navigate and deal with then-taboo topics such as existential angst, mental health issues and disabilities.
 
-Thus, my estimand is the correlation between mental health-related words in SOC literature, their frequency and sentimental value as provided by @sentiment. This is considered in terms of nine selected SOC novels only, namely Joyce's A Portrait of the Artist as a Young Man and Chamber Music; Woolf's Mrs Dalloway and Jacob's Room; Proust's Swann Way; Mansfield's Bliss and The Garden Party; and Eliot's The Waste Land and The Love Song of J. Alfred Prufrock. Through our analysis, we found that (percentage, number and data here, main results)...
+Thus, my estimand is the correlation between mental health-related words in SOC literature, their frequency and sentiment value as provided by @sentiment. This is considered in terms of nine selected SOC novels only, namely Joyce's A Portrait of the Artist as a Young Man and Chamber Music; Woolf's Mrs Dalloway and Jacob's Room; Proust's Swann Way; Mansfield's Bliss and The Garden Party; and Eliot's The Waste Land and The Love Song of J. Alfred Prufrock. Through our analysis, we found that (percentage, number and data here, main results)...
 
 To further understand the correlation between stream of consciousness novels and mental health themes, in [Introduction], the paper briefly discusses the nature of stream of consciousness literature, relevant authors and the works that I've chosen to analyze. Subsequently, in [Data] and [Results], I talk about the nature of the data obtained and analyze the results garnered from the data with suitable tables and charts. Next, [Discussion] provides further insights and future areas of study. Finally, [Conclusion] summarizes our main findings. To complete the paper, [Appendix] clarifies how each variable within each dataset is generated with relevant tables to accordingly demonstrate this.
 
@@ -67,7 +67,7 @@ Two central variables in this paper are:
 
 Out of two variables used, the first one, 'Word Frequency' usually captured as `n` or `frequency` in datasets, is directly quantified through tokenizing the novel texts using the packages @rTidytext [@youtube1] [@youtube2]. To do this, I first downloaded all nine novel texts from @gutenberg, and leveraged functions such as `unnest_tokens()` from @rTidytext to mine the texts, or separating it into individual words. Finally, I used `count()` to quantify the word frequency. 
 
-The second variable used, 'Sentiment Value', is based on three English-based, general-purpose  "word-emotion and word-polarity association lexicons", specifically @sentiment's expansive research along with efforts from Finn Årup Nielsen and Bing Liu and collaborators [@rTidytext]. 
+The second variable used, 'Sentiment Value', is based on three English-based, general-purpose  "word-emotion and word-polarity association lexicons", sourced from @sentiment's expansive research along with efforts from Finn Årup Nielsen and Bing Liu and collaborators [@rTidytext]. 
 
 The three general-purpose lexicon that contributes to my sentiment analysis are [@rTidytext]:
 
@@ -94,33 +94,14 @@ A survey sample of how the word 'startle' is compiled within the 'nrc' lexicon i
 (@) How negative (bad, criticizing) is the word startle?
 - startle is not negative
 - startle is weakly negative
-- startle is moderately negativ
+- startle is moderately negative
 - startle is strongly negative
 
-After the survey results are garnered, researchers average the answers to sort each surveyed word into pre-defined categories, specifically '-5 to 5' for 'AFINN', 'postive' or 'negative' for 'bing', and 'anger' or 'fear' for 'nrc'. With the continuous work of compiling these lexicons spanning years and decades [@sentiment] comes these functions: `get_sentiments("bing")` and `get_sentiments("nrc")` and `get_sentiments("nrc")` in which I can use `inner_join` to categorize my exisitng datasets of novel texts into existing sentiment value. Systematic and data-driven, these measurement methods ensure that all lexicons faithfully reflects each word's emotionality.
+After the survey results are garnered, researchers average the answers to sort each surveyed word into pre-defined categories, specifically '-5 to 5' for 'AFINN', 'postive' or 'negative' for 'bing', and 'anger' or 'fear' for 'nrc'. With the continuous work of compiling these lexicons spanning years and decades [@sentiment] comes these functions: `get_sentiments("bing")` and `get_sentiments("nrc")` and `get_sentiments("afinn")` in which I can use `inner_join` to categorize my existing datasets of novel texts into their sentiment value. Systematic and data-driven, these measurement methods ensure that all lexicons faithfully reflects each word's emotionality.
 
 However, I do recognize how decontextualized and reductive this quantification of language can be. When it comes to understand such social and human artifacts as language or literary texts, much is dependent on their contextuality. As such, I will further discuss these weaknesses of the datasets under [Discussion].
 
-## Source Data
-
-## Data Cleaning and Word Tokenization
-
-```{r}
-#| echo: false
-#| message: false
-#| label: tbl-genderclass
-#| tbl-cap: Table of Number of Classes Students Considered for Regrade Requests by Students’ Gender
-
-```
-
-```{r}
-#| label: fig-planes
-#| fig-cap: Relationship between wing length and width
-#| echo: false
-#| warning: false
-#| message: false
-
-```
+## Source Data: Data Cleaning and Word Tokenization
 
 ### Word Count
 
