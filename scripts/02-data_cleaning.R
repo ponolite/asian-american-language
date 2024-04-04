@@ -98,7 +98,7 @@ prufrock_words <- prufrock_clean |>
   filter(str_detect(word, "[:alpha:]")) |> 
   distinct()
 
-# Combine all texts to find the more general trend of word frequency
+# Combine all texts to find the more general trend of word frequency and sentiment value
 
 ## Calculate the correlations between all word combinations from all texts
 
