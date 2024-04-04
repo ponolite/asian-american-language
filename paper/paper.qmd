@@ -323,7 +323,7 @@ ggplot(sentiment_value, aes(x = value, y = percentage, color = sentiment, group 
 
 
 # Calculate the word frequency over all unique words and bind all frequency rate of authors together to conduct a comparative comparison
-# Code sourced from https://medium.com/the-data-nudge/nlp-basics-exploring-word-frequency-with-the-tidytext-r-package-ac35a6d805f4
+# Code referenced from https://medium.com/the-data-nudge/nlp-basics-exploring-word-frequency-with-the-tidytext-r-package-ac35a6d805f4
 
   
 frequency_female <- bind_rows(mutate(dalloway_words, author = "Virginia Woolf"),
