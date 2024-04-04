@@ -44,6 +44,7 @@ combined_text <- read_csv(here::here("data/analysis_data/combined_text.csv"))
 
 ```
 
+
 # Introduction
 
 Stream of consciousness (SOC) is a narrative technique that aims to capture the continuous flow of thoughts, feelings, and sensations experienced by a character without conventional organization or punctuation  [@resampling]. It mirrors the unpredictable and interconnected nature of human thought processes, often revealing the inner workings of the character's mind in an intimate and unfiltered manner [@flow]. In literature, most scholars agree that stream of consciousness reveals the complexities of mind-scapes, shedding light on the nuances of characters' emotional well-being and psychological struggles [@pathology]. As such, this paper has mined the texts of a total of nine novels from the volunteer archive, Project Gutenberg, to examine the mental health themes of famous stream of consciousness authors, namely by Joyce, Woolf, Proust, Mansfield and Eliot, from the modernist era of literature, spanning from late 19th century to mid-20th century [@gutenberg]. (more stats and data mentioned here)
@@ -105,6 +106,7 @@ However, I do recognize how decontextualized and reductive this quantification o
 
 ## Data Cleaning and Word Tokenization
 
+
 ```{r}
 #| echo: false
 #| message: false
@@ -122,7 +124,9 @@ However, I do recognize how decontextualized and reductive this quantification o
 
 ```
 
+
 ### Word Count
+
 
 ```{r}
 #| echo: false
@@ -144,7 +148,6 @@ portrait |>
 
 ```
 
-
 ```{r}
 #| echo: false
 #| eval: true
@@ -164,7 +167,9 @@ portrait_clean |>
   )
 
 ```
+
 \newpage
+
 
 ```{r}
 #| echo: false
@@ -183,7 +188,9 @@ portrait_words |>
 
 ```
 
+
 ### Comparative Word Frequency
+
 
 ```{r}
 #| echo: false
@@ -213,6 +220,7 @@ frequency |>
   )
 
 ```
+
 
 ### Generating Word Networks
 
@@ -248,6 +256,7 @@ We can use maths by including latex between dollar signs, for instance $\theta$.
 # Results
 
 ## The Dominant Vocabulary of SOC Literature
+
 
 ```{r}
 #| eval: true
@@ -286,11 +295,13 @@ ggplot(aes(x = n, y = reorder(word, n))) +
 
 
 ```
+
 \newpage
 
 ## Sentiment Analysis
 
 Leveraging setiment analysis from @sentiment
+
 
 ```{r}
 #| eval: true
@@ -350,7 +361,9 @@ ggplot(sentiment_value, aes(x = value, y = percentage, color = sentiment, group 
 ```
 
 
+
 ## Gendered Mental Landscape of Stream of Consciousness Novels
+
 
 ```{r}
 #| eval: true
@@ -418,11 +431,13 @@ ggplot(frequency_male, aes(x = proportion, y = `T.S. Eliot`, color = abs(`T.S. E
 
 ```
 
+
 ### Comparing SOC Literature's Female Authors
 
 ### Comparing SOC Literature's Male Authors
 
 ## Transnational SOC Novels and Mental Health Themes
+
 
 ```{r}
 #| eval: true
@@ -459,8 +474,10 @@ ggplot(frequency_international, aes(x = proportion, y = `Marcel Proust`, color =
 
 ```
 
+
 \newpage
 ## Combined Texts: Trends, Word Networks, Bigram and Trigram Analsis
+
 
 ```{r}
 #| eval: true
@@ -501,7 +518,6 @@ graph_from_data_frame(d = combined_correlations, #create graphs of networks of w
 
 ```
 
-
 ```{r}
 #| eval: true
 #| echo: false
@@ -525,6 +541,7 @@ combined_text|>
 combined_text|>
   generate_word_graph(minimum_n = 400, minimum_correlation = 1)
 ```
+
 # Discussion
 
 ## Mental Health Vocabulary: Patterns and Trends 
@@ -557,6 +574,7 @@ The novels' linguistic patterns reflect the socio-political landscape of the Wes
 
 ## Additional Data Details
 
+
 ```{r}
 ##| eval: true
 ##| echo: false
@@ -565,7 +583,9 @@ The novels' linguistic patterns reflect the socio-political landscape of the Wes
 #combined_books 
 ```
 
+
 ### Data Gathering
+
 
 ```{r fig.pos="H"}
 ##| echo: false
@@ -575,7 +595,9 @@ The novels' linguistic patterns reflect the socio-political landscape of the Wes
   
 ```
 
+
 ### Data Cleaning
+
 
 
 ```{r fig.pos="H"}
@@ -588,6 +610,7 @@ The novels' linguistic patterns reflect the socio-political landscape of the Wes
 ```
 
 
+
 ## Model Details {#sec-model-details}
 
 ## Posterior predictive check
@@ -598,4 +621,5 @@ The novels' linguistic patterns reflect the socio-political landscape of the Wes
 \newpage
 
 # References
+
 
