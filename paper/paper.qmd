@@ -1,11 +1,11 @@
 ---
-title: "The Joyceless Landscape of Stream of Consciousness Literature" 
+title: "Stream of Consciousness Literature: A Joyceless Linguistic Landscape" 
 subtitle: "Exploring Word Frequency, Sentiment Value and Mental Health Themes in the Works of Joyce, Woolf, Proust, Mansfield and Eliot from Project Gutenberg"
 author: Quang Mai
 thanks: "Code and data are available at: https://github.com/ponolite/stream-consciousness-language.git"
 date: today
 date-format: long
-abstract: "This project focuses on understanding the language used by renowned stream of consciousness (SOC) authors James Joyce, Virginia Woolf, Marcel Proust, Katherine Mansfield and T.S Eliot. By conducting word frequency analysis and sentiment analysis of these authors' nine novels, I aim to uncover shared linguistic patterns and gain insights into the authors' mental states. Through the analysis on SOC literature, this paper thus attempts to offer insights into themes of self-identity, anxiety, disassociation and existential contemplation within Western society's from late 19th to mid-20th century. (add one sentence on main results)"
+abstract: "This project focuses on understanding the language used by renowned stream of consciousness (SOC) authors James Joyce, Virginia Woolf, Marcel Proust, Katherine Mansfield and T.S Eliot. By conducting word frequency analysis and sentiment analysis of these authors' nine novels, this paper aims to uncover shared linguistic patterns and gain insights into the authors' mental states. Ultimatlely, this paper attempts to offer insights into themes of self-identity, anxiety, disassociation and existential contemplation within Western society and its literary circle from late 19th to mid-20th century. (add one sentence on main results)"
 format: pdf
 number-sections: true
 bibliography: references.bib
@@ -278,28 +278,48 @@ Leveraging setiment analysis from @sentiment
 #| echo: false
 #| message: false
 #| warning: false
-#| label: fig-sentiment
-#| fig-cap: "Sentiment Analysis of All SOC Novels"
+#| label: fig-sentiment-category
+#| layout-ncol: 2
+#| fig-cap: "Categorical Sentiment Analysis of All SOC Novel Texts by Authors"
+#| fig-subcap: ["Bing lexicon", "NRC lexicon"]
+
+bing_lexicon <- get_sentiments("bing") %>%
+  rename(sentiment_binary = sentiment)
 
 sentiment_combined <- combined_text |>
-  inner_join(get_sentiments("bing")) |>
+  inner_join(bing_lexicon) |>
   inner_join(get_sentiments("afinn")) |>
   inner_join(get_sentiments("nrc"))
 
-sentiment_category <- sentiment_combined |>
-  inner_join(get_sentiments("bing")) |>
-  group_by(author, sentiment) |>
+sentiment_category_binary <- sentiment_combined |>
+  group_by(author, sentiment_binary) |>
   count() |>
   group_by(author) |>
   mutate(percentage = n / sum(n) * 100)  
 
+# Plot sentiment values
+ggplot(sentiment_category_binary, aes(x = author, fill = sentiment_binary, y = percentage)) +
+  geom_bar(stat = "identity") +
+  labs(
+       x = "Author", y = "Percentage") +
+  scale_fill_manual(values = c("positive" = "gray80", "negative" = "gray20", "neutral" = "gray50")) + 
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+sentiment_category <- sentiment_combined |>
+  group_by(author, sentiment) |>
+  count() |>
+  group_by(author) |>
+  mutate(percentage = n / sum(n) * 100)  |>
+  group_by(author) |>
+  arrange(desc(percentage))
 
 # Plot sentiment values
 ggplot(sentiment_category, aes(x = author, fill = sentiment, y = percentage)) +
   geom_bar(stat = "identity") +
   labs(
        x = "Author", y = "Percentage") +
-  scale_fill_manual(values = c("positive" = "gray80", "negative" = "gray20", "neutral" = "gray50")) + 
+  scale_fill_manual(values = c("negative" = "gray1", "sadness" = "gray10", "anger" = "gray20", "disgust" = "gray30", "fear" = "gray40", "joy" = "gray50", "trust" = "gray60", "anticipation" = "gray70", "positive" = "gray80", "surprise" = "gray90")) + 
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
@@ -312,7 +332,7 @@ ggplot(sentiment_category, aes(x = author, fill = sentiment, y = percentage)) +
 #| message: false
 #| warning: false
 #| label: fig-sentiment-number
-#| fig-cap: "Sentiment Analysis of All SOC Novels by Sentiment Value"
+#| fig-cap: "Numerical Sentiment Analysis of All SOC Novel Texts by Authors (AFINN lexicon)"
 
 sentiment_value <- sentiment_combined |>
   inner_join(get_sentiments("bing")) |>
@@ -440,7 +460,6 @@ ggplot(frequency_international, aes(x = proportion, y = `Marcel Proust`, color =
 
 ```
 
-\newpage
 ## Combined Texts: Trends, Word Networks, Bigram and Trigram Analsis
 
 ```{r}
