@@ -35,32 +35,6 @@ filter(nchar(word) > 1)
 
 
 User
-create word cloud in r
-
-ChatGPT
-To create a word cloud in R, you can use the wordcloud package. Here's a basic example of how to create a word cloud:
-
-# Install and load the required packages
-install.packages("wordcloud")
-library(wordcloud)
-
-# Example text data
-text <- c("Lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit",
-          "sed", "do", "eiusmod", "tempor", "incididunt", "ut", "labore", "et", "dolore",
-          "magna", "aliqua")
-
-# Generate word frequencies
-word_freq <- table(text)
-
-# Create word cloud
-wordcloud(words = names(word_freq), freq = word_freq, scale=c(3,0.5), 
-          random.order=FALSE, colors=brewer.pal(8, "Dark2"))
-
-# Add title
-title(main = "Word Cloud Example")
-
-
-User
 how to rank the word from highest to lowest 
 
 ChatGPT
