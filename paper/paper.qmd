@@ -5,7 +5,7 @@ author: Quang Mai
 thanks: "Code and data are available at: https://github.com/ponolite/stream-consciousness-language.git"
 date: today
 date-format: long
-abstract: "This project focuses on understanding the language used by renowned stream of consciousness (SOC) authors James Joyce, Virginia Woolf, Marcel Proust, Katherine Mansfield and T.S Eliot. By conducting word frequency analysis and sentiment analysis on these authors' nine novels, this paper aims to uncover shared linguistic patterns and gain insights into the authors' mental states. Ultimately, this paper attempts to offer insights into themes of self-identity, anxiety, disassociation and existential contemplation within Western society and its literary circle from late 19th to mid-20th century. (add one sentence on main results)"
+abstract: "This project focuses on understanding the language used by renowned stream of consciousness (SOC) authors James Joyce, Virginia Woolf, Marcel Proust, Katherine Mansfield and T.S Eliot. By conducting word frequency analysis and sentiment analysis on these authors' nine novels, this paper aims to uncover shared linguistic patterns and gain insights into the authors' mental states. This paper attempts to offer insights into themes of self-identity, anxiety, disassociation and existential contemplation within Western society and its literary circle from late 19th to mid-20th century. (add one sentence on main results)"
 format: pdf
 number-sections: true
 bibliography: references.bib
@@ -46,7 +46,7 @@ combined_text <- read_csv(here::here("data/analysis_data/combined_text.csv"))
 
 # Introduction
 
-Stream of consciousness (SOC) is a narrative technique that aims to capture the continuous flow of thoughts, feelings, and sensations experienced by a character without conventional organization or punctuation  [@resampling]. It mirrors the unpredictable and interconnected nature of human thought processes, often revealing the inner workings of the character's mind in an intimate and unfiltered manner [@flow]. In literature, most scholars agree that stream of consciousness reveals the complexities of mind-scapes, shedding light on the nuances of characters' emotional well-being and psychological struggles [@pathology]. As such, this paper has mined the texts of a total of nine novels from the volunteer archive, Project Gutenberg, to examine the mental health themes of famous stream of consciousness authors, namely by Joyce, Woolf, Proust, Mansfield and Eliot, from the modernist era of literature, spanning from late 19th century to mid-20th century [@gutenberg]. (more stats and data mentioned here)
+Stream of consciousness (SOC) is a narrative technique that aims to capture the continuous flow of thoughts, feelings, and sensations experienced by a character without conventional organization or punctuation [@resampling]. It mirrors the unpredictable and interconnected nature of human thought processes, often revealing the inner workings of the character's mind in an intimate and unfiltered manner [@flow]. In literature, most scholars agree that stream of consciousness reveals the complexities of mind-scapes, shedding light on the nuances of characters' emotional well-being and psychological struggles [@pathology]. As such, this paper has mined the texts of a total of nine novels from the volunteer archive, Project Gutenberg, to examine the mental health themes of famous stream of consciousness authors, namely by Joyce, Woolf, Proust, Mansfield and Eliot, from the modernist era of literature, spanning from late 19th century to mid-20th century [@gutenberg]. (more stats and data mentioned here)
 
 By analyzing these textual datasets through word frequency and sentiment analysis, I seek to pose and answer crucial questions: \textit{What are some important factors contributing to this relationship between mental health, disassociation and stream of consciousness? Moreover, how does this relationship vary differently across differnet demographics of authors, for instance, authors with different geographical locations and genders?} Understanding these dynamics is crucial in having an informed understanding of the West's late 19th to mid-20th century literature and even socio-political landscape, especially in regards to how authors and creative writers navigate and deal with then-taboo topics such as existential angst, mental health issues and disabilities.
 
@@ -63,21 +63,17 @@ The novel texts used for analysis were sourced from Project Gutenberg under the 
 Two central variables in this paper are:
 
 * **Word Frequency:** This variable captures the repetition of a single word (unigram), two-words combination (bigram) or three-words combination (trigram) throughout a SOC novel text, providing us with a thematic understanding of SOC literature.
-* **Sentiment Value:** This variable enables us to analyze how every word is usually perceived emotionally, whether it be positively or negatively. In additon,    in childlessness over time, encompassing the chosen time frame for the survey.
+* **Sentiment Value:** This variable enables us to analyze how every word is usually perceived emotionally, whether it be a qualitative feeling or if it is conveyed through a numerical value.
 
-Out of two variables used, the first one, 'Word Frequency' usually captured as `n` or `frequency` in datasets, is directly quantified through tokenizing the novel texts using the packages @rTidytext [@youtube1] [@youtube2]. To do this, I first downloaded all nine novel texts from @gutenberg, and leveraged functions such as `unnest_tokens()` from @rTidytext to mine the texts, or separating it into individual words. Finally, I used `count()` to quantify the word frequency. 
+Out of two variables used, the first one, 'Word Frequency' usually captured as `n` or `frequency` in datasets, is directly quantified through tokenizing the novel texts using the package `tidytext` and its function `unnest_tokens()` [@rTidytext]. To do this, I first downloaded all nine novel texts from @gutenberg, and leveraged functions such as `unnest_tokens()` from @rTidytext to mine the texts, or separating it into individual words. Finally, I used `count()` to quantify the word frequency. 
 
-The second variable used, 'Sentiment Value', is based on three English-based, general-purpose  "word-emotion and word-polarity association lexicons", sourced from @sentiment's expansive research along with efforts from Finn Årup Nielsen and Bing Liu and collaborators [@rTidytext]. 
-
-The three general-purpose lexicon that contributes to my sentiment analysis are [@rTidytext]:
+The second variable used, 'Sentiment Value', is based on three English-based, general-purpose  "word-emotion and word-polarity association lexicons", sourced from Mohammad and Turney's expansive research along with efforts from Finn Årup Nielsen and Bing Liu and collaborators [@rTidytext] [@sentiment]. The three general-purpose lexicon that contributes to my sentiment analysis are [@rTidytext]:
 
 - 'AFINN' from Finn Årup Nielsen, which assigns a numerical value from '-5 to 5' 
 - 'bing' from Bing Liu and collaborators, which assigns if a word is 'positive' or negative'
 - 'nrc' from Saif Mohammad and Peter Turney, which assigns a core emotional value to a word, such as 'fear', 'anger', 'sadness' or 'trust'.
 
-In terms of measuring 'Sentiment Value', all three general-purpose lexicons are compiled through crowd-sourcing and directly surveying the public on how each word is emotionally perceived 
-
-A survey sample of how the word 'startle' is compiled within the 'nrc' lexicon is presented below [@sentiment]:
+In terms of measuring 'Sentiment Value', all three general-purpose lexicons are compiled through crowd-sourcing and directly surveying the public on how each word is emotionally perceived. A survey sample of how the word 'startle' is compiled within the 'nrc' lexicon is presented below [@sentiment]:
 
 (@) Which word is closest in meaning (most related) to startle?
 - automobile
