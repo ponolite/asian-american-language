@@ -195,6 +195,8 @@ frequency |>
 
 ### Generating Word Networks
 
+## Data Limitations
+
 # Model
 
 The goal of our modelling strategy is twofold. Firstly,...
