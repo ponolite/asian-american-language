@@ -36,7 +36,6 @@ proust_books <- all_books |>
 ts_books <- all_books |>
   filter(str_detect(author, 'Eliot, T. S.'))
 
-
 combined_books <- rbind(joyce_books, woolf_books, dostoevsky_books, proust_books, ts_books, mansfield_books)
 
 # Download the more famous stream-of-consciousness work of each author:
