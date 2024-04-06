@@ -22,4 +22,4 @@ I generated my own datasets using the `gutenbergr` and `tidytext` packages, leve
 
 ## Statement on LLM usage
 
-Aspects of the paper were written with the help of the generative artificial intelligence tool, ChatGPT. ChatGPT was mainly used to refine the paper's codes. The entire chat history is available in inputs/LLM/usage.txt
+Aspects of the paper were written with the help of the generative artificial intelligence tool, ChatGPT. ChatGPT was mainly used to refine the paper's codes. The entire chat history is available in other/llm/usage.txt
