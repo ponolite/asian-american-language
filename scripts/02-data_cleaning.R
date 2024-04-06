@@ -4,7 +4,7 @@
 # Date: 30 March 2024 
 # Contact: quangpono@gmail.com
 # License: MIT
-# Pre-requisites: Read four raw datasets containing the novel texts from five authors, namely `portrait.csv`, `swann.csv`. `dalloway.csv`, `bliss.csv` and `prufrock.csv`
+# Pre-requisites: Read four raw datasets containing the literary texts from five authors, namely `portrait.csv`, `swann.csv`. `dalloway.csv`, `bliss.csv` and `prufrock.csv`
 
 #### Workspace setup ####
 library(tidyverse)
