@@ -20,21 +20,20 @@ library(dplyr)
 
 all_books <- gutenberg_metadata
 
-joyce_books <- all_books %>%
+joyce_books <- all_books |>
   filter(str_detect(author, 'Joyce, James'))
 
-woolf_books <- all_books %>%
+woolf_books <- all_books |>
   filter(str_detect(author, 'Woolf, Virginia'))
 
-mansfield_books <- all_books %>%
+mansfield_books <- all_books |>
   filter(str_detect(author, 'Mansfield, Katherine'))
 
-proust_books <- all_books %>%
+proust_books <- all_books |>
   filter(str_detect(author, 'Proust, Marcel'))
 
-ts_books <- all_books %>%
+ts_books <- all_books |>
   filter(str_detect(author, 'Eliot, T. S.'))
-
 
 combined_books <- rbind(joyce_books, woolf_books, dostoevsky_books, proust_books, ts_books, mansfield_books)
 
