@@ -13,7 +13,6 @@ library(rmarkdown)
 library(gutenbergr)
 library(tm)
 library(dplyr)
-library(ggplot2)
 
 
 # Collect stream-of-conscious authors main texts
