@@ -30,17 +30,19 @@ library(igraph)
 library(widyr)
 library(ggraph)
 library(textdata)
+library(arrow)
 
+
+portrait_clean <- read_parquet(here::here("data/analysis_data/portrait_clean.parquet"))
+portrait_words <- read_parquet(here::here("data/analysis_data/portrait_words.parquet"))
+swann_words <- read_parquet(here::here("data/analysis_data/swann_words.parquet"))
+dalloway_words <- read_parquet(here::here("data/analysis_data/dalloway_words.parquet"))
+bliss_words <- read_parquet(here::here("data/analysis_data/bliss_words.parquet"))
+prufrock_words <- read_parquet(here::here("data/analysis_data/prufrock_words.parquet"))
+combined_text <- read_parquet(here::here("data/analysis_data/combined_text.parquet"))
 portrait <- read_csv(here::here("data/raw_data/portrait.csv"))
-portrait_clean <- read_csv(here::here("data/analysis_data/portrait_clean.csv"))
 all_books <- read_csv(here::here("data/raw_data/all_books.csv"))
 combined_books <- read_csv(here::here("data/raw_data/combined_books.csv"))
-portrait_words <- read_csv(here::here("data/analysis_data/portrait_words.csv"))
-swann_words <- read_csv(here::here("data/analysis_data/swann_words.csv"))
-dalloway_words <- read_csv(here::here("data/analysis_data/dalloway_words.csv"))
-bliss_words <- read_csv(here::here("data/analysis_data/bliss_words.csv"))
-prufrock_words <- read_csv(here::here("data/analysis_data/prufrock_words.csv"))
-combined_text <- read_csv(here::here("data/analysis_data/combined_text.csv"))
 
 ```
 
@@ -54,7 +56,7 @@ Thus, my estimand is the correlation between mental health-related words in SOC 
 
 To further understand the correlation between stream of consciousness novels and mental health themes, in [Introduction], the paper briefly discusses the nature of stream of consciousness literature, relevant authors and the works that I've chosen to analyze. Subsequently, in [Data] and [Results], I talk about the nature of the data obtained and analyze the results garnered from the data with suitable tables and charts. Next, [Discussion] provides further insights and future areas of study. Finally, [Conclusion] summarizes our main findings. To complete the paper, [Appendix] clarifies how each variable within each dataset is generated with relevant tables to accordingly demonstrate this.
 
-The novel texts used for analysis were sourced from Project Gutenberg under the library `gutenbergr` [@rGuten] [@gutenberg]. Data was generated, extracted and cleaned using the open-source statistical programming language R [@r], leveraging functions from `tidyverse` [@rTidyverse], `tidytext` [@rTidytext], `rmarkdown` [@rMark], `dplyr` [@rDplyr], `ggplot2` [@rGgplot2], `scales` [@rScales], `here` [@rHere], `igraph` [@rIgraph], `widyr` [@rWidy], `ggraph` [@rGg], `textdata` [@rTextdata], `tm` [@rTm] and `knitr` [@rKnitr].
+The novel texts used for analysis were sourced from Project Gutenberg under the library `gutenbergr` [@rGuten] [@gutenberg]. Data was generated, extracted and cleaned using the open-source statistical programming language R [@r], leveraging functions from `tidyverse` [@rTidyverse], `tidytext` [@rTidytext], `rmarkdown` [@rMark], `dplyr` [@rDplyr], `ggplot2` [@rGgplot2], `scales` [@rScales], `here` [@rHere], `igraph` [@rIgraph], `widyr` [@rWidy], `ggraph` [@rGg], `textdata` [@rTextdata], `tm` [@rTm], `here` [@here], `arrow` [@arrow], and `knitr` [@rKnitr].
 
 # Data {#sec-data}
 
@@ -98,6 +100,54 @@ After the survey results are garnered, researchers average the answers to sort e
 However, I do recognize how decontextualized and reductive this quantification of language can be. When it comes to understand such social and human artifacts as language or literary texts, much is dependent on their contextuality. As such, I will further discuss these weaknesses of the datasets under [Discussion].
 
 ## Source Data: Data Cleaning and Word Tokenization
+
+Founded in December 1, 1971 by Michael S. Hart, Project Gutenberg exclusively publishes literature in the public domain within the United States. Typically, submissions to Project Gutenberg are digitized editions of printed books, the majority of which were published over 95 years ago. To confirm public domain status, authors can utilize the copy.pglaf.org website [@gutenberg].
+
+Since the archive is largely supported by voluntary works, its literature is also selected by volunteers. However, the archive doesn't accept copyrighted or other contemporary items, even if copyright or licensing permission would be granted.
+
+To submit work to the archive involves obtaining copyright, then scanning or harvesting to obtain images of a book's pages, then engaging in various hours of proofreading and formatting, and finally, ensuring the eBook is fully valid HTML, correctly spelled, and otherwise compliant with Project Gutenberg’s requirements,
+Collection development focuses on literature and other written works that have enduring value for readers. Selections are made by volunteers with diverse interests, and essentially all eligible submissions are welcome.
+
+
+COMMON POINTS OF FAILURE
+
+Crop marks or other printer's marks should not be used on any files.
+The book description should be in compliance with the rules listed here.
+Missing Pages
+Title missing on the front cover
+Incorrect pagination
+Books with typographical errors, such as misspellings or poor grammar.
+
+
+Project Gutenberg does not avoid difficult or unpopular topics, or topics for which societal views, or state-of-the-art knowledge, is vastly different from contemporary literature.
+
+Project Gutenberg does not accept copyrighted or other contemporary items, even if copyright or licensing permission would be granted (this includes the various “open” licenses). Instead, see the self-publishing portal described in the Submitting Your own Work How-To. In the past, a greater variety of non-public domain and non-literary works was added to Project Gutenberg, including copyrighted & other donated works, non-print formats, and different encodings and file types. Today, there are many outlets for such other items, and Project Gutenberg is entirely focused on works in the public domain. This includes literature, reference works, and variations such as children’s books and travelogues.
+
+Who should submit an eBook?
+
+Creating an eBook is a lot of work, and Project Gutenberg’s requirements are rather strict. If these steps seem daunting, you might be better off working with Distributed Proofreaders, where every volunteer contributes to a portion of the effort. Distributed Proofreaders has its own guidelines on submissions, as well as other policy, guidance, and community.
+
+Being a “solo” producer involves obtaining copyright, then scanning or harvesting to obtain images of a book’s pages, then engaging in many hours of proofreading and formatting, and, finally, ensuring the eBook is fully valid HTML, correctly spelled, and otherwise compliant with Project Gutenberg’s requirements. The detailed requirements are on the submission page, which also includes tools for automatically checking compliance. Any new submitter is invited to get in touch before to getting started. Contact the “copyright” or “whitewashers” team &emdash; email addresses are at the bottom of the copyright and upload sites.
+
+Copyright
+
+The first step in any eBook submission is to confirm that Project Gutenberg may legally distribute the eBook. Visit our Copyright How-To for details. Project Gutenberg will not accept any eBook without confirming copyright status. Generally, this means that a printed book has entered the public domain in the United States, typically because copyright has expired.
+
+File Formats
+
+The master format for nearly all new Project Gutenberg eBooks is HTML. Project Gutenberg insists the HTML is fully valid, and any cascading style sheets (CSS) in the HTML are part of the published standards by the World Wide Web consortium (W3C).
+
+Whenever possible, Project Gutenberg also requires a plain text version of an eBook. We stress the inclusion of plain text because of its longevity: Project Gutenberg includes numerous text files that are over 30 years old. In that time, dozens of widely used file formats have come and gone. Text is accessible on all computers, and is also insurance against future obsolescence.
+
+The only times when Project Gutenberg distributes an eBook without a plain text version are when plain text is impossible or impractical — for example, for our movies and MP3 audio files, and for some of our mathematical works.
+
+This isn’t as hard as it sounds, if you start with HTML, and continuously confirm validity using the W3C’s online validator (see the upload page for details). Modern eBook producers almost always start with (valid) HTML, and then derive plain text from the HTML. These two “master” formats, text and HTML, are then submitted to Project Gutenberg. Automated tools then create derivative formats, including epub and mobi (the common e-reader formats).
+
+Hand-crafted epub and mobi files are not accepted, currently. This limitation is mainly to allow easy editing when fixes are applied, because application of fixes occurs many times over the lifetime of every eBook. Project Gutenberg tries to limit the number of master formats, and then automate derived formats, to facilitate continuous improvement of items in the collection.
+
+A small number of new eBooks utilize LaTeX or TEI as the master format - mostly those including lots of mathematical notation. Other less frequently utilized formats include ReSstructured Text (RST), Rich Data Format (RDF), and a few others. Note that PDF, Word, and other word processor formats are not utilized as master formats, because they do not convert easily to valid HTML. In addition, they are much more challenging to fix/update than HTML and plain text.
+
+
 
 Discuss the authenticity/validity of Project Gutenberg
 

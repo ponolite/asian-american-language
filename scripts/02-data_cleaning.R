@@ -4,7 +4,7 @@
 # Date: 30 March 2024 
 # Contact: quangpono@gmail.com
 # License: MIT
-# Pre-requisites: Read four raw datasets containing the literary texts from five authors, namely `portrait.csv`, `swann.csv`. `dalloway.csv`, `bliss.csv` and `prufrock.csv`
+# Pre-requisites: Read four raw datasets containing the novel texts from five authors, namely `portrait.csv`, `swann.csv`. `dalloway.csv`, `bliss.csv` and `prufrock.csv`
 
 #### Workspace setup ####
 library(tidyverse)
@@ -16,6 +16,7 @@ library(dplyr)
 library(scales)
 library(igraph)
 library(widyr)
+library(arrow)
 
 #### Clean data ####
 portrait <- read_csv("data/raw_data/portrait.csv")
@@ -109,14 +110,13 @@ combined_text <-
   filter(str_detect(word, "[:alpha:]")) 
 
 #### Save data ####
-write_csv(portrait_clean, "data/analysis_data/portrait_clean.csv")
-write_csv(portrait_words, "data/analysis_data/portrait_words.csv")
-write_csv(swann_words, "data/analysis_data/swann_words.csv")
-write_csv(dalloway_words, "data/analysis_data/dalloway_words.csv")
-write_csv(bliss_words, "data/analysis_data/bliss_words.csv")
-write_csv(prufrock_words, "data/analysis_data/prufrock_words.csv")
-write_csv(combined_text, "data/analysis_data/combined_text.csv")
-
+write_parquet(portrait_clean, "data/analysis_data/portrait_clean.parquet")
+write_parquet(portrait_words, "data/analysis_data/portrait_words.parquet")
+write_parquet(swann_words, "data/analysis_data/swann_words.parquet")
+write_parquet(dalloway_words, "data/analysis_data/dalloway_words.parquet")
+write_parquet(bliss_words, "data/analysis_data/bliss_words.parquet")
+write_parquet(prufrock_words, "data/analysis_data/prufrock_words.parquet")
+write_parquet(combined_text, "data/analysis_data/combined_text.parquet")
 
 
 
