@@ -188,9 +188,8 @@ portrait_words |>
 
 Next, observable in @tbl-joyce-token, to measure the word frequency of each literary text, I first tokenized or separated the texts into individual chunks of words using `unnest_tokens()` [@rTidytext].In addition, to account for stop words like, a, of, and, etc., I leveraged the dataset `stop_words`and the function `anti_join` from @rTidytext to exclude all stop words from my self-generated datasets of literary texts, ensuring data validity and meaningful analysis.
 
-Then, to quantify the number of times each word appears in each text, I used `count()` (@tbl-joyce-token). The result manifests into @fig-count. The figure demonstrates that beside the top frequencies of personal names, most of the words are abstract nouns that revolve around the nature of time, and life, e.g. god (appearing 194 times in Joyce's), time (appearing in 4 authors' texts, 121 times for Joyce's, 77 times for Woolf's, 421 times for Proust's, 23 times for Eliot), mind (108 times in Joyce's and 196 times in Proust's), life (appearing 266 times in Proust's and 131 times in Joyce's), etc. This further exemplifies the sense of disassociation, temporality and non-linearity commonly associated to stream-of-consciousness literature and more broadly with mental health themes [@flow] [@pathology] [@resampling].
+Then, to quantify the number of times each word appears in each text, I used `count()` (@tbl-joyce-token). The result manifests into @fig-count. 
 
-\newpage
 
 ```{r}
 #| eval: true
@@ -258,28 +257,6 @@ frequency <- bind_rows(mutate(portrait_words, author = "James Joyce"),
   pivot_wider(names_from = author, values_from = proportion) |>
   filter(if_all(everything(), ~is.na(.) | !is.na(.)))
 
-frequency |>
-  rename("Word" = word) |>
-  head(5) |>
-  kable(
-    col.names = c("Word", "James Joyce", "Katherine Mansfield", "Marcel Proust", "T.S. Eliot", "Virignia Woolf"),
-    booktabs = TRUE
-  ) |>
-    kable_styling(latex_options = c("striped", "hold_position"), bootstrap_options = "striped", full_width = FALSE)
-
-
-```
-
-
-To accurately compare word frequency among SOC authors, from @tbl-frequency, I convert each word frequency into a percentage. This is done by using `mutate` to calculate the word frequency of each word relative to the total word frequency of each author. Due to the different number of words present in each author's literary works, this method accounts for the inconsistencies of between each author's word count.
-
-```{r}
-#| echo: false
-#| eval: true
-#| label: tbl-boxplot 
-#| tbl-cap: "Overall Boxplot Summary Statistics of all Word Frequency Percentages (AFINN Sentiment)"
-#| warning: false
-
 #reshape the frequency datasets and add sentiment values
 bing_lexicon <- get_sentiments("bing") %>%
   rename(sentiment_binary = sentiment)
@@ -291,7 +268,25 @@ frequency_long <- pivot_longer(frequency,
   inner_join(get_sentiments("afinn")) |>
   inner_join(get_sentiments("nrc")) 
 
-frequency_long <- na.omit(frequency_long) 
+frequency_long |> 
+  rename("Word" = word) |>
+  head(5) |>
+  kable(
+    col.names = c("Word", "Author", "Frequency", "Sentiment Binary", "Value", "Sentiment"),
+    booktabs = TRUE
+  ) |>  kable_styling(latex_options = c("striped", "hold_position"), bootstrap_options = "striped", full_width = FALSE)
+```
+
+
+To accurately compare word frequency among SOC authors, from @tbl-frequency, I convert each word frequency from each author into a percentage. This is done by using `mutate` to calculate the word frequency of each word relative to the total word frequency of each author. Due to the different number of words present in each author's literary works, this method accounts for the inconsistencies of between each author's word count.
+
+\newpage
+```{r}
+#| echo: false
+#| eval: true
+#| label: tbl-boxplot 
+#| tbl-cap: "Overall Boxplot Summary Statistics of all Word Frequency Percentages (AFINN Sentiment)"
+#| warning: false
 
 # Calculate summary statistics
 frequency_long |>
@@ -305,7 +300,7 @@ frequency_long |>
     max = max(value),
     sd = sd(value)
   ) |>
-    head(10) |>
+    head(8) |>
   kable(
     col.names = c("Frequency", "Min", "Q1", "Median", "Mean", "Q3", "Max", "SD"),
     booktabs = TRUE
@@ -316,9 +311,8 @@ frequency_long |>
 
 ```
 
-@fig-sentiment-frequency and @tbl-boxplot captures the data garnered. For the NRC index, for all authors, the lower word frequency percentage ranges from 0.0000819 to 0004255 and are largely words that carry a mixture of emotional connotations such as, joy, surprise, positive, disgust and anticipation. However, the higher word frequency percentage, ranging from 0,0004255 to 0.0008511, mostly contains words with negative connotations like fear and anger, that weighs a -1.875 median on a scale between -5 to 5 in the AFINN index. Similarly, for the Bing index, the higher word frequency ranging from 0,0004255 to 0.0008511 percentages largely contains words that carry negative connotations, that weighs approximately a -1.875 median on a scale between -5 to 5 in the AFINN index. 
+@fig-sentiment-frequency and @tbl-boxplot captures the text data garnered and their emotional connotations. Overseeing the entire dataset, @tbl-boxplot in particular demonstrates that, for all distinct word frequency percentages, the median sentiment value is -2 on the scale between -5 and 5. More specifically, words that appear most frequently, or words with the frequency percentage of 0.0008511, have the lowest mean sentiment value-or the most negative connotation of-2.33 on the scale between -5 and 5 in the AFINN sentiment index. This summary statistics of the gathered data only further shows how the SOC literary landscape mostly associates with words that carry more negative or even extreme connotations often associated with mental health themes, and topics such as depression, disassociation or schizophrenia [@pathology], which will be further discussed in [Results].
 
-Overseeing the entire dataset, @tbl-boxplot demonstrates that, for all distinct word frequency percentages, the median sentiment value is -2 on the scale between -5 and 5. More specifically, words that appear most frequently, or words with the frequency percentage of 0.0008511, have the lowest mean sentiment value-or the most negative connotation of-2.33 on the scale between -5 and 5 in the AFINN sentiment index. This summary statistics of the gathered data only further shows how the SOC literary landscape mostly associates with words that carry more negative or even extreme connotations often associated with mental health themes, and topics such as depression, disassociation or schizophrenia [@pathology].
 
 ```{r}
 #| eval: true
@@ -349,8 +343,9 @@ ggplot(frequency_long, aes(x = frequency, y = value, fill = sentiment_binary)) +
   labs(title = "Boxplot of Sentiment Scores by Author (Bing)",
        x = "Word Frequency Percentage",
        y = "Sentiment Value (AFINN)",
-       fill = "Sentiment Associated") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
+       fill = "Sentiment") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_fill_manual(values = c("lightblue", "darkblue"))
 
 
 ggplot(frequency_long, aes(x = frequency, y = value, fill = sentiment)) +
@@ -358,8 +353,14 @@ ggplot(frequency_long, aes(x = frequency, y = value, fill = sentiment)) +
   labs(title = "Boxplot of Sentiment Scores by Author (NRC)",
        x = "Word Frequency Percentage",
        y = "Sentiment Value (AFINN)",
-       fill = "Sentiment Associated") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
+       fill = "Sentiment") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_fill_manual(values = c(
+    "negative" = "darkblue", "sadness" = "steelblue4", "anger" = "royalblue4",
+    "disgust" = "cadetblue", "fear" = "blue4", "joy" = "skyblue",
+    "trust" = "lightblue", "anticipation" = "deepskyblue", "positive" = "dodgerblue",
+    "surprise" = "lightsteelblue"
+  ))
 
 
 ```
@@ -368,7 +369,7 @@ ggplot(frequency_long, aes(x = frequency, y = value, fill = sentiment)) +
 
 ### Lack of Thorough Word Cleaning
 
-With the large amount of different literary texts need processing by myself, it's hard to truly conduct thorough word processing. Certain textual elements, while can have their frequencies accounted for, can't have sentiment analysis due to their factual nature. These textual elements might include things like chapter titles, Roman numbers and personal names, which can strongly skew and affect the data integrity. As observed in @fig-count, "Swann", "Stephen" or "Jacob" are the most repeated words in Proust's, Joyce's and Woolf's, proving this data limitation.
+With the large amount of different literary texts need processing by myself, it's hard to truly conduct thorough word processing. Certain texts, while can have their frequencies accounted for, can't have sentiment analysis due to their factual nature. These textual elements might include things like chapter titles, Roman numbers and personal names, which can strongly skew and affect the data integrity. As observed in @fig-count, "Swann", "Stephen" or "Jacob" are the most repeated words in Proust's, Joyce's and Woolf's, proving this data limitation.
 
 ### Potential Measurement Errors
 
@@ -384,7 +385,12 @@ Furthermore, SOC literature is expansive, spanning a wide range of themes, style
 
 # Results
 
-## The Dominant Vocabulary of SOC Literature
+## The Dominant Vocabulary of SOC Literature, A Word Frequency Analysis
+
+@fig-count demonstrates that beside the top frequencies of personal names, most of the words are abstract nouns that revolve around the nature of time, and life. For instance, these words are, god (appearing 194 times in Joyce's), time (appearing in 4 authors' texts, 121 times for Joyce's, 77 times for Woolf's, 421 times for Proust's, 23 times for Eliot), mind (108 times in Joyce's and 196 times in Proust's), life (appearing 266 times in Proust's and 131 times in Joyce's), etc.  This further exemplifies the sense of disassociation, temporality and non-linearity commonly associated to stream-of-consciousness literature and more broadly with mental health themes [@flow] [@pathology] [@resampling].
+
+
+Within @fig-sentiment-frequency, for the NRC index, for all authors, the lower word frequency percentage ranges from 0.0000819 to 0004255 and are largely words that carry a mixture of emotional connotations such as, joy, surprise, positive, disgust and anticipation. However, the higher word frequency percentage, ranging from 0,0004255 to 0.0008511, mostly contains words with negative connotations like fear and anger, that weighs a -1.875 median on a scale between -5 to 5 in the AFINN index. Similarly, for the Bing index, the higher word frequency ranging from 0,0004255 to 0.0008511 percentages largely contains words that carry negative connotations, that weighs approximately a -1.875 median on a scale between -5 to 5 in the AFINN index. 
 
 \newpage
 ```{r}
@@ -438,22 +444,21 @@ graph_from_data_frame(d = combined_correlations, #create graphs of networks of w
 #| fig-subcap: ["100 Frequency, 0.2 Correlation", "200 Frequency, 0.4 Correlation", "200 Frequency, 0.8 Correlation", "400 Frequency, 1 Correlation"] 
 
 combined_text|>
-  generate_word_graph(minimum_n = 100, minimum_correlation = 0.2)
-
+  generate_word_graph(minimum_n = 50, minimum_correlation = 0.2)
 
 combined_text|>
   generate_word_graph(minimum_n = 200, minimum_correlation = 0.4)
 
 combined_text|>
-  generate_word_graph(minimum_n = 200, minimum_correlation = 0.8)
+  generate_word_graph(minimum_n = 600, minimum_correlation = 0.8)
 
 combined_text|>
-  generate_word_graph(minimum_n = 400, minimum_correlation = 1)
+  generate_word_graph(minimum_n = 1000, minimum_correlation = 1)
 ```
 
 ## Sentiment Analysis
 
-To further understand the emotional landscape and mental health themes related to SOC literature, I've combined all nine SOC texts to conduct an oveall sentiment analysis [@sentiment].
+To further understand the emotional landscape and mental health themes related to SOC literature, I've combined all nine SOC texts to conduct an overall sentiment analysis [@sentiment].
 
 For Bing index, @fig-sentiment-category shows that, SOC authors' literary works are predominantly negative. All authors, except for Mansfield, demonstrates this. 68% of Joyce's works are negative compared to his 32% positive, similar to Eliot's, which is also the highest statistic out of all five authors. Woolf comes second with 60% words carrying negative meanings, while 40% are negative. Proust comes fourth with  57% negative and 43% positive. While Mansfield has words with positive connotations, at 51%, this isn't much different from her 49% negative words.
 
@@ -548,6 +553,7 @@ ggplot(sentiment_value, aes(x = value, y = percentage, color = sentiment, group 
 
 ## Gendered Mental Landscape of Stream of Consciousness Novels
 
+\newpage
 ```{r}
 #| eval: true
 #| echo: false
@@ -581,7 +587,7 @@ ggplot(frequency_female, aes(x = proportion, y = `Katherine Mansfield`, color = 
   scale_x_log10(labels = scales::percent_format()) +
   scale_y_log10(labels = scales::percent_format()) +
   scale_color_gradient(limits = c(0, 0.001), 
-                       low = "blue2", high = "gray50") +
+                       low = "lightblue", high = "darkblue") +
   facet_wrap(~author, ncol = 1) +
   theme(legend.position="none") +
   labs(y = "Katherine Mansfield", x = NULL)
@@ -606,7 +612,7 @@ ggplot(frequency_male, aes(x = proportion, y = `T.S. Eliot`, color = abs(`T.S. E
   scale_x_log10(labels = percent_format()) +
   scale_y_log10(labels = percent_format()) +
   scale_color_gradient(limits = c(0, 0.001), 
-                       low = "blue2", high = "gray100") +
+                       low = "lightblue", high = "darkblue") +
   facet_wrap(~author, ncol = 2) +
   theme(legend.position="none") +
   labs(y = "T.S. Eliot", x = NULL)
@@ -648,10 +654,12 @@ ggplot(frequency_international, aes(x = proportion, y = `Marcel Proust`, color =
   scale_x_log10(labels = percent_format()) +
   scale_y_log10(labels = percent_format()) +
   scale_color_gradient(limits = c(0, 0.001), 
-                       low = "blue2", high = "gray100") +
+                       low = "lightblue", high = "darkblue") +
   facet_wrap(~author, ncol = 1) +
   theme(legend.position="none") +
   labs(y = "Marcel Proust", x = NULL)
+
+
 
 ```
 
