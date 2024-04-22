@@ -71,8 +71,8 @@ Out of two variables used, the first one, 'Word Frequency' usually captured as `
 
 The second variable used, 'Sentiment Value', is based on three English-based, general-purpose  "word-emotion and word-polarity association lexicons", sourced from Mohammad and Turney's expansive research along with efforts from Finn Årup Nielsen and Bing Liu and collaborators [@rTidytext] [@sentiment]. The three general-purpose lexicon that contributes to my sentiment analysis are [@rTidytext]:
 
-- 'AFINN' from Finn Årup Nielsen, which assigns a numerical value from '-5 to 5' 
-- 'bing' from Bing Liu and collaborators, which assigns if a word is 'positive' or negative'
+- 'AFINN' from Finn Årup Nielsen, which assigns each word a numerical value from '-5 to 5', judging its emotionality from negative to postive
+- 'bing' from Bing Liu and collaborators, which assigns if a word is either 'positive' or negative'
 - 'nrc' from Saif Mohammad and Peter Turney, which assigns a core emotional value to a word, such as 'fear', 'anger', 'sadness' or 'trust'.
 
 In terms of measuring 'Sentiment Value', all three general-purpose lexicons are compiled through crowd-sourcing and directly surveying the public on how each word is emotionally perceived. A survey sample of how the word 'startle' is compiled within the 'nrc' lexicon is presented below [@sentiment]:
@@ -141,7 +141,9 @@ portrait |>
 
 ```
 
-To garner the word count of SOC literature  using the library `gutenbergr`, I first downloaded the index of each respective SOC author's body of works using each author's name as outlined in Project Gutenberg database, namely Joyce, Mansfield, Eliot, Woolf, and Proust [@rGuten] ([Appendix]). Then, to create my own datasets containing the word frequency within each SOC author's texts, I used the identification number of the desired literary work and the function `gutenberg_download` to upload the HTML texts into individual csv-and later on, parquet-datasets, as observed in @tbl-joyce for James Joyce.
+To collect text data from five SOC authors using the `gutenbergr` package, I began by downloading the index of each author's works from the Project Gutenberg database. These authors include Joyce, Mansfield, Eliot, Woolf, and Proust [@rGuten] ([Appendix]).
+
+Next, I created custom datasets containing each author's raw texts. This involved using the identification number of the desired literary work and the `gutenberg_download` function to retrieve the HTML texts. Subsequently, I saved the data into individual CSV files and later converted them into Parquet datasets, as demonstrated in @tbl-joyce example for James Joyce.
 
 \newpage
 
@@ -186,11 +188,11 @@ portrait_words |>
 
 ```
 
-Next, observable in @tbl-joyce-token, to measure the word frequency of each literary text, I first tokenized or separated the texts into individual chunks of words using `unnest_tokens()` [@rTidytext].In addition, to account for stop words like, a, of, and, etc., I leveraged the dataset `stop_words`and the function `anti_join` from @rTidytext to exclude all stop words from my self-generated datasets of literary texts, ensuring data validity and meaningful analysis.
+Next, observable in @tbl-joyce-token, to measure the word count of each literary text, I first tokenized or separated the texts into individual chunks of words using `unnest_tokens()` [@rTidytext].In addition, to account for stop words like, a, of, and, etc., I leveraged the dataset `stop_words`and the function `anti_join` from @rTidytext to exclude all stop words from my self-generated datasets of literary texts, ensuring data validity and meaningful analysis.
 
 Then, to quantify the number of times each word appears in each text, I used `count()` (@tbl-joyce-token). The result manifests into @fig-count. 
 
-
+\newpage
 ```{r}
 #| eval: true
 #| echo: false
@@ -203,31 +205,31 @@ Then, to quantify the number of times each word appears in each text, I used `co
 
 portrait_words |> head(20) |>
 ggplot(aes(x = n, y = reorder(word, n))) +
-  geom_bar(stat = "identity", fill = "darkgrey") +
+  geom_bar(stat = "identity", fill = "steelblue4") +
   geom_text(aes(label = n), hjust = -0.3, vjust = 0.5, color = "grey40", size = 3) +
   labs(x = "Frequency", y = "Word")
 
 dalloway_words |> head(20) |>
 ggplot(aes(x = n, y = reorder(word, n))) +
-  geom_bar(stat = "identity", fill = "darkgrey") +
+  geom_bar(stat = "identity", fill = "steelblue4") +
   geom_text(aes(label = n), hjust = -0.3, vjust = 0.5, color = "grey40", size = 3) +
   labs(x = "Frequency", y = "Word")
 
 swann_words |> head(20) |>
 ggplot(aes(x = n, y = reorder(word, n))) +
-  geom_bar(stat = "identity", fill = "darkgrey") +
+  geom_bar(stat = "identity", fill = "steelblue4") +
   geom_text(aes(label = n), hjust = -0.3, vjust = 0.5, color = "grey40", size = 3) +
   labs(x = "Frequency", y = "Word")
 
 prufrock_words |> head(20) |>
 ggplot(aes(x = n, y = reorder(word, n))) +
-  geom_bar(stat = "identity", fill = "darkgrey") +
+  geom_bar(stat = "identity", fill = "steelblue4") +
   geom_text(aes(label = n), hjust = -0.3, vjust = 0.5, color = "grey40", size = 3) +
   labs(x = "Frequency", y = "Word")
 
 bliss_words |> head(20) |>
 ggplot(aes(x = n, y = reorder(word, n))) +
-  geom_bar(stat = "identity", fill = "darkgrey") +
+  geom_bar(stat = "identity", fill = "steelblue4") +
   geom_text(aes(label = n), hjust = -0.3, vjust = 0.5, color = "grey40", size = 3) +
   labs(x = "Frequency", y = "Word") 
 
@@ -272,13 +274,19 @@ frequency_long |>
   rename("Word" = word) |>
   head(5) |>
   kable(
-    col.names = c("Word", "Author", "Frequency", "Sentiment Binary", "Value", "Sentiment"),
+    col.names = c("Word", "Author", "Frequency Percent", "Binary Sentiment", "Value", "Sentiment"),
     booktabs = TRUE
   ) |>  kable_styling(latex_options = c("striped", "hold_position"), bootstrap_options = "striped", full_width = FALSE)
 ```
 
+To accurately compare word count among SOC authors, from @tbl-frequency, I convert each word count from each author into a percentage. This is done by using `mutate` to calculate the word frequency of each word relative to the total word count of each author. Due to the different number of words present in each author's literary works, this method accounts for the inconsistencies of between each author's word count. As explained, the variables within @tbl-frequency are:
 
-To accurately compare word frequency among SOC authors, from @tbl-frequency, I convert each word frequency from each author into a percentage. This is done by using `mutate` to calculate the word frequency of each word relative to the total word frequency of each author. Due to the different number of words present in each author's literary works, this method accounts for the inconsistencies of between each author's word count.
+- **Word:** This variable is the word sourced from SOC literary texts.
+- **Author:** This variable accounts for the author whose books contain the word in question.
+- **Frequency:** This variable is the word count percentage of the word in question against each author's total word count.
+- **Binary Sentiment (Bing):** This variable, as explained, comes from the Bing sentiment index, enabling us to analyze how every word is usually perceived emotionally, whether negatively or positively.
+- **Value of Sentiment (AFINN):** This variable, as explained, comes from the AFINN sentiment index, enabling us to analyze how every word is usually perceived emotionally, on a scale between -5 and 5.
+- **Sentiment (NRC):** This variable, as explained, comes from the NRC sentiment index, enabling us to analyze how every word is usually perceived emotionally, whether it's associated with anger, anticipation, disgust, fear, joy, negative, positive, sadness, surprise or trust.
 
 \newpage
 ```{r}
@@ -311,8 +319,31 @@ frequency_long |>
 
 ```
 
-@fig-sentiment-frequency and @tbl-boxplot captures the text data garnered and their emotional connotations. Overseeing the entire dataset, @tbl-boxplot in particular demonstrates that, for all distinct word frequency percentages, the median sentiment value is -2 on the scale between -5 and 5. More specifically, words that appear most frequently, or words with the frequency percentage of 0.0008511, have the lowest mean sentiment value-or the most negative connotation of-2.33 on the scale between -5 and 5 in the AFINN sentiment index. This summary statistics of the gathered data only further shows how the SOC literary landscape mostly associates with words that carry more negative or even extreme connotations often associated with mental health themes, and topics such as depression, disassociation or schizophrenia [@pathology], which will be further discussed in [Results].
+@tbl-boxplot captures the text data garnered and their emotional connotations. Overseeing the entire dataset, @tbl-boxplot in particular demonstrates that, for all distinct word frequency, the median sentiment value is -2 on the scale between -5 and 5. More specifically, words that appear most frequently, or words with the frequency  of 0.0008511%, have the lowest mean sentiment value-or the most negative connotation of -2.33 on the scale between -5 and 5 in the AFINN sentiment index. This summary statistics further shows how SOC literature mostly associates with words that carry more negative or even extreme connotations often associated with mental health themes, and topics such as depression, disassociation or schizophrenia [@pathology], a central argument that I'll further discuss in [Results].
 
+## Data Limitations
+
+### Lack of Thorough Word Cleaning
+
+With the large amount of different literary texts need processing by myself, it's hard to truly conduct thorough word processing. Certain texts, while can have their frequencies accounted for, can't have sentiment analysis due to their factual nature. These textual elements might include things like chapter titles, Roman numbers and personal names, which can strongly skew and affect the data integrity. As observed in @fig-count, "Swann", "Stephen" or "Jacob" are the most repeated words in Proust's, Joyce's and Woolf's, proving this data limitation.
+
+### Potential Measurement Errors
+
+The actual raw text data sourced from Project Gutenberg may be susceptible to measurement errors due to various factors, such as selection bias towards older, Western and canonical texts, social desirability bias that edits out certain political elements, memory lapses, or misinterpretations of literary texts by voluntary proofreaders. While the archive has strict guidelines to minimize these errors, they cannot be entirely eliminated.
+
+### Uneven Text Length 
+
+I chose literary texts based on their global reception and canonical status within the stream-of-consciousness genre. This decision involved forgoing certain practical considerations, such as ensuring similar text lengths across all works by each author. While this approach enables a thorough exploration of word frequency analysis, sentiment value, and word networks within the SOC genre, it also has the potential to emphasize the frequencies of certain words from specific authors more than others due to the longer text length of those authors. This could critically affect the integrity of the data analysis.
+
+### Biased Author Selection
+
+Furthermore, SOC literature is expansive, spanning a wide range of themes, styles, and narrative techniques. By exclusively representing the genre through a select group of canonical Western authors, I risk constraining the genre's diversity. By oversimplifying the complexity of the the dynamic literary genre, I also affect the integrity of the datasets and its correlation to mental health themes.
+
+# Results
+
+## The Dominant Vocabulary of SOC Literature, A Word Frequency Analysis
+
+@fig-count demonstrates that beside personal names, words with the highest counts are mostly abstract nouns that revolve around the nature of time, and life. For instance, these words are, \textit{god} (appearing 194 times in Joyce's), \textit{time} (appearing in 4 authors' texts, 121 times for Joyce's, 77 times for Woolf's, 421 times for Proust's, 23 times for Eliot), \textit{mind} (108 times in Joyce's and 196 times in Proust's), \textit{life} (appearing 266 times in Proust's and 131 times in Joyce's), etc.  This further exemplifies the sense of disassociation, temporality and non-linearity commonly associated to stream-of-consciousness literature and more broadly with mental health themes [@flow] [@pathology] [@resampling].
 
 ```{r}
 #| eval: true
@@ -365,32 +396,12 @@ ggplot(frequency_long, aes(x = frequency, y = value, fill = sentiment)) +
 
 ```
 
-## Data Limitations
+Within @fig-sentiment-frequency, for the NRC index, between all authors, the words with lower frequency-those ranging from 0.0000819% to 0004255%-are largely words that carry a mixture of emotional connotations such as, joy, surprise, positive, disgust and anticipation. However, words with high frequency-ranging from 0,0004255% to 0.0008511%-mostly contain negative connotations like fear and negative They also have a -1.875 median on a scale between -5 to 5 in the AFINN index. Similarly, for the Bing index, words with higher frequency-those ranging from 0,0004255% to 0.0008511%-largely carry negative connotations. They also have, approximately, a -1.875 median on a scale between -5 to 5 in the AFINN index. This further emphasizes how SOC literature mostly contains negativity-inclined vocabulary and linguistic patterns
 
-### Lack of Thorough Word Cleaning
+To further explore the contextual relationship between each word, @fig-word-networks creates word networks of all nine of these SOC texts. These networks will capture how often each word frequents in these SOC texts and how closely each correlates with others, whether as single words (unigrams), pairs of words (bigrams), or triplets of words (trigrams). In particular, the darker the connecting lines, the more correlative these combinations of words are, and the bluer the words, the more frequent they appear. 
 
-With the large amount of different literary texts need processing by myself, it's hard to truly conduct thorough word processing. Certain texts, while can have their frequencies accounted for, can't have sentiment analysis due to their factual nature. These textual elements might include things like chapter titles, Roman numbers and personal names, which can strongly skew and affect the data integrity. As observed in @fig-count, "Swann", "Stephen" or "Jacob" are the most repeated words in Proust's, Joyce's and Woolf's, proving this data limitation.
+ providing us with a thematic understanding of SOC literature.
 
-### Potential Measurement Errors
-
-The actual raw text data sourced from Project Gutenberg may be susceptible to measurement errors due to various factors, such as selection bias towards older, Western and canonical texts, social desirability bias that edits out certain political elements, memory lapses, or misinterpretations of literary texts by voluntary proofreaders. While the archive has strict guidelines to minimize these errors, they cannot be entirely eliminated.
-
-### Uneven Text Length 
-
-I chose literary texts based on their global reception and canonical status within the stream-of-consciousness genre. This decision involved forgoing certain practical considerations, such as ensuring similar text lengths across all works by each author. While this approach enables a thorough exploration of word frequency analysis, sentiment value, and word networks within the SOC genre, it also has the potential to emphasize the frequencies of certain words from specific authors more than others due to the longer text length of those authors. This could critically affect the integrity of the data analysis.
-
-## Biased Author Selection
-
-Furthermore, SOC literature is expansive, spanning a wide range of themes, styles, and narrative techniques. By exclusively representing the genre through a select group of canonical Western authors, I risk constraining the genre's diversity. By oversimplifying the complexity of the the dynamic literary genre, I also affect the integrity of the datasets and its correlation to mental health themes.
-
-# Results
-
-## The Dominant Vocabulary of SOC Literature, A Word Frequency Analysis
-
-@fig-count demonstrates that beside the top frequencies of personal names, most of the words are abstract nouns that revolve around the nature of time, and life. For instance, these words are, god (appearing 194 times in Joyce's), time (appearing in 4 authors' texts, 121 times for Joyce's, 77 times for Woolf's, 421 times for Proust's, 23 times for Eliot), mind (108 times in Joyce's and 196 times in Proust's), life (appearing 266 times in Proust's and 131 times in Joyce's), etc.  This further exemplifies the sense of disassociation, temporality and non-linearity commonly associated to stream-of-consciousness literature and more broadly with mental health themes [@flow] [@pathology] [@resampling].
-
-
-Within @fig-sentiment-frequency, for the NRC index, for all authors, the lower word frequency percentage ranges from 0.0000819 to 0004255 and are largely words that carry a mixture of emotional connotations such as, joy, surprise, positive, disgust and anticipation. However, the higher word frequency percentage, ranging from 0,0004255 to 0.0008511, mostly contains words with negative connotations like fear and anger, that weighs a -1.875 median on a scale between -5 to 5 in the AFINN index. Similarly, for the Bing index, the higher word frequency ranging from 0,0004255 to 0.0008511 percentages largely contains words that carry negative connotations, that weighs approximately a -1.875 median on a scale between -5 to 5 in the AFINN index. 
 
 \newpage
 ```{r}
@@ -401,18 +412,19 @@ Within @fig-sentiment-frequency, for the NRC index, for all authors, the lower w
 
 ## Code sourced from https://www.youtube.com/watch?v=ae_XVhjHd_o
 
+##first, n >=250
 generate_word_graph <- function(combined_text,
                                 minimum_n = 100,
                                 minimum_correlation = 0.2) {
 
 combined_text_count <- combined_text |>
   count(word, sort = TRUE) |>
-  filter(n >= 200) 
+  filter(n >= 150) 
 
 combined_correlations <- combined_text |>
   semi_join(combined_text_count, by = "word") |>
   pairwise_cor(item = word, feature = book) |>
-  filter(correlation >= 0.2)
+  filter(correlation >= 1)
 
 graph_from_data_frame(d = combined_correlations, #create graphs of networks of words
                       vertices = combined_text_count |>
@@ -421,8 +433,79 @@ graph_from_data_frame(d = combined_correlations, #create graphs of networks of w
   geom_edge_link(aes(alpha = correlation), alpha = 0.05) +
   geom_node_point() +
   geom_node_text(aes(color = n, label = name), repel = TRUE)
-
 }
+
+##second, n >=300
+generate_word_graph_second <- function(combined_text,
+                                minimum_n = 100,
+                                minimum_correlation = 0.2) {
+
+combined_text_count <- combined_text |>
+  count(word, sort = TRUE) |>
+  filter(n >= 250) 
+
+combined_correlations <- combined_text |>
+  semi_join(combined_text_count, by = "word") |>
+  pairwise_cor(item = word, feature = book) |>
+  filter(correlation >= 1)
+
+graph_from_data_frame(d = combined_correlations, #create graphs of networks of words
+                      vertices = combined_text_count |>
+                      semi_join(combined_correlations, by = c("word" = "item1"))) |>
+  ggraph(layout = "fr") +
+  geom_edge_link(aes(alpha = correlation), alpha = 0.05) +
+  geom_node_point() +
+  geom_node_text(aes(color = n, label = name), repel = TRUE)
+}
+
+
+##third, n >=350
+generate_word_graph_third <- function(combined_text,
+                                minimum_n = 100,
+                                minimum_correlation = 0.2) {
+
+combined_text_count <- combined_text |>
+  count(word, sort = TRUE) |>
+  filter(n >= 350) 
+
+combined_correlations <- combined_text |>
+  semi_join(combined_text_count, by = "word") |>
+  pairwise_cor(item = word, feature = book) |>
+  filter(correlation >= 0.6)
+
+graph_from_data_frame(d = combined_correlations, #create graphs of networks of words
+                      vertices = combined_text_count |>
+                      semi_join(combined_correlations, by = c("word" = "item1"))) |>
+  ggraph(layout = "fr") +
+  geom_edge_link(aes(alpha = correlation), alpha = 0.05) +
+  geom_node_point() +
+  geom_node_text(aes(color = n, label = name), repel = TRUE)
+}
+
+## fourth, n>= 400
+generate_word_graph_final <- function(combined_text,
+                                minimum_n = 100,
+                                minimum_correlation = 0.2) {
+
+combined_text_count <- combined_text |>
+  count(word, sort = TRUE) |>
+  filter(n >= 400) 
+
+combined_correlations <- combined_text |>
+  semi_join(combined_text_count, by = "word") |>
+  pairwise_cor(item = word, feature = book) |>
+  filter(correlation >= 0.8)
+
+graph_from_data_frame(d = combined_correlations, #create graphs of networks of words
+                      vertices = combined_text_count |>
+                      semi_join(combined_correlations, by = c("word" = "item1"))) |>
+  ggraph(layout = "fr") +
+  geom_edge_link(aes(alpha = correlation), alpha = 0.05) +
+  geom_node_point() +
+  geom_node_text(aes(color = n, label = name), repel = TRUE)
+}
+
+
 
 
 # Code sourced from
@@ -444,16 +527,18 @@ graph_from_data_frame(d = combined_correlations, #create graphs of networks of w
 #| fig-subcap: ["100 Frequency, 0.2 Correlation", "200 Frequency, 0.4 Correlation", "200 Frequency, 0.8 Correlation", "400 Frequency, 1 Correlation"] 
 
 combined_text|>
-  generate_word_graph(minimum_n = 50, minimum_correlation = 0.2)
+  generate_word_graph(minimum_n = 250, minimum_correlation = 0.2)
 
 combined_text|>
-  generate_word_graph(minimum_n = 200, minimum_correlation = 0.4)
+  generate_word_graph_second(minimum_n = 300, minimum_correlation = 0.4)
+
 
 combined_text|>
-  generate_word_graph(minimum_n = 600, minimum_correlation = 0.8)
+  generate_word_graph_third(minimum_n = 350, minimum_correlation = 0.6)
+
 
 combined_text|>
-  generate_word_graph(minimum_n = 1000, minimum_correlation = 1)
+  generate_word_graph_final(minimum_n = 400, minimum_correlation = 0.8)
 ```
 
 ## Sentiment Analysis
@@ -495,7 +580,7 @@ ggplot(sentiment_category_binary, aes(x = author, fill = sentiment_binary, y = p
     geom_text(aes(label = percentage),position = position_stack(vjust = 0.5), color = "white", size = 3) +
   labs(
        x = "Author", y = "Percentage", fill = "Sentiment") +
-  scale_fill_manual(values = c("positive" = "gray80", "negative" = "gray20", "neutral" = "gray50")) + 
+  scale_fill_manual(values = c("positive" = "lightblue", "negative" = "darkblue")) + 
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1),  legend.key.size = unit(0.5, "cm"))
 
@@ -513,7 +598,12 @@ ggplot(sentiment_category, aes(x = author, fill = sentiment, y = percentage)) +
    geom_text(aes(label = percentage),  position = position_stack(vjust = 0.5), color = "white", size = 3) +
   labs(
        x = "Author", y = "Percentage", fill = "Sentiment") +
-  scale_fill_manual(values = c("negative" = "gray1", "sadness" = "gray10", "anger" = "gray20", "disgust" = "gray30", "fear" = "gray40", "joy" = "gray50", "trust" = "gray60", "anticipation" = "gray70", "positive" = "gray80", "surprise" = "gray90")) + 
+   scale_fill_manual(values = c(
+    "negative" = "darkblue", "sadness" = "steelblue4", "anger" = "royalblue4",
+    "disgust" = "cadetblue", "fear" = "blue4", "joy" = "skyblue",
+    "trust" = "lightblue", "anticipation" = "deepskyblue", "positive" = "dodgerblue",
+    "surprise" = "lightsteelblue"
+  )) + 
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1),
        legend.key.size = unit(0.5, "cm"))
@@ -546,7 +636,7 @@ ggplot(sentiment_value, aes(x = value, y = percentage, color = sentiment, group 
   facet_wrap(~ author, scales = "free") +
   labs(
        x = "Sentiment Value", y = "Percentage") +
-  scale_color_manual(values = c("positive" = "black", "negative" = "gray")) + # Adjust line colors
+  scale_color_manual(values = c("positive" = "lightblue", "negative" = "darkblue")) + # Adjust line colors
   theme_minimal()
 ```
 
