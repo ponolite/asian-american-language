@@ -69,3 +69,15 @@ how to change the column name of afinn to something else beside 'sentiment' so i
 ChatGPT
 bing_lexicon <- get_sentiments("bing") %>%
   rename(bing_sentiment = sentiment)
+  
+User
+dropna dplyr when all four columns don't have the value, but if one column has, still keep
+
+ChatGPT
+filter(if_all(everything(), ~is.na(.) | !is.na(.)))
+
+User
+how to put number in the table on the graphs
+
+ChatGPT
+geom_text(aes(label = n), hjust = -0.3, vjust = 0.5, color = "white", size = 3)

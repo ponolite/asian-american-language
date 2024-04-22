@@ -51,7 +51,7 @@ swann_way <- gutenberg_download(c('7178')) |>
 
 mrs_dalloway <- gutenberg_download(c('63107', '5670')) |>
   mutate(book = ifelse(gutenberg_id == 63107, "Mrs Dalloway", "Jacob's Room")) |>
-  mutate(author = ifelse(gutenberg_id == 63107, "Virigina Woolf", "Virginia Woolf")) |>
+  mutate(author = ifelse(gutenberg_id == 63107, "Virginia Woolf", "Virginia Woolf")) |>
   slice(-(1:25))
 
 prufrock <- gutenberg_download(c('1321', '1459')) |>
@@ -60,7 +60,7 @@ prufrock <- gutenberg_download(c('1321', '1459')) |>
   slice(-(1:35))
 
 bliss <- gutenberg_download(c('44385', '1429')) |>
-  mutate(book = ifelse(gutenberg_id == 1321, "Bliss", "The Garden Party")) |>
+  mutate(book = ifelse(gutenberg_id == 44385, "Bliss", "The Garden Party")) |>
   mutate(author = ifelse(gutenberg_id == 63107, "Katherine Mansfield", "Katherine Mansfield")) |>
   slice(-(1:34))
 

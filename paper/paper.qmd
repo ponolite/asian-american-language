@@ -31,7 +31,7 @@ library(widyr)
 library(ggraph)
 library(textdata)
 library(arrow)
-
+library(kableExtra)
 
 portrait_clean <- read_parquet(here::here("data/analysis_data/portrait_clean.parquet"))
 portrait_words <- read_parquet(here::here("data/analysis_data/portrait_words.parquet"))
@@ -48,15 +48,15 @@ combined_books <- read_csv(here::here("data/raw_data/combined_books.csv"))
 
 # Introduction
 
-Stream of consciousness (SOC) is a narrative technique that aims to capture the continuous flow of thoughts, feelings, and sensations experienced by a character without conventional organization or punctuation [@resampling]. It mirrors the unpredictable and interconnected nature of human thought processes, often revealing the inner workings of the character's mind in an intimate and unfiltered manner [@flow]. In literature, most scholars agree that stream of consciousness reveals the complexities of mind-scapes, shedding light on the nuances of characters' emotional well-being and psychological struggles [@pathology]. As such, this paper has mined the texts of a total of nine novels from the volunteer archive, Project Gutenberg, to examine the mental health themes of famous stream of consciousness authors, namely by Joyce, Woolf, Proust, Mansfield and Eliot, from the modernist era of literature, spanning from late 19th century to mid-20th century [@gutenberg]. (more stats and data mentioned here)
+Stream of consciousness (SOC) is a narrative technique that aims to capture the continuous flow of thoughts, feelings, and sensations experienced by a character without conventional organization or punctuation [@resampling]. It mirrors the unpredictable and interconnected nature of human thought processes, often revealing the inner workings of the character's mind in an intimate and unfiltered manner [@flow]. In literature, most scholars agree that stream of consciousness reveals the complexities of mind-scapes, shedding light on the nuances of characters' emotional well-being and psychological struggles [@pathology]. As such, this paper has mined the texts of a total of nine novels from the volunteer archive, Project Gutenberg, to examine the mental health themes of famous stream of consciousness authors, namely by Joyce, Woolf, Proust, Mansfield and Eliot, from the modernist era of literature, spanning from late 19th century to mid-20th century [@gutenberg]. 
 
 By analyzing these textual datasets through word frequency and sentiment analysis, I seek to pose and answer crucial questions: \textit{What are some important factors contributing to this relationship between mental health, disassociation and stream of consciousness? Moreover, how does this relationship vary differently across differnet demographics of authors, for instance, authors with different geographical locations and genders?} Understanding these dynamics is crucial in having an informed understanding of the West's late 19th to mid-20th century literature and even socio-political landscape, especially in regards to how authors and creative writers navigate and deal with then-taboo topics such as existential angst, mental health issues and disabilities.
 
-Thus, my estimand is the correlation between mental health-related words in SOC literature, their frequency and sentiment value as provided by @Tidytext. This is considered in terms of nine selected SOC novels only, namely Joyce's \textit{A Portrait of the Artist as a Young Man and Chamber Music}; Woolf's \textit{Mrs Dalloway and Jacob's Room}; Proust's \textit{Swann Way}; Mansfield's \textit{Bliss and The Garden Party}; and Eliot's \textit{The Waste Land and The Love Song of J. Alfred Prufrock}. Through our analysis, we found that (percentage, number and data here, main results)...
+Thus, the estimand is the correlation between mental health-related words in SOC literature, their frequency and sentiment value as provided by @rTidytext. This is considered in terms of nine selected SOC novels only, namely Joyce's \textit{A Portrait of the Artist as a Young Man and Chamber Music}; Woolf's \textit{Mrs Dalloway and Jacob's Room}; Proust's \textit{Swann Way}; Mansfield's \textit{Bliss and The Garden Party}; and Eliot's \textit{The Waste Land and The Love Song of J. Alfred Prufrock}. Through our analysis, we found that (percentage, number and data here, main results)...
 
 To further understand the correlation between stream of consciousness novels and mental health themes, in [Introduction], the paper briefly discusses the nature of stream of consciousness literature, relevant authors and the works that I've chosen to analyze. Subsequently, in [Data] and [Results], I talk about the nature of the data obtained and analyze the results garnered from the data with suitable tables and charts. Next, [Discussion] provides further insights and future areas of study. Finally, [Conclusion] summarizes our main findings. To complete the paper, [Appendix] clarifies how each variable within each dataset is generated with relevant tables to accordingly demonstrate this.
 
-The novel texts used for analysis were sourced from Project Gutenberg under the library `gutenbergr` [@rGuten] [@gutenberg]. Data was generated, extracted and cleaned using the open-source statistical programming language R [@r], leveraging functions from `tidyverse` [@rTidyverse], `tidytext` [@rTidytext], `rmarkdown` [@rMark], `dplyr` [@rDplyr], `ggplot2` [@rGgplot2], `scales` [@rScales], `here` [@rHere], `igraph` [@rIgraph], `widyr` [@rWidy], `ggraph` [@rGg], `textdata` [@rTextdata], `tm` [@rTm], `here` [@here], `arrow` [@arrow], and `knitr` [@rKnitr].
+The novel texts used for analysis were sourced from Project Gutenberg under the library `gutenbergr` [@rGuten] [@gutenberg]. Data was generated, extracted and cleaned using the open-source statistical programming language R [@r], leveraging functions from `tidyverse` [@rTidyverse], `tidytext` [@rTidytext], `rmarkdown` [@rMark], `dplyr` [@rDplyr], `ggplot2` [@rGgplot2], `scales` [@rScales], `here` [@rHere], `igraph` [@rIgraph], `widyr` [@rWidy], `ggraph` [@rGg], `textdata` [@rTextdata], `tm` [@rTm], `here` [@here], `kableExtra` [@kableExtra], `arrow` [@arrow], and `knitr` [@rKnitr].
 
 # Data {#sec-data}
 
@@ -99,59 +99,24 @@ After the survey results are garnered, researchers average the answers to sort e
 
 However, I do recognize how decontextualized and reductive this quantification of language can be. When it comes to understand such social and human artifacts as language or literary texts, much is dependent on their contextuality. As such, I will further discuss these weaknesses of the datasets under [Discussion].
 
-## Source Data: Data Cleaning and Word Tokenization
+## Source Data: Project Gutenberg
 
-Founded in December 1, 1971 by Michael S. Hart, Project Gutenberg exclusively publishes literature in the public domain within the United States. Typically, submissions to Project Gutenberg are digitized editions of printed books, the majority of which were published over 95 years ago. To confirm public domain status, authors can utilize the copy.pglaf.org website [@gutenberg].
+Founded in December 1, 1971 by Michael S. Hart, Project Gutenberg exclusively publishes literature in the public domain within the United States. Typically, submissions to Project Gutenberg are digitized editions of printed books, the majority of which were published over 95 years ago. To confirm public domain status, authors can use the copy.pglaf.org website [@gutenberg].
 
-Since the archive is largely supported by voluntary works, its literature is also selected by volunteers. However, the archive doesn't accept copyrighted or other contemporary items, even if copyright or licensing permission would be granted.
+The archive depends mainly on volunteer efforts for support, and its literature is chosen and proofread by volunteers. However, the archive doesn't take copyrighted or modern items, even with permission. To submit work to the archive, you need to get copyright, scan or harvest images of book pages, spend hours proofreading and formatting, and ensure the eBook meets Project Gutenberg’s requirements, including being valid HTML, correctly spelled, and compliant  with Project Gutenberg’s requirement. Common points of failures for submitted works include:
 
-To submit work to the archive involves obtaining copyright, then scanning or harvesting to obtain images of a book's pages, then engaging in various hours of proofreading and formatting, and finally, ensuring the eBook is fully valid HTML, correctly spelled, and otherwise compliant with Project Gutenberg’s requirements,
-Collection development focuses on literature and other written works that have enduring value for readers. Selections are made by volunteers with diverse interests, and essentially all eligible submissions are welcome.
+- Crop marks or other printer's marks should not be used on any files.
+- The book description should be in compliance with the rules listed here.
+- Missing Pages
+- Title missing on the front cover
+- Incorrect pagination
+- Books with typographical errors, such as misspellings or poor grammar.
 
+In terms of format, Most new Project Gutenberg eBooks are in HTML format. Project Gutenberg will check each work's the HTML validity using the W3C’s online validator. The archive also askss for a plain text version whenever possible. This is because plain text has been around for a long time, is widely accessible on all devices and ensures long-term usability. PDF, Word, and other word processor formats are not used as master formats because they are harder to convert to HTML and update  [@gutenberg].
 
-COMMON POINTS OF FAILURE
+With these points being addressed and the impartial nature of the archive being publicly disclosed on its website, the source data in which I garner my literary texts are selected with strict quality and accuracy. However, there are potential spaces for biases such as selection bias where Project Gutenberg primarily hosts older works that have entered the public domain. Thus, archived works might gear towards certain genres, authors, or time periods, potentially limiting the diversity of the datasets for analysis, which will be further discussed below [@gutenberg].
 
-Crop marks or other printer's marks should not be used on any files.
-The book description should be in compliance with the rules listed here.
-Missing Pages
-Title missing on the front cover
-Incorrect pagination
-Books with typographical errors, such as misspellings or poor grammar.
-
-
-Project Gutenberg does not avoid difficult or unpopular topics, or topics for which societal views, or state-of-the-art knowledge, is vastly different from contemporary literature.
-
-Project Gutenberg does not accept copyrighted or other contemporary items, even if copyright or licensing permission would be granted (this includes the various “open” licenses). Instead, see the self-publishing portal described in the Submitting Your own Work How-To. In the past, a greater variety of non-public domain and non-literary works was added to Project Gutenberg, including copyrighted & other donated works, non-print formats, and different encodings and file types. Today, there are many outlets for such other items, and Project Gutenberg is entirely focused on works in the public domain. This includes literature, reference works, and variations such as children’s books and travelogues.
-
-Who should submit an eBook?
-
-Creating an eBook is a lot of work, and Project Gutenberg’s requirements are rather strict. If these steps seem daunting, you might be better off working with Distributed Proofreaders, where every volunteer contributes to a portion of the effort. Distributed Proofreaders has its own guidelines on submissions, as well as other policy, guidance, and community.
-
-Being a “solo” producer involves obtaining copyright, then scanning or harvesting to obtain images of a book’s pages, then engaging in many hours of proofreading and formatting, and, finally, ensuring the eBook is fully valid HTML, correctly spelled, and otherwise compliant with Project Gutenberg’s requirements. The detailed requirements are on the submission page, which also includes tools for automatically checking compliance. Any new submitter is invited to get in touch before to getting started. Contact the “copyright” or “whitewashers” team &emdash; email addresses are at the bottom of the copyright and upload sites.
-
-Copyright
-
-The first step in any eBook submission is to confirm that Project Gutenberg may legally distribute the eBook. Visit our Copyright How-To for details. Project Gutenberg will not accept any eBook without confirming copyright status. Generally, this means that a printed book has entered the public domain in the United States, typically because copyright has expired.
-
-File Formats
-
-The master format for nearly all new Project Gutenberg eBooks is HTML. Project Gutenberg insists the HTML is fully valid, and any cascading style sheets (CSS) in the HTML are part of the published standards by the World Wide Web consortium (W3C).
-
-Whenever possible, Project Gutenberg also requires a plain text version of an eBook. We stress the inclusion of plain text because of its longevity: Project Gutenberg includes numerous text files that are over 30 years old. In that time, dozens of widely used file formats have come and gone. Text is accessible on all computers, and is also insurance against future obsolescence.
-
-The only times when Project Gutenberg distributes an eBook without a plain text version are when plain text is impossible or impractical — for example, for our movies and MP3 audio files, and for some of our mathematical works.
-
-This isn’t as hard as it sounds, if you start with HTML, and continuously confirm validity using the W3C’s online validator (see the upload page for details). Modern eBook producers almost always start with (valid) HTML, and then derive plain text from the HTML. These two “master” formats, text and HTML, are then submitted to Project Gutenberg. Automated tools then create derivative formats, including epub and mobi (the common e-reader formats).
-
-Hand-crafted epub and mobi files are not accepted, currently. This limitation is mainly to allow easy editing when fixes are applied, because application of fixes occurs many times over the lifetime of every eBook. Project Gutenberg tries to limit the number of master formats, and then automate derived formats, to facilitate continuous improvement of items in the collection.
-
-A small number of new eBooks utilize LaTeX or TEI as the master format - mostly those including lots of mathematical notation. Other less frequently utilized formats include ReSstructured Text (RST), Rich Data Format (RDF), and a few others. Note that PDF, Word, and other word processor formats are not utilized as master formats, because they do not convert easily to valid HTML. In addition, they are much more challenging to fix/update than HTML and plain text.
-
-
-
-Discuss the authenticity/validity of Project Gutenberg
-
-### Word Count
+### Data Cleaning and Word Tokenization
 
 ```{r}
 #| echo: false
@@ -165,42 +130,45 @@ portrait |>
          "Text" = text,
          "Book" = book,
          "Author" = author) |>
-  head(5) |>
+  head(3) |>
   kable(
     col.names = c("Book ID", "Text", "Book", "Author"),
     booktabs = TRUE
-  )
+  ) |>
+  kable_styling(latex_options = c("striped", "hold_position"), 
+                bootstrap_options = "striped", 
+                full_width = FALSE)
 
 ```
 
+To garner the word count of SOC literature  using the library `gutenbergr`, I first downloaded the index of each respective SOC author's body of works using each author's name as outlined in Project Gutenberg database, namely Joyce, Mansfield, Eliot, Woolf, and Proust [@rGuten] ([Appendix]). Then, to create my own datasets containing the word frequency within each SOC author's texts, I used the identification number of the desired literary work and the function `gutenberg_download` to upload the HTML texts into individual csv-and later on, parquet-datasets, as observed in @tbl-joyce for James Joyce.
 
 ```{r}
 #| echo: false
 #| eval: true
 #| label: tbl-joyce-token
-#| tbl-cap: "An Examplary Table Containing Tokenzied Novel Text (James Joyce)"
+#| tbl-cap: "Tokenized Novel Text & Word Count (James Joyce)"
+#| tbl-subcap: 
+#|   - "Tokenized Text"
+#|   - "Word Count"
+#| layout-ncol: 2
 #| warning: false
+#| message: false
+
 
 portrait_clean |>
   rename("Book ID" = gutenberg_id,
          "Book" = book,
          "Author" = author,
          "Word" = word) |>
-  tail(5) |>
+  tail(3) |>
   kable(
     col.names = c("Book ID", "Book", "Author", "Word"),
     booktabs = TRUE
-  )
-
-```
-\newpage
-
-```{r}
-#| echo: false
-#| eval: true
-#| label: tbl-joyce-words
-#| tbl-cap: "An Examplary Table Containing Word Count of Each Word within Novel Texts (James Joyce)"
-#| warning: false
+  ) |>
+  kable_styling(latex_options = c("striped", "hold_position"), 
+                bootstrap_options = "striped", 
+                full_width = FALSE)
 
 portrait_words |>
   rename("Word" = word) |>
@@ -208,9 +176,64 @@ portrait_words |>
   kable(
     col.names = c("Word", "Count"),
     booktabs = TRUE
-  )
+  ) |>
+  kable_styling(latex_options = c("striped", "hold_position"), 
+                bootstrap_options = "striped", 
+                full_width = FALSE)
+
 
 ```
+
+Next, observable in @tbl-joyce-token, to measure the word frequency of each literary text, I first tokenized or separated the texts into individual chunks of words using `unnest_tokens()` [@rTidytext].In addition, to account for stop words like, a, of, and, etc., I leveraged the dataset `stop_words`and the function `anti_join` from @rTidytext to exclude all stop words from my self-generated datasets of literary texts, ensuring data validity and meaningful analysis.
+
+Then, to quantify the number of times each word appears in each text, I used `count()` (@tbl-joyce-token). The result manifests into @fig-count. The figure demonstrates that beside the top frequencies of personal names, most of the words are abstract nouns that revolve around the nature of time, and life, e.g. god (appearing 194 times in Joyce's), time (appearing in 4 authors' texts, 121 times for Joyce's, 77 times for Woolf's, 421 times for Proust's, 23 times for Eliot), mind (108 times in Joyce's and 196 times in Proust's), life (appearing 266 times in Proust's and 131 times in Joyce's), etc. This further exemplifies the sense of disassociation, temporality and non-linearity commonly associated to stream-of-consciousness literature and more broadly with mental health themes ([@flow], [@pathology], [@resampling]).
+
+
+\newpage
+
+```{r}
+#| eval: true
+#| echo: false
+#| message: false
+#| warning: false
+#| label: fig-count
+#| layout-ncol: 2
+#| fig-cap: "Comparative Analysis of Top 20 Word Frequencies from Famous SOC Authors"
+#| fig-subcap: ["James Joyce", "Virginia Woolf", "Marcel Proust", "T.S. Eliot", "Katherine Mansfield"]
+
+portrait_words |> head(20) |>
+ggplot(aes(x = n, y = reorder(word, n))) +
+  geom_bar(stat = "identity", fill = "darkgrey") +
+  geom_text(aes(label = n), hjust = -0.3, vjust = 0.5, color = "grey40", size = 3) +
+  labs(x = "Frequency", y = "Word")
+
+dalloway_words |> head(20) |>
+ggplot(aes(x = n, y = reorder(word, n))) +
+  geom_bar(stat = "identity", fill = "darkgrey") +
+  geom_text(aes(label = n), hjust = -0.3, vjust = 0.5, color = "grey40", size = 3) +
+  labs(x = "Frequency", y = "Word")
+
+swann_words |> head(20) |>
+ggplot(aes(x = n, y = reorder(word, n))) +
+  geom_bar(stat = "identity", fill = "darkgrey") +
+  geom_text(aes(label = n), hjust = -0.3, vjust = 0.5, color = "grey40", size = 3) +
+  labs(x = "Frequency", y = "Word")
+
+prufrock_words |> head(20) |>
+ggplot(aes(x = n, y = reorder(word, n))) +
+  geom_bar(stat = "identity", fill = "darkgrey") +
+  geom_text(aes(label = n), hjust = -0.3, vjust = 0.5, color = "grey40", size = 3) +
+  labs(x = "Frequency", y = "Word")
+
+bliss_words |> head(20) |>
+ggplot(aes(x = n, y = reorder(word, n))) +
+  geom_bar(stat = "identity", fill = "darkgrey") +
+  geom_text(aes(label = n), hjust = -0.3, vjust = 0.5, color = "grey40", size = 3) +
+  labs(x = "Frequency", y = "Word") 
+
+
+```
+
 
 ### Comparative Word Frequency
 
@@ -231,7 +254,8 @@ frequency <- bind_rows(mutate(portrait_words, author = "James Joyce"),
   group_by(author) |>
   mutate(proportion = n / sum(n)) |>
   select(-n) |>
-  pivot_wider(names_from = author, values_from = proportion) 
+  pivot_wider(names_from = author, values_from = proportion) |>
+  filter(if_all(everything(), ~is.na(.) | !is.na(.)))
 
 frequency |>
   rename("Word" = word) |>
@@ -239,85 +263,115 @@ frequency |>
   kable(
     col.names = c("Word", "James Joyce", "Katherine Mansfield", "Marcel Proust", "T.S. Eliot", "Virignia Woolf"),
     booktabs = TRUE
-  )
+  ) |>
+    kable_styling(latex_options = c("striped", "hold_position"), bootstrap_options = "striped", full_width = FALSE)
+
 
 ```
 
-### Generating Word Networks
 
-## Data Limitations
+To accurately compare word frequency among SOC authors, from @tbl-frequency, I convert each word frequency into a percentage. This is done by using `mutate` to calculate the word frequency of each word relative to the total word frequency of each author. Due to the different number of words present in each author's literary works, this method accounts for the inconsistencies of between each author's word count.
 
-# Model
+```{r}
+#| echo: false
+#| eval: true
+#| label: tbl-boxplot 
+#| tbl-cap: "Overall Boxplot Summary Statistics of all Word Frequency Percentages (AFINN Sentiment)"
+#| warning: false
 
-The goal of our modelling strategy is twofold. Firstly,...
-
-Here we briefly describe the Bayesian analysis model used to investigate... Background details and diagnostics are included in [Appendix -@sec-model-details].
-
-
-## Model set-up
-
-Define $y_i$ as the number of seconds that the plane remained aloft. Then $\beta_i$ is the wing width and $\gamma_i$ is the wing length, both measured in millimeters.  
-
-\begin{align} 
-y_i|\mu_i, \sigma &\sim \mbox{Normal}(\mu_i, \sigma) \\
-\mu_i &= \alpha + \beta_i + \gamma_i\\
-\alpha &\sim \mbox{Normal}(0, 2.5) \\
-\beta &\sim \mbox{Normal}(0, 2.5) \\
-\gamma &\sim \mbox{Normal}(0, 2.5) \\
-\sigma &\sim \mbox{Exponential}(1)
-\end{align}
-
-We run the model in R [@citeR] using the `rstanarm` package of @rstanarm. We use the default priors from `rstanarm`.
-
-### Model justification
-
-We expect a negative relationship between average household income and the number of children per child care space by ward. In particular...
-
-We can use maths by including latex between dollar signs, for instance $\theta$.
+# Calculate summary statistics
+frequency_long |>
+  group_by(frequency) %>%
+  summarise(
+    min = min(value),
+    q1 = quantile(value, probs = 0.25),
+    median = median(value),
+    mean = mean(value),
+    q3 = quantile(value, probs = 0.75),
+    max = max(value),
+    sd = sd(value)
+  ) |>
+    head(10) |>
+  kable(
+    col.names = c("Frequency", "Min", "Q1", "Median", "Mean", "Q3", "Max", "SD"),
+    booktabs = TRUE
+  ) |>
+  kable_styling(latex_options = c("striped", "hold_position"), 
+                bootstrap_options = "striped", 
+                full_width = FALSE)
 
 
-# Results
+```
 
-## The Dominant Vocabulary of SOC Literature
+@fig-sentiment-frequency and @tbl-boxplot captures the data garnered. For the NRC index, for all authors, the lower word frequency percentage ranges from 0.0000819 to 0004255 and are largely words that carry a mixture of emotional connotations such as, joy, surprise, positive, disgust and anticipation. However, the higher word frequency percentage, ranging from 0,0004255 to 0.0008511, mostly contains words with negative connotations like fear and anger, that weighs a -1.875 median on a scale between -5 to 5 in the AFINN index. Similarly, for the Bing index, the higher word frequency ranging from 0,0004255 to 0.0008511 percentages largely contains words that carry negative connotations, that weighs approximately a -1.875 median on a scale between -5 to 5 in the AFINN index. 
+
+Overseeing the entire dataset, @tbl-boxplot demonstrates that, for all distinct word frequency percentages, the median sentiment value is -2 on the scale between -5 and 5. More specifically, words that appear most frequently, or words with the frequency percentage of 0.0008511, have the lowest mean sentiment value-or the most negative connotation of-2.33 on the scale between -5 and 5 in the AFINN sentiment index. This summary statistics of the gathered data only further shows how the SOC literary landscape mostly associates with words that carry more negative or even extreme connotations often associated with mental health themes, and topics such as depression, disassociation or schizophrenia [@pathology].
 
 ```{r}
 #| eval: true
 #| echo: false
 #| message: false
 #| warning: false
-#| label: fig-count
+#| label: fig-sentiment-frequency
 #| layout-ncol: 2
-#| fig-cap: "Comparative Analysis of Top 20 Word Frequencies from Famous SOC Authors"
-#| fig-subcap: ["James Joyce", "Virginia Woolf", "Marcel Proust", "T.S. Eliot", "Katherine Mansfield"]
+#| fig-cap: "Overall Word Frequency and Sentiment Analysis"
+#| fig-subcap: ["Bing lexicon", "NRC lexicon"]
 
-portrait_words |> head(20) |>
-ggplot(aes(x = n, y = reorder(word, n))) +
-  geom_bar(stat = "identity", fill = "darkgrey") +
-  labs(x = "Frequency", y = "Word")
 
-dalloway_words |> head(20) |>
-ggplot(aes(x = n, y = reorder(word, n))) +
-  geom_bar(stat = "identity", fill = "darkgrey") +
-  labs(x = "Frequency", y = "Word")
+# Reshape data for plotting
+bing_lexicon <- get_sentiments("bing") %>%
+  rename(sentiment_binary = sentiment)
 
-swann_words |> head(20) |>
-ggplot(aes(x = n, y = reorder(word, n))) +
-  geom_bar(stat = "identity", fill = "darkgrey") +
-  labs(x = "Frequency", y = "Word")
+frequency_long <- pivot_longer(frequency, 
+                               cols = c("James Joyce", "Marcel Proust", "Virginia Woolf", "Katherine Mansfield", "T.S. Eliot"), 
+                               names_to = "author", values_to = "frequency") |>
+  inner_join(bing_lexicon) |>
+  inner_join(get_sentiments("afinn")) |>
+  inner_join(get_sentiments("nrc")) 
 
-prufrock_words |> head(20) |>
-ggplot(aes(x = n, y = reorder(word, n))) +
-  geom_bar(stat = "identity", fill = "darkgrey") +
-  labs(x = "Frequency", y = "Word")
+frequency_long <- na.omit(frequency_long) 
 
-bliss_words |> head(20) |>
-ggplot(aes(x = n, y = reorder(word, n))) +
-  geom_bar(stat = "identity", fill = "darkgrey") +
-  labs(x = "Frequency", y = "Word") 
+ggplot(frequency_long, aes(x = frequency, y = value, fill = sentiment_binary)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of Sentiment Scores by Author (Bing)",
+       x = "Word Frequency Percentage",
+       y = "Sentiment Value (AFINN)",
+       fill = "Sentiment Associated") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
+
+
+ggplot(frequency_long, aes(x = frequency, y = value, fill = sentiment)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of Sentiment Scores by Author (NRC)",
+       x = "Word Frequency Percentage",
+       y = "Sentiment Value (AFINN)",
+       fill = "Sentiment Associated") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
 
 
 ```
-\newpage
+
+## Data Limitations
+
+### Lack of Thorough Word Cleaning
+
+With the large amount of different literary texts need processing by myself, it's hard to truly conduct thorough word processing. Certain textual elements, while can have their frequencies accounted for, can't have sentiment analysis due to their factual nature. These textual elements might include things like chapter titles, Roman numbers and personal names, which can strongly skew and affect the data integrity. As observed in @fig-count, "Swann", "Stephen" or "Jacob" are the most repeated words in Proust's, Joyce's and Woolf's, proving this data limitation.
+
+### Potential Measurement Errors
+
+The actual raw text data sourced from Project Gutenberg may be susceptible to measurement errors due to various factors, such as selection bias towards older, Western and canonical texts, social desirability bias that edits out certain political elements, memory lapses, or misinterpretations of literary texts by voluntary proofreaders. While the archive has strict guidelines to minimize these errors, they cannot be entirely eliminated.
+
+### Uneven Text Length 
+
+I chose literary texts based on their global reception and canonical status within the stream-of-consciousness genre. This decision involved forgoing certain practical considerations, such as ensuring similar text lengths across all works by each author. While this approach enables a thorough exploration of word frequency analysis, sentiment value, and word networks within the SOC genre, it also has the potential to emphasize the frequencies of certain words from specific authors more than others due to the longer text length of those authors. This could critically affect the integrity of the data analysis.
+
+## Biased Author Selection
+
+Furthermore, SOC literature is expansive, spanning a wide range of themes, styles, and narrative techniques. By exclusively representing the genre through a select group of canonical Western authors, I risk constraining the genre's diversity. By oversimplifying the complexity of the the dynamic literary genre, I also affect the integrity of the datasets and its correlation to mental health themes.
+
+# Results
+
+## The Dominant Vocabulary of SOC Literature
 
 ## Sentiment Analysis
 
@@ -583,6 +637,11 @@ Discuss vocabulary patterns and word trends
 
 ## Insights into Socio-Political Landscape of the West's Modernist Era 
 
+pathological consequences of the constant
+shifts of identity in migrant characters. Most postcolonial studies contend that
+marginalization occasioned by the dominant group result in neurotic conditions in
+members of the minority group.
+
 The novels' linguistic patterns reflect the socio-political landscape of the Western hemisphere, from  late 19th century to the mid-20th century.
 
 ## Schizophrenic and Disassociative Tendencies in Female Stream of Consciousness
@@ -598,6 +657,7 @@ This includes words such as chapter titles, Roman numbers and personal names, af
 
 Words are singled out and analyzed without context which could have affected their intended meanings, especially in such a complex genre such as stream of consciousness. The limiting novel editions also doesn't make sure that their literary integrity are maintained and the analysis might have missed important texts of other editions. 
 
+While these datasets aim to illuminate on the general time trends of childlessness with each variable measured, they are often de-contextualized for the same purpose. For instance, in Table 6, there is no clarifying note on whether people who declared themselves as ‘divorced’ are divorced once or more. This can be extremely narrowing, and exclude nuances when analyzing the contexts behind childlessness.
 ### Uneven Novel Length and Categorization of Authors
 
 Since the novels are chosen based on their worldwide reception and canon, practical constraints like how all novels should be of similar length are ignored. This constraint can prevent one novel having more words than others, which can critically affect the integrity of the word frequency analysis, sentiment value and word networks where one novel dominates the others and skews the results.
@@ -646,13 +706,6 @@ Along the search for other stream of consciousness authors to include in the gen
 
 
 ```
-
-
-## Model Details {#sec-model-details}
-
-## Posterior predictive check
-
-## Diagnostics
 
 
 \newpage
