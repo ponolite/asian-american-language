@@ -52,7 +52,7 @@ Stream of consciousness (SOC) is a narrative technique that aims to capture the 
 
 By analyzing these textual datasets through word frequency and sentiment analysis, I seek to pose and answer crucial questions: \textit{What are some important factors contributing to this relationship between mental health, disassociation and stream of consciousness? Moreover, how does this relationship vary differently across differnet demographics of authors, for instance, authors with different geographical locations and genders?} Understanding these dynamics is crucial in having an informed understanding of the West's late 19th to mid-20th century literature and even socio-political landscape, especially in regards to how authors and creative writers navigate and deal with then-taboo topics such as existential angst, mental health issues and disabilities.
 
-Thus, the estimand is the correlation between mental health-related words in SOC literature, their frequency and sentiment value as provided by @rTidytext. This is considered in terms of nine selected SOC novels only, namely Joyce's \textit{A Portrait of the Artist as a Young Man and Chamber Music}; Woolf's \textit{Mrs Dalloway and Jacob's Room}; Proust's \textit{Swann Way}; Mansfield's \textit{Bliss and The Garden Party}; and Eliot's \textit{The Waste Land and The Love Song of J. Alfred Prufrock}. Through our analysis, we found that (percentage, number and data here, main results)...
+Thus, the estimand is the correlation between mental health-related themes and words in SOC literature, their frequency and sentiment value as provided by @rTidytext. This is considered in terms of nine selected SOC novels only, namely Joyce's \textit{A Portrait of the Artist as a Young Man and Chamber Music}; Woolf's \textit{Mrs Dalloway and Jacob's Room}; Proust's \textit{Swann Way}; Mansfield's \textit{Bliss and The Garden Party}; and Eliot's \textit{The Waste Land and The Love Song of J. Alfred Prufrock}. Through our analysis, we found that (percentage, number and data here, main results)...
 
 To further understand the correlation between stream of consciousness novels and mental health themes, in [Introduction], the paper briefly discusses the nature of stream of consciousness literature, relevant authors and the works that I've chosen to analyze. Subsequently, in [Data] and [Results], I talk about the nature of the data obtained and analyze the results garnered from the data with suitable tables and charts. Next, [Discussion] provides further insights and future areas of study. Finally, [Conclusion] summarizes our main findings. To complete the paper, [Appendix] clarifies how each variable within each dataset is generated with relevant tables to accordingly demonstrate this.
 
@@ -97,13 +97,13 @@ In terms of measuring 'Sentiment Value', all three general-purpose lexicons are 
 
 After the survey results are garnered, researchers average the answers to sort each surveyed word into pre-defined categories, specifically '-5 to 5' for 'AFINN', 'postive' or 'negative' for 'bing', and 'anger' or 'fear' for 'nrc'. With the continuous work of compiling these lexicons spanning years and decades [@sentiment] comes these functions: `get_sentiments("bing")` and `get_sentiments("nrc")` and `get_sentiments("afinn")` in which I can use `inner_join` to categorize my existing datasets of novel texts into their sentiment value. Systematic and data-driven, these measurement methods ensure that all lexicons faithfully reflects each word's emotionality.
 
-However, I do recognize how decontextualized and reductive this quantification of language can be. When it comes to understand such social and human artifacts as language or literary texts, much is dependent on their contextuality. As such, I will further discuss these weaknesses of the datasets under [Discussion].
+However, I do recognize how reductive this quantification of language can be. When it comes to understand such social and human artifacts as language or literary texts, much is dependent on their context. As such, I will further discuss these weaknesses of the datasets under [Discussion].
 
 ## Source Data: Project Gutenberg
 
 Founded in December 1, 1971 by Michael S. Hart, Project Gutenberg exclusively publishes literature in the public domain within the United States. Typically, submissions to Project Gutenberg are digitized editions of printed books, the majority of which were published over 95 years ago. To confirm public domain status, authors can use the copy.pglaf.org website [@gutenberg].
 
-The archive depends mainly on volunteer efforts for support, and its literature is chosen and proofread by volunteers. However, the archive doesn't take copyrighted or modern items, even with permission. To submit work to the archive, you need to get copyright, scan or harvest images of book pages, spend hours proofreading and formatting, and ensure the eBook meets Project Gutenberg’s requirements, including being valid HTML, correctly spelled, and compliant  with Project Gutenberg’s requirement. Common points of failures for submitted works include:
+The archive relies heavily on volunteers for support and content selection, but it does not accept copyrighted or modern works, even with permission. To submit work, individuals must obtain copyright clearance, scan or capture book images, dedicate hours to proofreading and formatting, and ensure compliance with Project Gutenberg’s guidelines, including valid HTML and correct spelling. Common points of failures for submitted works include:
 
 - Crop marks or other printer's marks should not be used on any files.
 - The book description should be in compliance with the rules listed here.
@@ -112,7 +112,7 @@ The archive depends mainly on volunteer efforts for support, and its literature 
 - Incorrect pagination
 - Books with typographical errors, such as misspellings or poor grammar.
 
-In terms of format, Most new Project Gutenberg eBooks are in HTML format. Project Gutenberg will check each work's the HTML validity using the W3C’s online validator. The archive also askss for a plain text version whenever possible. This is because plain text has been around for a long time, is widely accessible on all devices and ensures long-term usability. PDF, Word, and other word processor formats are not used as master formats because they are harder to convert to HTML and update  [@gutenberg].
+Most new Project Gutenberg eBooks are in HTML format, which is validated using the W3C’s online validator. Additionally, the archive prefers plain text versions whenever possible due to their universal accessibility, and long-term usability. PDF, Word, and other word processor formats are avoided as master formats due to the challenges involved in converting them to HTML and updating them [@gutenberg].
 
 With these points being addressed and the impartial nature of the archive being publicly disclosed on its website, the source data in which I garner my literary texts are selected with strict quality and accuracy. However, there are potential spaces for biases such as selection bias where Project Gutenberg primarily hosts older works that have entered the public domain. Thus, archived works might gear towards certain genres, authors, or time periods, potentially limiting the diversity of the datasets for analysis, which will be further discussed below [@gutenberg].
 
@@ -143,27 +143,29 @@ portrait |>
 
 To garner the word count of SOC literature  using the library `gutenbergr`, I first downloaded the index of each respective SOC author's body of works using each author's name as outlined in Project Gutenberg database, namely Joyce, Mansfield, Eliot, Woolf, and Proust [@rGuten] ([Appendix]). Then, to create my own datasets containing the word frequency within each SOC author's texts, I used the identification number of the desired literary work and the function `gutenberg_download` to upload the HTML texts into individual csv-and later on, parquet-datasets, as observed in @tbl-joyce for James Joyce.
 
+\newpage
+
 ```{r}
 #| echo: false
 #| eval: true
 #| label: tbl-joyce-token
-#| tbl-cap: "Tokenized Novel Text & Word Count (James Joyce)"
-#| tbl-subcap: 
-#|   - "Tokenized Text"
-#|   - "Word Count"
+#| tbl-cap: Tokenized Novel Text & Word Count after Tokenization (James Joyce)
+#| tbl-subcap: ["Tokenized Text", "Word Count"]
 #| layout-ncol: 2
 #| warning: false
 #| message: false
 
+portrait_clean <- portrait_clean |>
+  select(-book)
+  
 
 portrait_clean |>
   rename("Book ID" = gutenberg_id,
-         "Book" = book,
          "Author" = author,
          "Word" = word) |>
   tail(3) |>
   kable(
-    col.names = c("Book ID", "Book", "Author", "Word"),
+    col.names = c("Book ID", "Author", "Word"),
     booktabs = TRUE
   ) |>
   kable_styling(latex_options = c("striped", "hold_position"), 
@@ -186,8 +188,7 @@ portrait_words |>
 
 Next, observable in @tbl-joyce-token, to measure the word frequency of each literary text, I first tokenized or separated the texts into individual chunks of words using `unnest_tokens()` [@rTidytext].In addition, to account for stop words like, a, of, and, etc., I leveraged the dataset `stop_words`and the function `anti_join` from @rTidytext to exclude all stop words from my self-generated datasets of literary texts, ensuring data validity and meaningful analysis.
 
-Then, to quantify the number of times each word appears in each text, I used `count()` (@tbl-joyce-token). The result manifests into @fig-count. The figure demonstrates that beside the top frequencies of personal names, most of the words are abstract nouns that revolve around the nature of time, and life, e.g. god (appearing 194 times in Joyce's), time (appearing in 4 authors' texts, 121 times for Joyce's, 77 times for Woolf's, 421 times for Proust's, 23 times for Eliot), mind (108 times in Joyce's and 196 times in Proust's), life (appearing 266 times in Proust's and 131 times in Joyce's), etc. This further exemplifies the sense of disassociation, temporality and non-linearity commonly associated to stream-of-consciousness literature and more broadly with mental health themes ([@flow], [@pathology], [@resampling]).
-
+Then, to quantify the number of times each word appears in each text, I used `count()` (@tbl-joyce-token). The result manifests into @fig-count. The figure demonstrates that beside the top frequencies of personal names, most of the words are abstract nouns that revolve around the nature of time, and life, e.g. god (appearing 194 times in Joyce's), time (appearing in 4 authors' texts, 121 times for Joyce's, 77 times for Woolf's, 421 times for Proust's, 23 times for Eliot), mind (108 times in Joyce's and 196 times in Proust's), life (appearing 266 times in Proust's and 131 times in Joyce's), etc. This further exemplifies the sense of disassociation, temporality and non-linearity commonly associated to stream-of-consciousness literature and more broadly with mental health themes [@flow] [@pathology] [@resampling].
 
 \newpage
 
@@ -279,6 +280,19 @@ To accurately compare word frequency among SOC authors, from @tbl-frequency, I c
 #| tbl-cap: "Overall Boxplot Summary Statistics of all Word Frequency Percentages (AFINN Sentiment)"
 #| warning: false
 
+#reshape the frequency datasets and add sentiment values
+bing_lexicon <- get_sentiments("bing") %>%
+  rename(sentiment_binary = sentiment)
+
+frequency_long <- pivot_longer(frequency, 
+                               cols = c("James Joyce", "Marcel Proust", "Virginia Woolf", "Katherine Mansfield", "T.S. Eliot"), 
+                               names_to = "author", values_to = "frequency") |>
+  inner_join(bing_lexicon) |>
+  inner_join(get_sentiments("afinn")) |>
+  inner_join(get_sentiments("nrc")) 
+
+frequency_long <- na.omit(frequency_long) 
+
 # Calculate summary statistics
 frequency_long |>
   group_by(frequency) %>%
@@ -299,7 +313,6 @@ frequency_long |>
   kable_styling(latex_options = c("striped", "hold_position"), 
                 bootstrap_options = "striped", 
                 full_width = FALSE)
-
 
 ```
 
@@ -373,9 +386,79 @@ Furthermore, SOC literature is expansive, spanning a wide range of themes, style
 
 ## The Dominant Vocabulary of SOC Literature
 
+\newpage
+```{r}
+#| eval: true
+#| echo: false
+#| message: false
+#| warning: false
+
+## Code sourced from https://www.youtube.com/watch?v=ae_XVhjHd_o
+
+generate_word_graph <- function(combined_text,
+                                minimum_n = 100,
+                                minimum_correlation = 0.2) {
+
+combined_text_count <- combined_text |>
+  count(word, sort = TRUE) |>
+  filter(n >= 200) 
+
+combined_correlations <- combined_text |>
+  semi_join(combined_text_count, by = "word") |>
+  pairwise_cor(item = word, feature = book) |>
+  filter(correlation >= 0.2)
+
+graph_from_data_frame(d = combined_correlations, #create graphs of networks of words
+                      vertices = combined_text_count |>
+                      semi_join(combined_correlations, by = c("word" = "item1"))) |>
+  ggraph(layout = "fr") +
+  geom_edge_link(aes(alpha = correlation), alpha = 0.05) +
+  geom_node_point() +
+  geom_node_text(aes(color = n, label = name), repel = TRUE)
+
+}
+
+
+# Code sourced from
+# filtered_text <- combined_text[combined_text$n >= 100, ] #only select words with a frequency larger or equal to 100
+
+# wordcloud(words = filtered_text$word, freq = filtered_text$n, scale=c(3,0.5), min.freq = 2, random.order = FALSE, colors= colorRampPalette(c("lightgray", "black"))(9))
+
+```
+
+
+```{r}
+#| eval: true
+#| echo: false
+#| message: false
+#| warning: false
+#| label: fig-word-networks
+#| layout-ncol: 2
+#| fig-cap: "Word Networks Measured by Frequency and Correlation when Combining All Stream of Consciousness Novels"
+#| fig-subcap: ["100 Frequency, 0.2 Correlation", "200 Frequency, 0.4 Correlation", "200 Frequency, 0.8 Correlation", "400 Frequency, 1 Correlation"] 
+
+combined_text|>
+  generate_word_graph(minimum_n = 100, minimum_correlation = 0.2)
+
+
+combined_text|>
+  generate_word_graph(minimum_n = 200, minimum_correlation = 0.4)
+
+combined_text|>
+  generate_word_graph(minimum_n = 200, minimum_correlation = 0.8)
+
+combined_text|>
+  generate_word_graph(minimum_n = 400, minimum_correlation = 1)
+```
+
 ## Sentiment Analysis
 
-Leveraging setiment analysis from @sentiment
+To further understand the emotional landscape and mental health themes related to SOC literature, I've combined all nine SOC texts to conduct an oveall sentiment analysis [@sentiment].
+
+For Bing index, @fig-sentiment-category shows that, SOC authors' literary works are predominantly negative. All authors, except for Mansfield, demonstrates this. 68% of Joyce's works are negative compared to his 32% positive, similar to Eliot's, which is also the highest statistic out of all five authors. Woolf comes second with 60% words carrying negative meanings, while 40% are negative. Proust comes fourth with  57% negative and 43% positive. While Mansfield has words with positive connotations, at 51%, this isn't much different from her 49% negative words.
+
+The NRC index in @fig-sentiment-category further details the emotional nuances of SOC literature. The dominant emotional connotation in SOC literature's vocabulary is negative, standing at 16% to 22%. While the second highest percentage range belong to words with positive connotation, ranging from 11% to 17%, most of the other bars are occupied by words with negative-leaning emotions, such as sadness, fear, and anger. Sadness-related words, in particular, ranges the third highest, from 11% to 15%.
+
 
 ```{r}
 #| eval: true
@@ -387,7 +470,7 @@ Leveraging setiment analysis from @sentiment
 #| fig-cap: "Categorical Sentiment Analysis of All SOC Novel Texts by Authors"
 #| fig-subcap: ["Bing lexicon", "NRC lexicon"]
 
-bing_lexicon <- get_sentiments("bing") %>%
+bing_lexicon <- get_sentiments("bing") |>
   rename(sentiment_binary = sentiment)
 
 sentiment_combined <- combined_text |>
@@ -399,36 +482,43 @@ sentiment_category_binary <- sentiment_combined |>
   group_by(author, sentiment_binary) |>
   count() |>
   group_by(author) |>
-  mutate(percentage = n / sum(n) * 100)  
+  mutate(percentage = round(n / sum(n) * 100))  
 
 # Plot sentiment values
 ggplot(sentiment_category_binary, aes(x = author, fill = sentiment_binary, y = percentage)) +
   geom_bar(stat = "identity") +
+    geom_text(aes(label = percentage),position = position_stack(vjust = 0.5), color = "white", size = 3) +
   labs(
-       x = "Author", y = "Percentage") +
+       x = "Author", y = "Percentage", fill = "Sentiment") +
   scale_fill_manual(values = c("positive" = "gray80", "negative" = "gray20", "neutral" = "gray50")) + 
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),  legend.key.size = unit(0.5, "cm"))
 
 sentiment_category <- sentiment_combined |>
   group_by(author, sentiment) |>
   count() |>
   group_by(author) |>
-  mutate(percentage = n / sum(n) * 100)  |>
+  mutate(percentage = round(n / sum(n) * 100))  |>
   group_by(author) |>
   arrange(desc(percentage))
 
 # Plot sentiment values
 ggplot(sentiment_category, aes(x = author, fill = sentiment, y = percentage)) +
   geom_bar(stat = "identity") +
+   geom_text(aes(label = percentage),  position = position_stack(vjust = 0.5), color = "white", size = 3) +
   labs(
-       x = "Author", y = "Percentage") +
+       x = "Author", y = "Percentage", fill = "Sentiment") +
   scale_fill_manual(values = c("negative" = "gray1", "sadness" = "gray10", "anger" = "gray20", "disgust" = "gray30", "fear" = "gray40", "joy" = "gray50", "trust" = "gray60", "anticipation" = "gray70", "positive" = "gray80", "surprise" = "gray90")) + 
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+       legend.key.size = unit(0.5, "cm"))
 
 
 ```
+
+The AFINN index in @fig-sentiment-number portrays a similar trend with its more quantitative sentiment analysis. On a scale of -5 to 5, SOC literature from these five authors mostly carry a negative sentiment, observable in the significant difference in height between the negative trendlines and the positive trendlines. Eliot's works are the most negative with 37% of words being -2 on the emotional scale between -5 and 5. Respectively, Woolf, Proust and Joyce tail beind at 33%, 32% and 31%, averaging out to be ~-2.2 on the emotional scale between -5 and 5. While most a large percentage Mansfield's works are positive, her highest percentage is negative on the AFINN index, at 24% for a scale of about -2.2 between -5 and 5.
+
+This further suggests that the SOC literary landscape is inundated with negative, disgust, fear and sadness-leaning vocabulary. These trends reflect the incoherent mental spaces, depressive perceptions, and existential angst inherent to SOC literature. These are the central themes often conveyed by SOC authors through their exploration of the unconscious mind and repressed emotions, reflecting the societal concerns of the late 19th to mid-20th century West [@pathology] [@resampling].
 
 ```{r}
 #| eval: true
@@ -443,10 +533,11 @@ sentiment_value <- sentiment_combined |>
   group_by(author, value, sentiment) |>
   count() |>
   group_by(author) |>
-  mutate(percentage = n / sum(n) * 100)  
+  mutate(percentage = round(n / sum(n) * 100))
 
 ggplot(sentiment_value, aes(x = value, y = percentage, color = sentiment, group = sentiment)) +
   geom_line() +
+    geom_text(aes(label = percentage),position = position_stack(vjust = 0.5), color = "black", size = 2) +
   facet_wrap(~ author, scales = "free") +
   labs(
        x = "Sentiment Value", y = "Percentage") +
@@ -564,71 +655,6 @@ ggplot(frequency_international, aes(x = proportion, y = `Marcel Proust`, color =
 
 ```
 
-## Combined Texts: Trends, Word Networks, Bigram and Trigram Analsis
-
-```{r}
-#| eval: true
-#| echo: false
-#| message: false
-#| warning: false
-
-## Code sourced from https://www.youtube.com/watch?v=ae_XVhjHd_o
-
-generate_word_graph <- function(combined_text,
-                                minimum_n = 100,
-                                minimum_correlation = 0.2) {
-
-combined_text_count <- combined_text |>
-  count(word, sort = TRUE) |>
-  filter(n >= 200) 
-
-combined_correlations <- combined_text |>
-  semi_join(combined_text_count, by = "word") |>
-  pairwise_cor(item = word, feature = book) |>
-  filter(correlation >= 0.2)
-
-graph_from_data_frame(d = combined_correlations, #create graphs of networks of words
-                      vertices = combined_text_count |>
-                      semi_join(combined_correlations, by = c("word" = "item1"))) |>
-  ggraph(layout = "fr") +
-  geom_edge_link(aes(alpha = correlation), alpha = 0.05) +
-  geom_node_point() +
-  geom_node_text(aes(color = n, label = name), repel = TRUE)
-
-}
-
-
-# Code sourced from
-# filtered_text <- combined_text[combined_text$n >= 100, ] #only select words with a frequency larger or equal to 100
-
-# wordcloud(words = filtered_text$word, freq = filtered_text$n, scale=c(3,0.5), min.freq = 2, random.order = FALSE, colors= colorRampPalette(c("lightgray", "black"))(9))
-
-```
-
-
-```{r}
-#| eval: true
-#| echo: false
-#| message: false
-#| warning: false
-#| label: fig-word-networks
-#| layout-ncol: 2
-#| fig-cap: "Word Networks Measured by Frequency and Correlation when Combining All Stream of Consciousness Novels"
-#| fig-subcap: ["100 Frequency, 0.2 Correlation", "200 Frequency, 0.4 Correlation", "200 Frequency, 0.8 Correlation", "400 Frequency, 1 Correlation"] 
-
-combined_text|>
-  generate_word_graph(minimum_n = 100, minimum_correlation = 0.2)
-
-
-combined_text|>
-  generate_word_graph(minimum_n = 200, minimum_correlation = 0.4)
-
-combined_text|>
-  generate_word_graph(minimum_n = 200, minimum_correlation = 0.8)
-
-combined_text|>
-  generate_word_graph(minimum_n = 400, minimum_correlation = 1)
-```
 # Discussion
 
 ## Mental Health Vocabulary: Patterns and Trends 
@@ -644,6 +670,25 @@ members of the minority group.
 
 The novels' linguistic patterns reflect the socio-political landscape of the Western hemisphere, from  late 19th century to the mid-20th century.
 
+Stream of consciousness literature emerged as a significant literary technique in the early 20th century, particularly associated with the modernist movement in literature. Several factors contributed to its rise and prominence:
+
+Psychological Realism: One of the primary motivations for the development of stream of consciousness was the desire to represent the inner workings of the human mind more accurately. Writers sought to capture the complexity of thought processes, emotions, and perceptions in a more realistic and nuanced manner.
+Response to Realism and Naturalism: Stream of consciousness literature can be seen as a reaction against the more structured and external focus of realism and naturalism. Instead of portraying characters and events objectively, authors wanted to delve deeper into subjective experiences and individual consciousness.
+Technological and Cultural Changes: The early 20th century was a period of rapid technological advancement and social change, including the rise of psychology as a discipline. These developments influenced writers to explore new narrative techniques and modes of representation.
+Literary Experimentation: Modernist writers were often interested in pushing the boundaries of traditional narrative forms and experimenting with language, style, and structure. Stream of consciousness offered a way to challenge conventional storytelling techniques and engage readers in more innovative ways.
+Exploration of Identity and Perception: Stream of consciousness literature allowed writers to explore themes related to identity, consciousness, and perception. By immersing readers in the internal thoughts and sensations of characters, authors could interrogate questions about the nature of reality, self-awareness, and the construction of meaning.
+Overall, stream of consciousness literature became a prominent feature of modernist writing due to its capacity to convey the complexity of human experience and its ability to reflect the uncertainties and ambiguities of the modern world.
+
+
+The rise of modernism in literature, art, and culture during the late 19th and early 20th centuries was influenced by several interconnected factors:
+
+Industrialization and Urbanization: The rapid industrialization and urbanization of society brought about significant changes in the way people lived, worked, and interacted. This upheaval in traditional social structures and lifestyles led to a sense of dislocation and fragmentation, which modernist artists and writers sought to capture in their work.
+Technological Advances: Advances in technology, particularly in transportation, communication, and mass media, reshaped human experience and perception of time and space. Innovations such as the telegraph, telephone, and photography altered how people communicated, experienced distance, and understood reality.
+Crisis of Faith and Meaning: The late 19th and early 20th centuries witnessed a crisis of faith and meaning, as traditional religious and philosophical beliefs came into question. Developments such as Darwin's theory of evolution, Freudian psychology, and existential philosophy challenged established notions of human existence, morality, and purpose.
+World Wars and Political Turmoil: The turmoil of World War I and the interwar period brought about profound changes in society, politics, and culture. The devastation of war, the collapse of empires, and the emergence of new ideologies (such as communism and fascism) shattered old certainties and created an atmosphere of disillusionment and uncertainty.
+Intellectual and Cultural Exchange: The modernist movement was characterized by a spirit of intellectual and cultural exchange, with artists and writers drawing inspiration from diverse sources, including non-Western cultures, folk traditions, and avant-garde movements. This openness to new ideas and influences fostered experimentation and innovation in the arts.
+Quest for Individuality and Authenticity: Modernism rejected the conventions and constraints of traditional artistic forms and sought to express individual subjectivity and experience in new and unconventional ways. Artists and writers embraced themes of alienation, identity, and the search for authenticity in an increasingly fragmented and alienating world.
+
 ## Schizophrenic and Disassociative Tendencies in Female Stream of Consciousness
 
 
@@ -658,15 +703,13 @@ This includes words such as chapter titles, Roman numbers and personal names, af
 Words are singled out and analyzed without context which could have affected their intended meanings, especially in such a complex genre such as stream of consciousness. The limiting novel editions also doesn't make sure that their literary integrity are maintained and the analysis might have missed important texts of other editions. 
 
 While these datasets aim to illuminate on the general time trends of childlessness with each variable measured, they are often de-contextualized for the same purpose. For instance, in Table 6, there is no clarifying note on whether people who declared themselves as ‘divorced’ are divorced once or more. This can be extremely narrowing, and exclude nuances when analyzing the contexts behind childlessness.
-### Uneven Novel Length and Categorization of Authors
+
+### Reliance on Three Different Indices
 
 Since the novels are chosen based on their worldwide reception and canon, practical constraints like how all novels should be of similar length are ignored. This constraint can prevent one novel having more words than others, which can critically affect the integrity of the word frequency analysis, sentiment value and word networks where one novel dominates the others and skews the results.
 
 In addition, these authors work are expansive and so choosing a select few to bind them to the SOC genre can be limiting as the SOC genre in itself is already an amalgamation of different literary trends. Thus, this can affect the integrity of the datasets.
 
-### Project Gutenberg's Focus on the Canon
-
-Along the search for other stream of consciousness authors to include in the generated datasets, only a few-those that are in the SOC canon, mostly white authors-are present in Project Gutenberg, without including lesser known SOC authors, which could have steared the data analysis, still, towards their preconception: being rueful and angst-ridden
 
 ## Moving Forward and Next Steps
 
