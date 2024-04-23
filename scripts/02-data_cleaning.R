@@ -99,9 +99,6 @@ prufrock_words <- prufrock_clean |>
   distinct()
 
 # Combine all texts to find the more general trend of word frequency and sentiment value
-
-## Calculate the correlations between all word combinations from all texts
-
 combined_text <- 
   rbind(portrait, swann, dalloway, prufrock, bliss)|>
   na.omit(portrait, swann, dalloway, prufrock, bliss) |>
