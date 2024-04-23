@@ -145,7 +145,7 @@ portrait |>
 
 To collect text data from five SOC authors using the `gutenbergr` package, we first downloaded the index of each author's works from the Project Gutenberg database. These authors include Joyce, Mansfield, Eliot, Woolf, and Proust [@rGuten] ([Appendix]).
 
-Next, custom datasets containing each author's raw texts were created. This involved using the identification number of the desired literary work and the `gutenberg_download` function to retrieve the HTML texts. Subsequently, the data was saved into individual CSV files and later converted into Parquet datasets, as demonstrated in @tbl-joyce example for James Joyce.
+Next, custom datasets containing each author's raw texts were created. This involved using the identification number of the desired literary work and the `gutenberg_download` function to retrieve the HTML texts. Subsequently, the data was saved into individual Parquet datasets, as demonstrated in @tbl-joyce example for James Joyce.
 
 \newpage
 
@@ -372,6 +372,7 @@ frequency_long <- pivot_longer(frequency,
 
 frequency_long <- na.omit(frequency_long) 
 
+# Create boxplots
 ggplot(frequency_long, aes(x = frequency, y = value, fill = sentiment_binary)) +
   geom_boxplot() +
   labs(title = "Boxplot of Sentiment Scores by Author (Bing)",
@@ -413,7 +414,7 @@ This word frequency and correlation analysis then has enabled us to grasp the th
 
 ## Code sourced from https://www.youtube.com/watch?v=ae_XVhjHd_o
 
-##first, n >=250
+## Create word network, first, n >=250
 generate_word_graph <- function(combined_text,
                                 minimum_n = 100,
                                 minimum_correlation = 0.2) {
@@ -436,7 +437,7 @@ graph_from_data_frame(d = combined_correlations, #create graphs of networks of w
   geom_node_text(aes(color = n, label = name), repel = TRUE)
 }
 
-##second, n >=300
+## Create word network, second, n >=300
 generate_word_graph_second <- function(combined_text,
                                 minimum_n = 100,
                                 minimum_correlation = 0.2) {
@@ -460,7 +461,7 @@ graph_from_data_frame(d = combined_correlations, #create graphs of networks of w
 }
 
 
-##third, n >=350
+## Create word network, third, n >=350
 generate_word_graph_third <- function(combined_text,
                                 minimum_n = 100,
                                 minimum_correlation = 0.2) {
@@ -483,7 +484,7 @@ graph_from_data_frame(d = combined_correlations, #create graphs of networks of w
   geom_node_text(aes(color = n, label = name), repel = TRUE)
 }
 
-## fourth, n>= 400
+## Create word network, fourth, n>= 400
 generate_word_graph_final <- function(combined_text,
                                 minimum_n = 100,
                                 minimum_correlation = 0.2) {
@@ -519,6 +520,7 @@ graph_from_data_frame(d = combined_correlations, #create graphs of networks of w
 #| fig-cap: "Word Networks Measured by Frequency and Correlation when Combining All Stream of Consciousness Novels"
 #| fig-subcap: ["250 Frequency, 0.2 Correlation", "300 Frequency, 0.4 Correlation", "350 Frequency, 0.6 Correlation", "400 Frequency, 0.8 Correlation"] 
 
+# Generate word networks based on previously created functions
 combined_text|>
   generate_word_graph(minimum_n = 250, minimum_correlation = 0.2)
 
