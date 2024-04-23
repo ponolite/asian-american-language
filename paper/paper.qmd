@@ -407,7 +407,7 @@ Additionally, within @fig-sentiment-frequency, for the NRC index, between all au
 To further explore the contextual relationship between each word, @fig-word-networks creates word networks of all nine of these SOC texts. These networks will capture how often each word frequents in these SOC texts and how closely each correlates with others, whether as single words (unigrams) or pairs of words (bigrams). When combined all SOC texts, temporal nouns like \textit{time, day, life, moment, night} appear the most, at, respectively, 870, 597, 567, 502 and 376 times. This further correlates to the non-linear nature of SOC literature and their exploration of cognitive incoherence. In terms of correlation, forgoing personal names like \textit{swann, odette or mme}, bigrams with a correlation of 1 include those like \textit{dark, love}; \textit{day, heart}; \textit{moment, life}; \textit{mind, life}; \textit{moment, mind}, among others. Observable from  @fig-word-networks, with a correlation and a word count of at least 0.8 and 400, \textit{people, moment, life} and \textit{mind} are the most predominant word combinations throughout all 9 SOC texts.
 
 This word frequency and correlation analysis then has enabled us to grasp the thematic framework of SOC literature, where most correlated and frequently present words are those with philosophical undertones, a sense of temporality and tinge of mental incoherence like \textit{dark, love}. While not entirely direct, this has somewhat portrayed SOC literature as being intricately linked to cognitive dissonance or the mind, and especially mental health issues in which SOC authors have portrayed through their characters [@flow] [@pathology] [@resampling].
-\newpage
+
 ```{r}
 #| eval: true
 #| echo: false
