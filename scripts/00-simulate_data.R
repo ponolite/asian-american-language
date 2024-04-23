@@ -26,7 +26,7 @@ simulated_data <-
     novel = sample(novels, 12, replace = TRUE, prob = NULL),  # Randomly select novels from the pre-defined novels dataset, repeatable since work can change
     # Randomly select words from the randomly generated dataset of words that are capped at 12
     word = sample(random_words, 12, replace = FALSE, prob = NULL),  # Randomly select words from the English words dataset, not repeated since this is the count of unique words
-    #use 1 through 602 to represent each count of a word since 602 is the maximum number of a unique word appears out of all nine novels
+    # Use 1 through 602 to represent each count of a word since 602 is the maximum number of a unique word appears out of all nine novels
     n = sample(1:602, 12, replace = TRUE))
 
 # Print the simulated data 
