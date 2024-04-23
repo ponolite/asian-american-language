@@ -33,7 +33,7 @@ length(combined_text$word) == 167516
 # check that the number of unique words in Mansfield's texts is 7829
 length(bliss_words$word) == 7829
 
-# check that the number of unique words in Proust's texts is 7829
+# check that the number of unique words in Proust's texts is 12203
 length(swann_words$word) == 12203
 
 # check that the number of unique words in Eliot's texts is 2350
