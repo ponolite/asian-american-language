@@ -35,7 +35,7 @@ proust_books <- all_books |>
 ts_books <- all_books |>
   filter(str_detect(author, 'Eliot, T. S.'))
 
-combined_books <- rbind(joyce_books, woolf_books, dostoevsky_books, proust_books, ts_books, mansfield_books)
+combined_books <- rbind(joyce_books, woolf_books, proust_books, ts_books, mansfield_books)
 
 # Download the more famous stream-of-consciousness work of each author:
 
@@ -65,13 +65,12 @@ bliss <- gutenberg_download(c('44385', '1429')) |>
   slice(-(1:34))
 
 #### Save data ####
-write_csv(portrait, "data/raw_data/portrait.csv") 
-write_csv(swann_way, "data/raw_data/swann_way.csv") 
-write_csv(mrs_dalloway, "data/raw_data/mrs_dalloway.csv") 
-write_csv(prufrock, "data/raw_data/prufrock.csv") 
-write_csv(bliss, "data/raw_data/bliss.csv") 
-write_csv(all_books, "data/raw_data/all_books.csv") 
-write_csv(combined_books, "data/raw_data/combined_books.csv") 
-
+write_parquet(portrait, "data/raw_data/portrait.parquet") 
+write_parquet(swann_way, "data/raw_data/swann_way.parquet") 
+write_parquet(mrs_dalloway, "data/raw_data/mrs_dalloway.parquet") 
+write_parquet(prufrock, "data/raw_data/prufrock.parquet") 
+write_parquet(bliss, "data/raw_data/bliss.parquet") 
+write_parquet(all_books, "data/raw_data/all_books.parquet") 
+write_parquet(combined_books, "data/raw_data/combined_books.parquet") 
 
 

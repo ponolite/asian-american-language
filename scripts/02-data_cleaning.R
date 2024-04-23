@@ -4,7 +4,7 @@
 # Date: 30 March 2024 
 # Contact: quangpono@gmail.com
 # License: MIT
-# Pre-requisites: Read four raw datasets containing the novel texts from five authors, namely `portrait.csv`, `swann.csv`. `dalloway.csv`, `bliss.csv` and `prufrock.csv`
+# Pre-requisites: Read four raw datasets containing the novel texts from five authors, namely `portrait.parquet`, `swann.parquet`. `dalloway.parquet`, `bliss.parquet` and `prufrock.parquet`
 
 #### Workspace setup ####
 library(tidyverse)
@@ -19,11 +19,11 @@ library(widyr)
 library(arrow)
 
 #### Clean data ####
-portrait <- read_csv("data/raw_data/portrait.csv")
-swann <- read_csv("data/raw_data/swann_way.csv")
-dalloway <- read_csv("data/raw_data/mrs_dalloway.csv")
-bliss <- read_csv("data/raw_data/bliss.csv")
-prufrock <- read_csv("data/raw_data/prufrock.csv")
+portrait <- read_parquet("data/raw_data/portrait.parquet")
+swann <- read_parquet("data/raw_data/swann_way.parquet")
+dalloway <- read_parquet("data/raw_data/mrs_dalloway.parquet")
+bliss <- read_parquet("data/raw_data/bliss.parquet")
+prufrock <- read_parquet("data/raw_data/prufrock.parquet")
 
 
 # Tokenize the words from the text, breaking the text down into individual words to insert them into individual datasets

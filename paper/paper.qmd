@@ -40,9 +40,9 @@ dalloway_words <- read_parquet(here::here("data/analysis_data/dalloway_words.par
 bliss_words <- read_parquet(here::here("data/analysis_data/bliss_words.parquet"))
 prufrock_words <- read_parquet(here::here("data/analysis_data/prufrock_words.parquet"))
 combined_text <- read_parquet(here::here("data/analysis_data/combined_text.parquet"))
-portrait <- read_csv(here::here("data/raw_data/portrait.csv"))
-all_books <- read_csv(here::here("data/raw_data/all_books.csv"))
-combined_books <- read_csv(here::here("data/raw_data/combined_books.csv"))
+portrait <- read_parquet(here::here("data/raw_data/portrait.parquet"))
+all_books <- read_parquet(here::here("data/raw_data/all_books.parquet"))
+combined_books <- read_parquet(here::here("data/raw_data/combined_books.parquet"))
 
 ```
 
@@ -506,14 +506,6 @@ graph_from_data_frame(d = combined_correlations, #create graphs of networks of w
   geom_node_text(aes(color = n, label = name), repel = TRUE)
 }
 
-
-
-
-# Code sourced from
-# filtered_text <- combined_text[combined_text$n >= 100, ] #only select words with a frequency larger or equal to 100
-
-# wordcloud(words = filtered_text$word, freq = filtered_text$n, scale=c(3,0.5), min.freq = 2, random.order = FALSE, colors= colorRampPalette(c("lightgray", "black"))(9))
-
 ```
 
 
@@ -819,6 +811,8 @@ In addition, these authors work are expansive and so choosing a select few to bi
 
 # Appendix
 
+combined books / all books
+combined correlations, combined text count
 ## Additional Data Details
 
 ```{r}
