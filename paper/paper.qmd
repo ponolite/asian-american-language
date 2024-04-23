@@ -342,6 +342,8 @@ Furthermore, SOC literature is expansive, spanning a wide range of themes, style
 
 # Results
 
+Upon assessing the generated datasets from Project Gutenberg, we further extrapolate on them here by combining word count with the AFINN, Bing and NRC index to conduct relevant word frequency and sentiment analysis. The later sections of Results also compound on these findings to conduct a comparative analysis between gendered and transnational SOC authors, attempting to garner relevant insights in mental health themes in different demographics of the SOC genre.  
+
 ## The Dominant Vocabulary of SOC Literature, A Word Frequency Analysis
 
 In terms of word frequency, most words depicted in the nine selected SOC texts are abstract nouns with temporal or philosophical tendencies and negative connotations.
