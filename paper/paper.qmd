@@ -48,7 +48,7 @@ combined_books <- read_parquet(here::here("data/raw_data/combined_books.parquet"
 
 # Introduction
 
-Stream of consciousness (SOC) is a narrative technique that aims to capture the continuous flow of thoughts, feelings, and sensations experienced by a character without conventional organization or punctuation [@resampling]. It mirrors the unpredictable and interconnected nature of human thought processes, often revealing the inner workings of the character's mind in an intimate and unfiltered manner [@flow]. In literature, most scholars agree that stream of consciousness reveals the complexities of mind-scapes, shedding light on the nuances of characters' emotional well-being and psychological struggles [@pathology]. As such, this paper has mined the texts of a total of nine novels from the volunteer archive, Project Gutenberg, to examine the mental health themes of famous stream of consciousness authors, namely by Joyce, Woolf, Proust, Mansfield and Eliot, from the modernist era of literature, spanning from late 19th century to mid-20th century [@gutenberg]. 
+Stream of consciousness (SOC) is a narrative technique that aims to capture the continuous flow of thoughts, feelings, and sensations experienced by a character without conventional organization or punctuation [@resampling]. It mirrors the unpredictable and interconnected nature of human thought processes, often revealing the inner workings of the character's mind in an intimate and unfiltered manner [@flow]. In literature, most scholars agree that stream of consciousness reveals the complexities of cognition, shedding light on the nuances of characters' emotional well-being and psychological struggles [@pathology]. As such, this paper has mined the texts of a total of nine novels from the volunteer archive, Project Gutenberg, to examine the mental health themes of famous stream of consciousness authors, namely by Joyce, Woolf, Proust, Mansfield and Eliot, from the modernist era of literature, spanning from late 19th century to mid-20th century [@gutenberg]. 
 
 By analyzing these textual datasets through word frequency and sentiment analysis, this paper seeks to pose and answer crucial questions: \textit{What are some important factors contributing to this relationship between mental health, disassociation and stream of consciousness? Moreover, how does this relationship vary differently across differnet demographics of authors, for instance, authors with different geographical locations and genders?} Understanding these dynamics is crucial in having an informed understanding of the West's late 19th to mid-20th century literature and even socio-political landscape, especially in regards to how authors and creative writers navigate and deal with then-taboo topics such as existential angst, mental health issues and disabilities.
 
@@ -141,7 +141,7 @@ portrait |>
 
 ```
 
-To collect text data from five SOC authors using the `gutenbergr` package, we first downloaded the index of each author's works from the Project Gutenberg database. These authors include Joyce, Mansfield, Eliot, Woolf, and Proust [@rGuten] ([Appendix]).
+To collect text data from five SOC authors using the `gutenbergr` package, we first downloaded the index of each author's works from the Project Gutenberg database. These authors include Joyce, Mansfield, Eliot, Woolf, and Proust [@rGuten] ([Appendix]'s @tbl-combined and @tbl-all).
 
 Next, custom datasets containing each author's raw texts were created. This involved using the identification number of the desired literary work and the `gutenberg_download` function to retrieve the HTML texts. Subsequently, the data was saved into individual Parquet datasets, as demonstrated in @tbl-joyce.
 
@@ -160,7 +160,7 @@ portrait_clean |>
          "Book" = book,
          "Author" = author,
          "Word" = word) |>
-  tail(3) |>
+  tail(5) |>
   kable(
     col.names = c("Book ID", "Book", "Author", "Word"),
     booktabs = TRUE
@@ -404,7 +404,7 @@ ggplot(frequency_long, aes(x = frequency, y = value, fill = sentiment)) +
 
 Additionally, within @fig-sentiment-frequency, for the NRC index, between all authors, the words with lower frequency-those ranging from 0.0000819% to 0004255%-are largely words that carry a mixture of emotional connotations such as, joy, surprise, positive, disgust and anticipation. However, words with high frequency-ranging from 0,0004255% to 0.0008511%-mostly contain negative connotations like fear and negative. They also have a -1.875 median on a scale between -5 to 5 in the AFINN index. Similarly, for the Bing index, words with higher frequency-those ranging from 0,0004255% to 0.0008511%-largely carry negative connotations. They also have, approximately, a -1.875 median on a scale between -5 to 5 in the AFINN index. This further emphasizes how SOC literature mostly contains negativity-inclined vocabulary and linguistic patterns.
 
-To further explore the contextual relationship between each word, @fig-word-networks creates word networks of all nine of these SOC texts. These networks will capture how often each word frequents in these SOC texts and how closely each correlates with others, whether as single words (unigrams) or pairs of words (bigrams). When combined all SOC texts, temporal nouns like \textit{time, day, life, moment, night} appear the most, at, respectively, 870, 597, 567, 502 and 376 times. This further correlates to the non-linear nature of SOC literature and their exploration of cognitive incoherence. In terms of correlation, forgoing personal names like \textit{swann, odette or mme}, bigrams with a correlation of 1 include those like \textit{dark, love}; \textit{day, heart}; \textit{moment, life}; \textit{mind, life}; \textit{moment, mind}, among others. Observable from  @fig-word-networks, with a correlation and a word count of at least 0.8 and 400, \textit{people, moment, life} and \textit{mind} are the most predominant word combinations throughout all 9 SOC texts.
+To further explore the contextual relationship between each word, @fig-word-networks creates word networks of all nine of these SOC texts. These networks will capture how often each word frequents in these SOC texts and how closely each correlates with others, whether as single words (unigrams) or pairs of words (bigrams). When combined all SOC texts, temporal nouns like \textit{time, day, life, moment, night} appear the most, at, respectively, 870, 597, 567, 502 and 376 times ([Appendix]'s @tbl-count). This further correlates to the non-linear nature of SOC literature and their exploration of cognitive incoherence. In terms of correlation, forgoing personal names like \textit{swann, odette or mme}, bigrams with a correlation of 1 include those like \textit{dark, love}; \textit{day, heart}; \textit{moment, life}; \textit{mind, life}; \textit{moment, mind}, among others ([Appendix]'s @tbl-correlation). Observable from  @fig-word-networks, with a correlation and a word count of at least 0.8 and 400, \textit{people, moment, life} and \textit{mind} are the most predominant word combinations throughout all 9 SOC texts.
 
 This word frequency and correlation analysis then has enabled us to grasp the thematic framework of SOC literature, where most correlated and frequently present words are those with philosophical undertones, a sense of temporality and tinge of mental incoherence like \textit{dark, love}. While not entirely direct, this has somewhat portrayed SOC literature as being intricately linked to cognitive dissonance or the mind, and especially mental health issues in which SOC authors have portrayed through their characters [@flow] [@pathology] [@resampling].
 
@@ -537,7 +537,7 @@ combined_text|>
 combined_text|>
   generate_word_graph_final(minimum_n = 400, minimum_correlation = 0.8)
 ```
-
+\newpage
 ## Sentiment Analysis
 
 To further understand the emotional landscape and mental health themes related to SOC literature, all nine SOC texts are combined to conduct an overall sentiment analysis [@sentiment].
@@ -752,7 +752,7 @@ ggplot(frequency_international, aes(x = proportion, y = `Marcel Proust`, color =
 
 The findings in this paper reveals a correlative relationship between SOC literature and mental health-inclined vocabulary and linguistic patterns. In terms of frequency, a dominant portion-or over 60% of words in the Bing index-of select SOC texts in this analysis have negative and sadness-leaning words ([@fig-sentiment-frequency]) ([@fig-sentiment-category]) ([@fig-sentiment-number]). Most repeated words are abstract, temporal nouns like \textit{time}, \textit{mind} or \textit{life}, which are aligned with SOC literature's exploration of mind wandering, non-linearity and unconscious cognition ([@fig-word-networks]). 
 
-As scholars Bernini and Fernyhough mentioned, the "mysterious nature of the conscious" is "a simultaneously fragmented and unified mental realm" [@resampling], this analysis has also reflected that sentiment in SOC literature. Most of the texts express the desire to replicate the inner workings of the human mind textually, attempting to capture the complexity of thought processes and emotions. With these inner-workings revealed to be mostly negative and existential, SOC authors have explored their identity and worldview in a self-aware manner, exploring then-taboo topics such as existential angst, mental health issues and disabilities to their fullest extent.
+As scholars Bernini and Fernyhough mentioned, the "mysterious nature of the conscious" is "a simultaneously fragmented and unified mental realm" [@resampling], this analysis has also reflected that sentiment in SOC literature. Most of the texts express the desire to replicate the inner workings of the human mind textually, attempting to capture the complexity of thought processes and emotions. With these inner-workings revealed to be mostly negative and existential, SOC authors have explored their identity and worldview in an authentic manner, exploring then-taboo topics such as existential angst, mental health issues and cognitive dissonance.
 
 ## Insights into Socio-Political Landscape of the West's Modernist Era 
 
@@ -764,69 +764,149 @@ This time period also underwent the West's crisis of faith in traditional religi
 
 ## Schizophrenic and Disassociative Tendencies in Female Stream of Consciousness
 
-
 ## Weaknesses 
 
 ### Lack of Thorough Word Cleaning
 
-With the large amount of different literary texts need processing, it's hard to truly conduct thorough word processing. Certain texts, while can have their frequencies accounted for, can't have sentiment analysis due to their factual nature. These textual elements might include things like chapter titles, texts from a language other than English, Roman numbers and personal names, which can strongly skew and affect the data integrity. As observed in @fig-count, "Swann", "Stephen" or "Jacob" are the most repeated words in Proust's, Joyce's and Woolf's, proving this data limitation.
+With the large amount of different literary texts need processing, it's hard to truly conduct thorough word processing. Certain texts, while can have their frequencies accounted for, can't have sentiment analysis due to their factual nature. These textual elements might include things like chapter titles, texts from a language other than English, Roman numbers and personal names, which can strongly skew and affect the data integrity. As observed in @fig-count, \textit{Swann}, \textit{Stephen} or \textit{Jacob} are the most repeated words in Proust's, Joyce's and Woolf's, proving this data limitation.
 
-### Decontextualized Words and Limiting Publication Editions
+### Decontextualized Words and Limiting Literature Selection
 
-Throughout our analysis, words are singled out and analyzed without contexts which could have affected their intended meanings, especially in such a complex genre such as SOC. For instance, the commonly repeated words \textit{time}, \textit{mind} or \textit{life} from selected texts when combined with other words or maybe insignificant to the text meaning. However, 
+Throughout our analysis, words are singled out and analyzed without contexts which could have affected their intended meanings, especially in such a complex genre such as SOC. For instance, the commonly repeated words \textit{time}, \textit{mind} or \textit{life} in our selected SOC texts might mean something entirely different when combined with other words. Paradoxically, these words may be insignificant to the SOC texts in question themselves as they're only small units of large literary texts that often have convoluted and complex themes. Therefore word frequency analysis might have excluded nuances when analyzing the contexts behind mental health themes and their relationship to SOC literature.
 
-In addition, the limiting literary text editions from Project Gutenberg also  [@gutenberg] disallow us to ensure that all texst are integral to their 't make sure that their literary integrity are maintained and the analysis might have missed important texts of other editions. 
-
-While these datasets aim to illuminate on the general time trends of childlessness with each variable measured, they are often de-contextualized for the same purpose. For instance, in Table 6, there is no clarifying note on whether people who declared themselves as ‘divorced’ are divorced once or more. This can be extremely narrowing, and exclude nuances when analyzing the contexts behind childlessness.
+In addition, the limiting SOC text editions or SOC literature from Project Gutenberg also disallow us from obtaining large sample of SOC literature to analyze their relationship to mental health themes [@gutenberg]. Previously mentioned, since Project Gutenberg only accepts works in the public domain, their archive of literature includes solely old, Western and canonical works that might have missed a diverse range of other SOC texts or other editions that could have garnered better insights into our analysis. In addition, not all SOC texts in the archive are available to be transcribed into datasets due to licensing issues, further limiting our analysis.
 
 ### Reliance on A Small Number of Sentiment Indices
 
-With a diverse selection of three indices, namely Bing, NRC and AFINN, to carry out a thorough sentiment analysis of selected SOC texts,Since the novels are chosen based on their worldwide reception and canon, practical constraints like how all novels should be of similar length are ignored. This constraint can prevent one novel having more words than others, which can critically affect the integrity of the word frequency analysis, sentiment value and word networks where one novel dominates the others and skews the results.
-
-In addition, these authors work are expansive and so choosing a select few to bind them to the SOC genre can be limiting as the SOC genre in itself is already an amalgamation of different literary trends. Thus, this can affect the integrity of the datasets.
+To ensure a thorough sentiment analysis of SOC texts, this paper has leveraged three widely used sentiment indices, namely Bing, NRC and AFINN. However, a sole dependence on the emotional metrics of these three indices might not be nuanced enough. This is because to categorize words into a specific emotion is an arduous and complex tasks as emotions are spectral and words are mainly context-based. In addition, some of the indices used might not ensure valid data analysis. For instance, @tbl-frequency shows that, using the NRC index, the word \textit{accomplished} can carry two different emotions: joy and positive. This flexible categorization can very much skew the results of the sentiment analysis, bringing an emotion more to the forefront than the others.
 
 ## Moving Forward and Next Steps
 
-Moving forward, further research with longitudinal studies and diverse data sources including qualitative interviews, alongside a mixed methods approach, is crucial to gain a comprehensive understanding of childlessness, its nuances, and its multifaceted implications. This knowledge can inform future policies aimed at fostering a supportive environment for individuals and families as they navigate the complex decisions around childbearing in the 21st century.
+Moving forward, to gain a deeper understanding of the relationship between SOC literature and mental health themes, more diverse and better natural language processing (NLP) indices, methods and processes must be used to conduct a more accurate analysis.
 
+As mentioned, relying on three sentiment indices are not enough to accurately capture the emotional sentiments of the words used in SOC literature due to how context-based words are, thus more relevant indices should be incorporated into the analysis.
+
+In addition, due to the abstract nature of SOC texts, using advanced NLP models is more effective for analysis rather than focusing solely on small linguistic units such as words or word frequency. Topic modeling, for example, is a technique in NLP used to uncover abstract topics within texts like SOC literature. Leveraging algorithms like Latent Dirichlet Allocation (LDA) and Non-negative Matrix Factorization (NMF), topic modeling helps identify patterns of co-occurring words within SOC literature, grouping them into clusters that represent coherent themes or topics that can be relevant to our mental health analysis of the SOC genre.
+
+Lastly, due to the qualitative nature of SOC literature, using a more mixed methods approach, combining both quantitative and qualitative data analysis, will offer a more comprehensive understanding of both the broader mental health trends and the literary genre itself.
 
 # Conclusion
+
+This study analyzes stream of consciousness (SOC) literature's linguistic patterns, revealing its  portrayal of mental health themes. Through our analysis of works by Joyce, Woolf, Proust, Mansfield, and Eliot, we uncover that SOC literature is largely negative or sadness-inclined with a philosophical and temporal undertones due to its exploration of unconscious cognition. While our quantitative analysis provides insights into the genre's relationship with mental health themes, it's important to recognize its limitations in capturing the richness of SOC language. This study therefore asks for further exploration into the relationship between SOC literature and mental health discourse by using more advanced NLP methods. We hypothesize that this can provide deeper insights into the genre, and the reasons for its growth in the West's late 19th to mid-20th century society.
 
 \newpage
 
 # Appendix
 
-combined books / all books
-combined correlations, combined text count
-## Additional Data Details
+## All Books from Project Gutenberg Archive
 
 ```{r}
-##| eval: true
-##| echo: false
-##| message: false
-##| warning: false
-#combined_books 
+#| echo: false
+#| eval: true
+#| label: tbl-all
+#| tbl-cap: "A Sample of Project Gutenberg Archive's Book Database"
+#| warning: false
+
+all_books <- all_books[5:10, ] 
+
+all_books |>
+  select(-gutenberg_author_id, -rights, -language, -gutenberg_bookshelf) |>
+  rename("Book ID" = gutenberg_id,
+         "Title" = title,
+         "Author" = author,
+         "Text Included" = has_text) |>
+  tail(5) |>
+  kable(
+    col.names = c("Book ID", "Title", "Author", "Text Included"),
+    booktabs = TRUE
+  ) |>
+  kable_styling(latex_options = c("striped", "hold_position", "scale_down"), 
+                bootstrap_options = "striped") 
+
 ```
 
-### Data Gathering
+## Combined Bibliographies of Nine Selected Stream of Consciousness Texts
 
-```{r fig.pos="H"}
-##| echo: false
-##| message: false
-##| label: tbl-reasons-strip-search
-##| tbl-cap:
-  
+```{r}
+#| echo: false
+#| eval: true
+#| label: tbl-combined
+#| tbl-cap: "Sample Combined Bibliographies of 9 Selected Stream of Consciousness Texts"
+#| warning: false
+
+combined_books |>
+   select(-gutenberg_author_id, -rights, -language, -gutenberg_bookshelf) |>
+  rename("Book ID" = gutenberg_id,
+         "Title" = title,
+         "Author" = author,
+         "Text Included" = has_text) |>
+  head(5) |>
+  kable(
+    col.names = c("Book ID", "Title", "Author", "Text Included"),
+    booktabs = TRUE
+  ) |>
+  kable_styling(latex_options = c("striped", "hold_position"), 
+                bootstrap_options = "striped", 
+                full_width = FALSE)
+
 ```
 
-### Data Cleaning
+## Combined Statistcs
+
+### Combined Count
+
+```{r}
+#| echo: false
+#| eval: true
+#| label: tbl-count
+#| tbl-cap: "Sample Combined Count of Words from All Nine Stream of Consciousness Texts"
+#| warning: false
+
+combined_text_count <- combined_text |>
+  count(word, sort = TRUE) |>
+  filter(n >= 400) 
+
+combined_text_count |>
+  rename("Word" = word,
+         "Count" = n) |>
+  head(5) |>
+  kable(
+    col.names = c("Word", "Count"),
+    booktabs = TRUE
+  ) |>
+  kable_styling(latex_options = c("striped", "hold_position", "scale_down"), 
+                bootstrap_options = "striped", 
+                full_width = FALSE)
+
+```
+
+### Combined Correlation
+
+```{r}
+#| echo: false
+#| eval: true
+#| label: tbl-correlation
+#| tbl-cap: "Sample Combined Bibliographies of 9 Selected Stream of Consciousness Texts"
+#| warning: false
+
+combined_correlations <- combined_text |>
+  semi_join(combined_text_count, by = "word") |>
+  pairwise_cor(item = word, feature = book) |>
+  filter(correlation >= 0.8)
 
 
-```{r fig.pos="H"}
-##| echo: false
-##| message: false
-##| label: tbl-items-strip-search
-##| tbl-cap: 
-
+combined_correlations |>
+  rename("Word 1" = item1,
+         "Word 2" = item2,
+         "Correlation" = correlation) |>
+  head(5) |>
+  kable(
+    col.names = c("Word 1", "Word 2", "Correlation"),
+    booktabs = TRUE
+  ) |>
+  kable_styling(latex_options = c("striped", "hold_position"), 
+                bootstrap_options = "striped", 
+                full_width = FALSE)
 
 ```
 
