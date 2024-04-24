@@ -34,9 +34,9 @@ toc: true
 4. *What data does each instance consist of? "Raw" data (for example, unprocessed text or images) or features? In either case, please provide a description.*
 	- Each instance consists of a number to represent the book ID (9 IDs), a literary line sourced from the 9 HTML texts from Project Gutenberg (167516 lines in total), the names of the SOC texts (9 text names in total, since all authors beside Proust have 2 texts), and the author's name (9 authors).
 5. *Is there a label or target associated with each instance? If so, please provide a description.*
-	- Each instance is eponymously titled.
+	- Each instance is eponymously labelled, for instance 'book ID' is labelled 'book_id'.
 6. *Is any information missing from individual instances? If so, please provide a description, explaining why this information is missing (for example, because it was unavailable). This does not include intentionally removed information, but might include, for example, redacted text.*
-	- There is no missing information from individual instance since all texts have been in the public domain for a while, thus all data is up-to-date.
+	- There is no missing information from individual instances since all texts have been in the public domain for a while, thus all data is up-to-date.
 7. *Are relationships between individual instances made explicit (for example, users' movie ratings, social network links)? If so, please describe how these relationships are made explicit.*
 	- Yes, the relationships between individual instances are made explicit through their eponymously titled labels and the book IDs as provided from Project Gutenberg, which helps amalgamate data by each individual SOC text. 
 8. *Are there recommended data splits (for example, training, development/validation, testing)? If so, please provide a description of these splits, explaining the rationale behind them.*
