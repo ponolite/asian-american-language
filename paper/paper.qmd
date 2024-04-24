@@ -544,7 +544,7 @@ To further understand the emotional landscape and mental health themes related t
 
 For the Bing index, @fig-sentiment-category shows that, SOC authors' literary works are predominantly negative. All authors, except for Mansfield, demonstrates this. 68% of Joyce's works are negative compared to his 32% positive, similar to Eliot's, which is also the highest statistic out of all five authors. Woolf comes second with 60% words carrying negative meanings, while 40% are negative. Proust comes fourth with 57% negative and 43% positive. While Mansfield has words with positive connotations, at 51%, this isn't much different from her 49% negative words.
 
-For the NRC index, @fig-sentiment-category further details the emotional nuances of SOC literature. The dominant emotional connotation in SOC literature's vocabulary is negative, standing at 16% to 22%. While the second highest percentage range belong to words with positive connotation, ranging from 11% to 17%. However, most of the other bars in the graph are occupied by words with negative-leaning emotions, such as sadness, fear, and anger. Sadness-related words, in particular, ranges the third highest, from 11% to 15%.
+For the NRC index, @fig-sentiment-category further details the emotional nuances of SOC literature. The dominant emotional connotation in SOC literature's vocabulary is negative, standing at 16% to 22%. While the second highest percentage range belongs to words with positive connotation, ranging from 11% to 17%. However, most of the other bars in the graph are occupied by words with negative-leaning emotions, such as sadness, fear, and anger. Sadness-related words, in particular, range the third highest, from 11% to 15%.
 
 
 ```{r}
