@@ -38,7 +38,7 @@ toc: true
 6. *Is any information missing from individual instances? If so, please provide a description, explaining why this information is missing (for example, because it was unavailable). This does not include intentionally removed information, but might include, for example, redacted text.*
 	- There is no missing information from individual instances since all texts have been in the public domain for a while, thus all data is up-to-date.
 7. *Are relationships between individual instances made explicit (for example, users' movie ratings, social network links)? If so, please describe how these relationships are made explicit.*
-	- Yes, the relationships between individual instances are made explicit through their eponymously titled labels and the book IDs as provided from Project Gutenberg, which helps amalgamate data by each individual SOC text. 
+	- Yes, the relationships between individual instances are made explicit through their eponymously titled labels and the book IDs as provided from Project Gutenberg, which helps clarify which data belongs to which individual SOC text. 
 8. *Are there recommended data splits (for example, training, development/validation, testing)? If so, please provide a description of these splits, explaining the rationale behind them.*
 	- The data is split into individual SOC authors. This split ensures a comparative analysis between different demographics of SOC authors later on, for instance, between transnational SOC authors and between gendered SOC authors, enabling a more nuanced analysis of the dataset.
 9. *Are there any errors, sources of noise, or redundancies in the dataset? If so, please provide a description.*

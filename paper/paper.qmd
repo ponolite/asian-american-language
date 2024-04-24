@@ -143,7 +143,7 @@ portrait |>
 
 To collect text data from five SOC authors using the `gutenbergr` package, we first downloaded the index of each author's works from the Project Gutenberg database. These authors include Joyce, Mansfield, Eliot, Woolf, and Proust [@rGuten] ([Appendix]'s @tbl-combined and @tbl-all).
 
-Next, custom datasets containing each author's raw texts were created. This involved using the identification number of the desired literary work and the `gutenberg_download` function to retrieve the HTML texts. Subsequently, the data was saved into individual Parquet datasets, as demonstrated in @tbl-joyce.
+Next, custom datasets containing each author's raw texts were created. This involved using the identification number of the nine desired literary works and the `gutenberg_download` function to retrieve the HTML texts. Subsequently, the data was saved into individual Parquet datasets, as demonstrated in @tbl-joyce.
 
 \newpage
 
@@ -172,7 +172,7 @@ portrait_clean |>
 
 ```
 
-Next, in @tbl-joyce-token, to measure the word count of each literary text, we first tokenized or separated each text into individual chunks of words using `unnest_tokens()` [@rTidytext].In addition, to account for stop words like, a, of, and, etc., the dataset `stop_words`and the function `anti_join` from @rTidytext were used to exclude all stop words from the self-generated datasets of SOC texts, ensuring data validity and meaningful analysis.
+Next, in @tbl-joyce-token, to measure the word count of each literary text, we first tokenized or separated each text into individual chunks of words using `unnest_tokens()` [@rTidytext]. In addition, to account for stop words like, a, of, and, etc., the dataset `stop_words`and the function `anti_join` from @rTidytext were used to exclude all stop words from the self-generated datasets of SOC texts, ensuring data validity and meaningful analysis.
 
 ```{r}
 #| echo: false
