@@ -5,7 +5,7 @@ author: Quang Mai
 thanks: "Code and data are available at: https://github.com/ponolite/stream-consciousness-language.git"
 date: today
 date-format: long
-abstract: "This project focuses on understanding the language used by renowned stream of consciousness (SOC) authors James Joyce, Virginia Woolf, Marcel Proust, Katherine Mansfield and T.S Eliot. By conducting word frequency analysis and sentiment analysis on these authors' nine novels, we aim to uncover shared linguistic patterns and gain insights into the authors' mental states. Our analysis of the SOC genre shows that higher frequency words are mostly negative and carry sadness or fear-inclined connotations. With these trends uncovered, we attempt to offer insights into themes of self-identity, anxiety, disassociation and existential contemplation within Western society and its literary circle from late 19th to mid-20th century."
+abstract: "This project focuses on understanding the language used by renowned stream of consciousness (SOC) authors James Joyce, Virginia Woolf, Marcel Proust, Katherine Mansfield and T.S Eliot. By conducting word frequency analysis and sentiment analysis on these authors' nine novels, we aim to uncover shared linguistic patterns and gain insights into the authors' mental states. Our analysis of the SOC genre shows that higher frequency words are mostly negative and carry sadness or fear-inclined connotations, with clear linguistic differences between female and male authors. With these trends uncovered, we attempt to offer insights into themes of self-identity, anxiety, disassociation and existential contemplation within Western society and its literary circle from late 19th to mid-20th century."
 format: pdf
 number-sections: true
 bibliography: references.bib
@@ -48,13 +48,13 @@ combined_books <- read_parquet(here::here("data/raw_data/combined_books.parquet"
 
 # Introduction
 
-Stream of consciousness (SOC) is a narrative technique that aims to capture the continuous flow of thoughts, feelings, and sensations experienced by a character without conventional organization or punctuation [@resampling]. It mirrors the unpredictable and interconnected nature of human thought processes, often revealing the inner workings of the character's mind in an intimate and unfiltered manner [@flow]. In literature, most scholars agree that stream of consciousness reveals the complexities of cognition, shedding light on the nuances of characters' emotional well-being and psychological struggles [@pathology]. As such, this paper has mined the texts of a total of nine novels from the volunteer archive, Project Gutenberg, to examine the mental health themes of famous stream of consciousness authors, namely by Joyce, Woolf, Proust, Mansfield and Eliot, from the modernist era of literature, spanning from late 19th century to mid-20th century [@gutenberg]. 
+Stream of consciousness (SOC) is a narrative technique that aims to capture the continuous flow of thoughts, feelings, and sensations experienced by a character without conventional organization or punctuation [@resampling]. It mirrors the unpredictable and interconnected nature of human thought processes, often revealing the emotional well-being and psychological struggles of the character's mind in an intimate and unfiltered manner [@flow] [@pathology]. As such, this paper has mined the texts of a total of nine novels from the volunteer archive, Project Gutenberg, to examine the mental health themes of famous stream of consciousness authors, namely by Joyce, Woolf, Proust, Mansfield and Eliot, from the modernist era of literature, spanning from late 19th century to mid-20th century [@gutenberg]. 
 
-By analyzing these textual datasets through word frequency and sentiment analysis, this paper seeks to pose and answer crucial questions: \textit{What are some important factors contributing to this relationship between mental health, disassociation and stream of consciousness? Moreover, how does this relationship vary differently across differnet demographics of authors, for instance, authors with different geographical locations and genders?} Understanding these dynamics is crucial in having an informed understanding of the West's late 19th to mid-20th century literature and even socio-political landscape, especially in regards to how authors and creative writers navigate and deal with then-taboo topics such as existential angst, mental health issues and disabilities.
+By analyzing these textual datasets through word frequency and sentiment analysis, this paper seeks to pose and answer crucial questions: \textit{What are some important factors contributing to this relationship between mental health, disassociation and stream of consciousness? Moreover, how does this relationship vary differently across differnet demographics of authors, for instance, authors with different genders?} Understanding these dynamics is crucial in having an informed understanding of the West's late 19th to mid-20th century literature and even socio-political landscape, especially in regards to how authors and creative writers navigate and deal with then-taboo topics such as existential angst, mental health issues and anxiety
 
-Thus, the estimand is the correlation between mental health-related themes and words in SOC literature, their frequency and sentiment value as provided by @rTidytext. This is considered in terms of nine selected SOC literary works only, namely Joyce's \textit{A Portrait of the Artist as a Young Man and Chamber Music}; Woolf's \textit{Mrs Dalloway and Jacob's Room}; Proust's \textit{Swann Way}; Mansfield's \textit{Bliss and The Garden Party}; and Eliot's \textit{The Waste Land and The Love Song of J. Alfred Prufrock}. Through our analysis, we found that words that appear with high frequency are mostly negative in select SOC literature (-1.875 median on AFINN index). Sentiment-wise, analysis reveals a predominant 27% to 37% of words in SOC texts are negative and sadness-inclined (NRC index), and over 60% of words in these texts are negative, with Eliot's works being the most negative at 68% (Bing index), followed closely by Joyce, Woolf, Proust, and Mansfield. Abstract and temporal nouns like "time," "day," "life," "moment," and "night" are most frequent, respectively appearing 870, 597, 567, 502 and 376 times in all texts combined. These statistics correlate with SOC's non-linear nature, and the genre's exploration of the unconscious mind which often correlates to mental health themes.
+Thus, the estimand is the correlation between mental health-related themes in SOC literature, their appearance frequency and sentiment value. This is considered in terms of nine selected SOC texts only, namely Joyce's \textit{A Portrait of the Artist as a Young Man and Chamber Music}; Woolf's \textit{Mrs Dalloway and Jacob's Room}; Proust's \textit{Swann Way}; Mansfield's \textit{Bliss and The Garden Party}; and Eliot's \textit{The Waste Land and The Love Song of J. Alfred Prufrock}. Through our analysis, we found that words that appear with high frequency are mostly negative in select SOC literature (-1.875 median on AFINN index). Sentiment-wise, analysis reveals a predominant 27% to 37% of words in SOC texts being negative and sadness-inclined (NRC index), and over 60% of words in these texts are negative (Bing index). Abstract and temporal nouns like "time," "day," "life," "moment," and "night" are most frequent, respectively appearing 870, 597, 567, 502 and 376 times in all texts combined. Gender-wise, male SOC authors are more likely to have negative words compared to female authors. These statistics correlate with SOC's non-linear nature, the genre's exploration of the unconscious mind (which often correlates to mental health themes), and its reflection of Western society in late 19th to mid-20th century.
 
-To further understand the correlation between stream of consciousness texts and mental health themes, in [Introduction], the paper briefly discusses the nature of stream of consciousness literature, relevant authors and the works that I've chosen to analyze. Subsequently, in [Data] and [Results], we talk about the nature of the data obtained and analyze the results garnered from the data with suitable tables and charts. Next, [Discussion] provides further insights and future areas of study. Finally, [Conclusion] summarizes our main findings. 
+To further understand the correlation between stream of consciousness texts and mental health themes, in [Introduction], the paper briefly discusses the nature of stream of consciousness literature, relevant authors and the works that we have chosen to analyze. Subsequently, in [Data] and [Results], we talk about the nature of the data obtained and analyze the results garnered from the data with suitable tables and charts. Next, [Discussion] provides further insights and future areas of study. Finally, [Conclusion] summarizes our main findings. 
 
 # Data {#sec-data}
 
@@ -67,7 +67,7 @@ Two central variables in this paper are:
 * **Word Frequency:** This variable captures the repetition of a single word (unigram) or a pair of words combination (bigram) throughout a SOC novel text, providing us with a thematic understanding of SOC literature.
 * **Sentiment Value:** This variable enables us to analyze how every word is usually perceived emotionally, whether it be a qualitative feeling or if it is conveyed through a numerical value.
 
-Out of two variables used, the first one, 'Word Frequency' usually captured as `n/sum(n)` or `frequency` in datasets, is directly quantified through tokenizing the novel texts using the package `tidytext` and its function `unnest_tokens()` [@rTidytext]. To do this, we downloaded all nine SOC texts from @gutenberg, using functions such as `unnest_tokens()` from @rTidytext to mine the texts, or separating them into individual words. Finally, I used `count()` to quantify the word count (`n`), and later divide the each word's count over the total word count of each author to garner the word frequency percentages. 
+Out of two variables used, the first one, 'Word Frequency' usually captured as `n/sum(n)` or `frequency` in datasets, is directly quantified through tokenizing the novel texts using the package `tidytext` and its function `unnest_tokens()` [@rTidytext]. To do this, we downloaded all nine SOC texts from @gutenberg, using functions such as `unnest_tokens()` from @rTidytext to mine the texts, or separating them into individual words. Finally, we used `count()` to quantify the word count (`n`), and later divide the each word's count over the total word count of each author to garner the word frequency percentages (`n/sum(n)`). 
 
 The second variable used, 'Sentiment Value', is based on three English-based, general-purpose  "word-emotion and word-polarity association lexicons", sourced from Mohammad and Turney's expansive research along with efforts from Finn Årup Nielsen and Bing Liu and collaborators [@rTidytext] [@sentiment]. The three general-purpose lexicon that contributes to this paper's sentiment analysis are [@rTidytext]:
 
@@ -95,7 +95,7 @@ In terms of measuring 'Sentiment Value', all three general-purpose lexicons are 
 - startle is moderately negative
 - startle is strongly negative
 
-After the survey results are garnered, researchers average the answers to sort each surveyed word into pre-defined categories, specifically '-5 to 5' for 'AFINN', 'postive' or 'negative' for 'bing', and 'anger' or 'fear' for 'nrc'. With the continuous work of compiling these lexicons spanning years and decades [@sentiment] comes these functions: `get_sentiments("bing")` and `get_sentiments("nrc")` and `get_sentiments("afinn")` in which I can use `inner_join` to categorize my existing datasets of novel texts into their sentiment value. Systematic and data-driven, these measurement methods ensure that all lexicons faithfully reflects each word's emotionality.
+After the survey results are garnered, researchers average the answers to sort each surveyed word into pre-defined categories, specifically '-5 to 5' for 'AFINN', 'postive' or 'negative' for 'bing', and 'anger' or 'fear' for 'nrc'. With the continuous work of compiling these lexicons spanning years and decades [@sentiment] comes these functions: `get_sentiments("bing")` and `get_sentiments("nrc")` and `get_sentiments("afinn")`. We can then use `inner_join` with these lexicons to categorize our existing datasets of SOC texts into pre-defined sentiment value. Systematic and data-driven, these measurement methods ensure that all lexicons faithfully reflects each word's emotionality.
 
 However, this paper does recognize how reductive this quantification of language can be. When it comes to understand such social and human artifacts as language or literary texts, much is dependent on their context. As such, this paper will further discuss these weaknesses of the datasets under [Discussion].
 
@@ -172,7 +172,7 @@ portrait_clean |>
 
 ```
 
-Next, in @tbl-joyce-token, to measure the word count of each literary text, we first tokenized or separated into individual chunks of words using `unnest_tokens()` [@rTidytext].In addition, to account for stop words like, a, of, and, etc., the dataset `stop_words`and the function `anti_join` from @rTidytext were used to exclude all stop words from the self-generated datasets of literary texts, ensuring data validity and meaningful analysis.
+Next, in @tbl-joyce-token, to measure the word count of each literary text, we first tokenized or separated each text into individual chunks of words using `unnest_tokens()` [@rTidytext].In addition, to account for stop words like, a, of, and, etc., the dataset `stop_words`and the function `anti_join` from @rTidytext were used to exclude all stop words from the self-generated datasets of SOC texts, ensuring data validity and meaningful analysis.
 
 ```{r}
 #| echo: false
@@ -284,7 +284,7 @@ frequency_long |>
   ) |>  kable_styling(latex_options = c("striped", "hold_position"), bootstrap_options = "striped", full_width = FALSE)
 ```
 
-To accurately compare word count among SOC authors, from @tbl-frequency, qw converted each word count from each author into a percentage. This is done by using `mutate` to calculate the word frequency of each word relative to the total word count of each author. Due to the different number of words present in each author's literary works, this method accounts for the inconsistencies of between each author's word count. As explained, the variables within @tbl-frequency are:
+To accurately compare word count among SOC authors, from @tbl-frequency, we converted each word count from each author into a percentage. This is done by using `mutate` to calculate the word frequency of each word relative to the total word count of each author (`n/sum(n)`). Due to the different number of words present in each author's literary works, this method accounts for the inconsistencies of between each author's word count. The variables within @tbl-frequency are:
 
 - **Word:** This variable is the word sourced from SOC literary texts.
 - **Author:** This variable accounts for the author whose books contain the word in question.
@@ -324,13 +324,13 @@ frequency_long |>
 
 ```
 
-@tbl-boxplot captures the text data garnered and their emotional connotations. Overseeing the entire dataset, @tbl-boxplot in particular demonstrates that, for all distinct word frequency, the median sentiment value is -2 on the scale between -5 and 5. More specifically, words that appear most frequently, or words with the frequency  of 0.0008511%, have the lowest mean of sentiment value-or the most negative connotation-of -2.33 on the scale between -5 and 5 in the AFINN sentiment index. This summary statistic further shows how SOC literature mostly associates with words that carry more negative or even extreme connotations often associated with mental health themes, and topics such as depression, disassociation or schizophrenia [@pathology], a central argument that we will further discuss in [Results].
+@tbl-boxplot captures the text data garnered and their emotional connotations using the AFINN lexicon. Overseeing the entire dataset, @tbl-boxplot demonstrates that, for all distinct word frequency, the median sentiment value is -2 on the scale between -5 and 5. More specifically, words that appear most frequently, or words with the frequency of 0.0008511%, have the most negative connotation of -2.33 on the scale between -5 and 5 in the AFINN sentiment index. This summary statistic further shows how SOC literature mostly associates with words that carry more negative or even extreme connotations often associated with mental health themes, and topics such as depression, disassociation or schizophrenia [@pathology], a central argument that we will further discuss in [Results].
 
 ## Data Limitations
 
 ### Potential Measurement Errors
 
-The actual raw text data sourced from Project Gutenberg may be susceptible to measurement errors due to various factors, such as selection bias towards older, Western and canonical texts, social desirability bias that edits out certain political elements, memory lapses, or misinterpretations of literary texts by voluntary proofreaders. While the archive has strict guidelines to minimize these errors, they cannot be entirely eliminated.
+The actual raw text data sourced from Project Gutenberg may be susceptible to measurement errors due to various factors, such as selection bias towards older, Western and canonical texts, social desirability bias (which edits out certain political elements), memory lapses, misinterpretations of literary texts by voluntary proofreaders. While the archive has strict guidelines to minimize these errors, they cannot be entirely eliminated.
 
 ### Uneven Text Length 
 
@@ -338,11 +338,11 @@ We chose literary texts based on their global reception and status within the st
 
 ### Biased Author Selection
 
-Furthermore, SOC literature is expansive, spanning a wide range of themes, styles, and narrative techniques. By exclusively representing the genre through a select group of canonical Western authors, we risk constraining the genre's diversity. By oversimplifying the complexity of the the dynamic literary genre, we also affect the integrity of the datasets and its correlation to mental health themes.
+Furthermore, SOC literature is expansive, spanning a wide range of themes, styles, and narrative techniques. By exclusively representing the genre through a select group of canonical Western authors, we risk constraining the genre's diversity. By oversimplifying the complexity of the literary genre, we also affect the integrity of the datasets and its correlation to mental health themes.
 
 # Results
 
-Upon assessing the generated datasets from Project Gutenberg, we further extrapolate on them here by combining word count with the AFINN, Bing and NRC index to conduct relevant word frequency and sentiment analysis. The later sections of Results also compound on these findings to conduct a comparative analysis between gendered and transnational SOC authors, attempting to garner relevant insights in mental health themes in different demographics of the SOC genre.  
+Upon assessing our generated datasets from Project Gutenberg, we further extrapolate on them here by combining word count with the AFINN, Bing and NRC index to conduct relevant word frequency and sentiment analysis. The later sections of Results also compound on these findings to conduct a comparative analysis between gendered SOC authors, attempting to garner relevant insights in mental health themes in different demographics of the SOC genre.  
 
 ## The Dominant Vocabulary of SOC Literature, A Word Frequency Analysis
 
@@ -402,9 +402,9 @@ ggplot(frequency_long, aes(x = frequency, y = value, fill = sentiment)) +
 
 ```
 
-Additionally, within @fig-sentiment-frequency, for the NRC index, between all authors, the words with lower frequency-those ranging from 0.0000819% to 0004255%-are largely words that carry a mixture of emotional connotations such as, joy, surprise, positive, disgust and anticipation. However, words with high frequency-ranging from 0,0004255% to 0.0008511%-mostly contain negative connotations like fear and negative. They also have a -1.875 median on a scale between -5 to 5 in the AFINN index. Similarly, for the Bing index, words with higher frequency-those ranging from 0,0004255% to 0.0008511%-largely carry negative connotations. They also have, approximately, a -1.875 median on a scale between -5 to 5 in the AFINN index. This further emphasizes how SOC literature mostly contains negativity-inclined vocabulary and linguistic patterns.
+Additionally, within @fig-sentiment-frequency, for the NRC index, between all authors, the words with lower frequency-those ranging from 0.0000819% to 0004255%-are largely words that carry a mixture of emotional connotations such as, joy, surprise, positive, disgust and anticipation. However, words with high frequency-ranging from 0,0004255% to 0.0008511%-mostly contain negative connotations like fear and negative. They also have a negative -1.875 median on a scale between -5 to 5 in the AFINN index. Similarly, for the Bing index, words with higher frequency-those ranging from 0,0004255% to 0.0008511%-largely carry negative connotations. They also have, approximately, a -1.875 median on a scale between -5 to 5 in the AFINN index. This further emphasizes how SOC literature mostly contains negativity-inclined vocabulary and linguistic patterns.
 
-To further explore the contextual relationship between each word, @fig-word-networks creates word networks of all nine of these SOC texts. These networks will capture how often each word frequents in these SOC texts and how closely each correlates with others, whether as single words (unigrams) or pairs of words (bigrams). When combined all SOC texts, temporal nouns like \textit{time, day, life, moment, night} appear the most, at, respectively, 870, 597, 567, 502 and 376 times ([Appendix]'s @tbl-count). This further correlates to the non-linear nature of SOC literature and their exploration of cognitive incoherence. In terms of correlation, forgoing personal names like \textit{swann, odette or mme}, bigrams with a correlation of 1 include those like \textit{dark, love}; \textit{day, heart}; \textit{moment, life}; \textit{mind, life}; \textit{moment, mind}, among others ([Appendix]'s @tbl-correlation). Observable from  @fig-word-networks, with a correlation and a word count of at least 0.8 and 400, \textit{people, moment, life} and \textit{mind} are the most predominant word combinations throughout all 9 SOC texts.
+To further explore the contextual relationship between each word, @fig-word-networks creates word networks of all nine SOC texts. These networks capture how often each word frequents in these SOC texts and how closely each correlates with one another, whether as single words (unigrams) or pairs of words (bigrams). When combined all SOC texts, temporal nouns like \textit{time, day, life, moment, night} appear the most, at, respectively, 870, 597, 567, 502 and 376 times ([Appendix]'s @tbl-count). This further correlates to the non-linear nature of SOC literature and their exploration of cognitive incoherence. In terms of correlation, ignoring personal names like \textit{swann, odette or mme}, bigrams with a correlation of 1 include those like \textit{dark, love}; \textit{day, heart}; \textit{moment, life}; \textit{mind, life}; \textit{moment, mind}, among others ([Appendix]'s @tbl-correlation). Observable from  @fig-word-networks, with a correlation and a word count of at least 0.8 and 400, \textit{people, moment, life} and \textit{mind} are the most predominant word combinations throughout all 9 SOC texts.
 
 This word frequency and correlation analysis then has enabled us to grasp the thematic framework of SOC literature, where most correlated and frequently present words are those with philosophical undertones, a sense of temporality and tinge of mental incoherence like \textit{dark, love}. While not entirely direct, this has somewhat portrayed SOC literature as being intricately linked to cognitive dissonance or the mind, and especially mental health issues in which SOC authors have portrayed through their characters [@flow] [@pathology] [@resampling].
 
@@ -542,9 +542,9 @@ combined_text|>
 
 To further understand the emotional landscape and mental health themes related to SOC literature, all nine SOC texts are combined to conduct an overall sentiment analysis [@sentiment].
 
-For Bing index, @fig-sentiment-category shows that, SOC authors' literary works are predominantly negative. All authors, except for Mansfield, demonstrates this. 68% of Joyce's works are negative compared to his 32% positive, similar to Eliot's, which is also the highest statistic out of all five authors. Woolf comes second with 60% words carrying negative meanings, while 40% are negative. Proust comes fourth with  57% negative and 43% positive. While Mansfield has words with positive connotations, at 51%, this isn't much different from her 49% negative words.
+For the Bing index, @fig-sentiment-category shows that, SOC authors' literary works are predominantly negative. All authors, except for Mansfield, demonstrates this. 68% of Joyce's works are negative compared to his 32% positive, similar to Eliot's, which is also the highest statistic out of all five authors. Woolf comes second with 60% words carrying negative meanings, while 40% are negative. Proust comes fourth with 57% negative and 43% positive. While Mansfield has words with positive connotations, at 51%, this isn't much different from her 49% negative words.
 
-The NRC index in @fig-sentiment-category further details the emotional nuances of SOC literature. The dominant emotional connotation in SOC literature's vocabulary is negative, standing at 16% to 22%. While the second highest percentage range belong to words with positive connotation, ranging from 11% to 17%. However, most of the other bars are occupied by words with negative-leaning emotions, such as sadness, fear, and anger. Sadness-related words, in particular, ranges the third highest, from 11% to 15%.
+For the NRC index, @fig-sentiment-category further details the emotional nuances of SOC literature. The dominant emotional connotation in SOC literature's vocabulary is negative, standing at 16% to 22%. While the second highest percentage range belong to words with positive connotation, ranging from 11% to 17%. However, most of the other bars in the graph are occupied by words with negative-leaning emotions, such as sadness, fear, and anger. Sadness-related words, in particular, ranges the third highest, from 11% to 15%.
 
 
 ```{r}
@@ -608,7 +608,7 @@ ggplot(sentiment_category, aes(x = author, fill = sentiment, y = percentage)) +
 
 ```
 
-The AFINN index in @fig-sentiment-number portrays a similar trend with its more quantitative sentiment analysis. On a scale of -5 to 5, SOC literature from these five authors mostly carry a negative sentiment, observable in the significant difference in height between the negative trendlines and the positive trendlines. Eliot's works are the most negative with 37% of words being -2 on the emotional scale between -5 and 5. Respectively, Woolf, Proust and Joyce tail beind at 33%, 32% and 31%, averaging out to be ~-2.2 on the emotional scale between -5 and 5. While a large percentage Mansfield's works are positive, her highest percentage is negative on the AFINN index, at 24% for a scale of about -2.2 between -5 and 5.
+The AFINN index in @fig-sentiment-number portrays a similar trend with its more quantitative sentiment analysis. On a scale of -5 to 5, SOC literature from these five authors mostly carry a negative sentiment, observable in the significant difference in height between the negative trendlines and the positive trendlines. Eliot's works are the most negative with 37% of words being -2 on the emotional scale between -5 and 5. Respectively, Woolf, Proust and Joyce tail beind at 33%, 32% and 31%, averaging out to be -2.2 on the emotional scale between -5 and 5. While a large percentage Mansfield's works are positive, her highest percentage is negative on the AFINN index, at 24% or a -2.2 negative score between -5 and 5.
 
 This further suggests that the SOC literary landscape mainly has negative, disgust, fear and sadness-leaning vocabulary. These trends reflect the incoherent mental spaces, depressive perceptions, and existential angst inherent to SOC literature. These are the central themes often conveyed by SOC authors through their exploration of the unconscious mind and repressed emotions, reflecting the societal concerns of the late 19th to mid-20th century West [@pathology] [@resampling].
 
@@ -638,9 +638,17 @@ ggplot(sentiment_value, aes(x = value, y = percentage, fill = sentiment, color =
 ```
 
 
-## Gendered Mental Landscape of Stream of Consciousness Novels
+## Gendered Mental Landscape of Stream of Consciousness Authorw
 
-\newpage
+To further expand on the analysis, we have also used our word frequency data from @tbl-frequency to conduct a gendered analysis between different SOC authors. @fig-word-gender attempts to assess the word frequency between female and male SOC authors. Dots closer together around the diagonal line tend to appear with similar frequency for all authors involved. Words further up and to the left are more typical for those on the y-axis, and closer to the lower right corner: those on the x-axis.
+
+@fig-word-gender shows that for female SOC authors, while having smaller word frequency due to the lighter blue, still have their words perfectly revolved the regression line, showing that both Woolf and Mansfield are comparatively close in terms of linguistic patterns. Woolf and Mansfield mostly have a word frequency of 0.0001421262% and 0.0001277302% for each word present in their texts, with some of their shared vocabulary being \textit{anxious}, \textit{angry}, \textit{anguish}, \textit{dreadful}, among others.
+
+As for male authors, @fig-word-gender shows that, while their words have a higher appearance frequency, they have less correlation as the regression line isn't centered, showing the dissimilar vocabulary used between male authors. Mostly, Eliot, Proust and Joyce have a word frequency of 0.0004255319%, 0.0000819% and 0.000112% for each word present in their texts, with some of their shared vocabulary being \textit{agony}, \textit{cry}, \textit{die}, \textit{chaos}, among others. Proust and Joyce, two novelists, seem to have more similarities compared to Eliot, who is a poet.
+
+While sharing the same existential quest in their SOC literature, through this gendered analysis and @fig-sentiment-category, we can see discrepancies between male and female authors, especially in terms of shared linguistic patterns and mental health themes. @gender poses that in terms of genders, writers-or here SOC writers-tend to write about affects or mental health themes differently. While females tend to have reservations over their emotions or are similarly positive, males tend to be more open and individualistic due to less social constraints at the time, which will be further discussed in [Discussion] below.
+
+
 ```{r}
 #| eval: true
 #| echo: false
@@ -651,6 +659,8 @@ ggplot(sentiment_value, aes(x = value, y = percentage, fill = sentiment, color =
 #| fig-cap: "Comparative Analysis of Word Frequency in Female and Male Stream of Consciousness Authors"
 #| fig-subcap: ["Female Authors", "Male Authors"]
 
+bing_lexicon <- get_sentiments("bing") %>%
+  rename(sentiment_binary = sentiment)
 
 # Calculate the word frequency over all unique words and bind all frequency rate of authors together to conduct a comparative comparison
 # Code referenced from https://medium.com/the-data-nudge/nlp-basics-exploring-word-frequency-with-the-tidytext-r-package-ac35a6d805f4
@@ -665,13 +675,15 @@ frequency_female <- bind_rows(mutate(dalloway_words, author = "Virginia Woolf"),
   select(-n) |>
   pivot_wider(names_from = author, values_from = proportion) |>
   pivot_longer(`Virginia Woolf`,
-               names_to = "author", values_to = "proportion")
+               names_to = "author", values_to = "proportion") |>
+    inner_join(bing_lexicon) |>
+  inner_join(get_sentiments("afinn")) |>
+  inner_join(get_sentiments("nrc")) 
 
-ggplot(frequency_female, aes(x = proportion, y = `Katherine Mansfield`, color = abs(`Katherine Mansfield` - proportion))) +
+ggplot(frequency_female, aes(x = proportion, y = `Katherine Mansfield`, fill = value, color = abs(`Katherine Mansfield` - proportion))) +
   geom_abline(color = "gray50", lty = 2) +
   geom_jitter(alpha = 0.1, size = 1, width = 0.5, height = 0.5) +  
-  geom_text(aes(label = word), check_overlap = TRUE, vjust = 1.5) +
-  scale_x_log10(labels = scales::percent_format()) +
+geom_text(aes(label = word), check_overlap = TRUE, vjust = 1.5) +  scale_x_log10(labels = scales::percent_format()) +
   scale_y_log10(labels = scales::percent_format()) +
   scale_color_gradient(limits = c(0, 0.001), 
                        low = "steelblue", high = "darkblue") +
@@ -690,7 +702,10 @@ frequency_male <- bind_rows(
   select(-n) |>
   pivot_wider(names_from = author, values_from = proportion) |>
   pivot_longer(`Marcel Proust`:`James Joyce`,
-               names_to = "author", values_to = "proportion")
+               names_to = "author", values_to = "proportion") |>
+    inner_join(bing_lexicon) |>
+  inner_join(get_sentiments("afinn")) |>
+  inner_join(get_sentiments("nrc")) 
 
 ggplot(frequency_male, aes(x = proportion, y = `T.S. Eliot`, color = abs(`T.S. Eliot` - proportion))) +
   geom_abline(color = "gray50", lty = 2) +
@@ -700,48 +715,9 @@ ggplot(frequency_male, aes(x = proportion, y = `T.S. Eliot`, color = abs(`T.S. E
   scale_y_log10(labels = percent_format()) +
   scale_color_gradient(limits = c(0, 0.001), 
                        low = "steelblue", high = "darkblue") +
-  facet_wrap(~author, ncol = 2) +
-  theme(legend.position="none") +
-  labs(y = "T.S. Eliot", x = NULL)
-
-
-```
-
-## Transnational SOC Novels and Mental Health Themes
-
-```{r}
-#| eval: true
-#| echo: false
-#| message: false
-#| warning: false
-#| label: fig-frequency-int
-#| fig-cap: "Comparative Analysis of Word Frequency in Transnational Stream of Consciousness Authors"
-
-frequency_international <- bind_rows(
-                       mutate(swann_words, author = "Marcel Proust"),
-                       mutate(bliss_words, author = "Katherine Mansfield"),
-                       mutate(portrait_words, author = "James Joyce")) |>
-  mutate(word = str_extract(word, "[a-z']+")) |>
-  count(author, word) |>
-  group_by(author) |>
-  mutate(proportion = n / sum(n)) |>
-  select(-n) |>
-  pivot_wider(names_from = author, values_from = proportion) |>
-  pivot_longer(`Katherine Mansfield`:`James Joyce`,
-               names_to = "author", values_to = "proportion")
-
-ggplot(frequency_international, aes(x = proportion, y = `Marcel Proust`, color = abs(`Marcel Proust` - proportion))) +
-  geom_abline(color = "gray50", lty = 2) +
-  geom_jitter(alpha = 0.05, size = 1, width = 0.8, height = 0.8) +  
-  geom_text(aes(label = word), check_overlap = TRUE, vjust = 1.5) +
-  scale_x_log10(labels = percent_format()) +
-  scale_y_log10(labels = percent_format()) +
-  scale_color_gradient(limits = c(0, 0.001), 
-                       low = "steelblue", high = "darkblue") +
   facet_wrap(~author, ncol = 1) +
   theme(legend.position="none") +
-  labs(y = "Marcel Proust", x = NULL)
-
+  labs(y = "T.S. Eliot", x = NULL)
 
 
 ```
@@ -750,19 +726,23 @@ ggplot(frequency_international, aes(x = proportion, y = `Marcel Proust`, color =
 
 ## Mental Health Vocabulary: Patterns and Trends 
 
-The findings in this paper reveals a correlative relationship between SOC literature and mental health-inclined vocabulary and linguistic patterns. In terms of frequency, a dominant portion-or over 60% of words in the Bing index-of select SOC texts in this analysis have negative and sadness-leaning words ([@fig-sentiment-frequency]) ([@fig-sentiment-category]) ([@fig-sentiment-number]). Most repeated words are abstract, temporal nouns like \textit{time}, \textit{mind} or \textit{life}, which are aligned with SOC literature's exploration of mind wandering, non-linearity and unconscious cognition ([@fig-word-networks]). 
+The findings in this paper reveals a correlative relationship between SOC literature and mental health-inclined vocabulary and linguistic patterns. In terms of frequency, a dominant portion-or over 60% of words in the NRC index-of select SOC texts in this analysis have negative and sadness-leaning words ([@fig-sentiment-frequency]) ([@fig-sentiment-category]) ([@fig-sentiment-number]). Most repeated words are abstract, temporal nouns like \textit{time}, \textit{mind} or \textit{life}, which are aligned with SOC literature's exploration of mind wandering, non-linearity and unconscious cognition ([@fig-word-networks]). 
 
-As scholars Bernini and Fernyhough mentioned, the "mysterious nature of the conscious" is "a simultaneously fragmented and unified mental realm" [@resampling], this analysis has also reflected that sentiment in SOC literature. Most of the texts express the desire to replicate the inner workings of the human mind textually, attempting to capture the complexity of thought processes and emotions. With these inner-workings revealed to be mostly negative and existential, SOC authors have explored their identity and worldview in an authentic manner, exploring then-taboo topics such as existential angst, mental health issues and cognitive dissonance.
+As scholars Bernini and Fernyhough mentioned, the "mysterious nature of the conscious" is "a simultaneously fragmented and unified mental realm" [@resampling], this analysis has also reflected that sentiment in SOC literature. Most of the texts express the desire to replicate the inner workings of the human mind textually, attempting to capture the complexity of thought processes and emotions. With these inner-workings revealed to be mostly negative and existential, SOC authors have explored their identity and worldview in an authentic manner, deeply portraying then-taboo topics such as existential angst, anxiety and cognitive dissonance.
 
 ## Insights into Socio-Political Landscape of the West's Modernist Era 
 
-Through the analysis, we can see the SOC texts' linguistic patterns reflect the socio-political landscape of the Western hemisphere. The SOC genre stems out of modernist literature, whose writers often rebelled against linear and traditional narrative techniques of the 19th century [@resampling]. According to scholar Nyongesa, "marginalization occasioned by the dominant group result in neurotic conditions in members of the minority group" [@pathology], which rings true to the scenario at hand about SOC literature and its relationship to its birthplace: late 19th to mid-20th century Western society. 
+Through the analysis, we can see the SOC texts' linguistic patterns reflect the socio-political landscape of Western society. The SOC genre originated from modernist literature, whose writers often rebelled against linear and traditional narrative techniques of the 19th century [@resampling]. According to scholar Nyongesa, "marginalization occasioned by the dominant group result in neurotic conditions in members of the minority group" [@pathology], which rings true to the scenario at hand about SOC literature and its relationship to its birthplace: late 19th to mid-20th century Western society. 
 
-There are several reasons rooted in the West's modernist era that resulted in the  growth and popularity of the SOC genre. This period's rapid industrialization and urbanization  reshaped the traditional institutions of Western society, leading to fragmentation and dislocation, which SOC authors had attempted to capture in their own works [@flow]. Advancing transportation, photographic media and mass communication affected the West's sense of time and space, which in turn affected how people understood reality. This is a central pillar of SOC literature: distorted reality, atemporality and an unconscious perception of the world.
+There are several reasons rooted in the West's modernist era that resulted in the  growth and popularity of the SOC genre. This period's rapid industrialization and urbanization reshaped the traditional institutions of Western society, leading to fragmentation and dislocation, which SOC authors had attempted to capture in their own works [@flow]. Advancing transportation, photographic media and mass communication affected the West's sense of time and space, which in turn affected how people understood reality. This is a central pillar of SOC literature: distorted reality, atemporality and an unconscious perception of the world.
 
-This time period also underwent the West's crisis of faith in traditional religious beliefs. With the emergence of Darwin's theory of evolution, Freudian psychology, and existential philosophy came different notions of human existence, morality, and meaning [@resampling]. The heightened search for individuality of modernism had SOC authors embraced themes of alienation, identity and mental health in an increasing fragmented world. The devastation from World War I and the interwar period also further intensified this crisis. Post-war collapse of nations created new ideologies like communism and fascism. This in turn created an atmosphere of disillusionment and uncertainty that SOC literature attempted to answer with its disassociative and schizophrenic style.
+This time period also saw the West's crisis of faith in traditional religious beliefs. With the emergence of Darwin's theory of evolution, Freudian psychology, and existential philosophy came different notions of human existence, morality, and meaning [@resampling]. The heightened search for individuality had SOC authors embraced themes such as alienation, identity and mental health in an increasing fragmented world. The devastation from World War I and the interwar period also further intensified this crisis. Post-war collapse of nations created new ideologies like communism and fascism. This in turn created an atmosphere of disillusionment and uncertainty that SOC literature attempted to answer with its anxious and disassociative writing style.
 
-## Schizophrenic and Disassociative Tendencies in Female Stream of Consciousness
+## Gender Differences within Stream of Consciousness Genre and Mental Health
+
+Further, our gendered analysis of SOC literature in @fig-word-gender reveals differences in linguistic patterns between male and female authors during this time period, particularly in their portrayal of affects and mental health themes. Female writers tend to exhibit more reserved emotions or positivity, while male writers display greater emotional range and individualism, influenced by restrictions of female expressions at their time. 
+
+Research findings indicate that, on average, female writers use positive words more frequently than male writers, reflecting societal norms attributing positive emotions to females [@gender]. The similarity in vocabulary among SOC female writers like Woolf and Mansfield may stem from shared-or restricted-literary influences, higher cultural and social expectations, common personal experiences, and considerations of reader norms during the West's late 19th to mid-20th century. These factors contribute to a nuanced understanding of gendered linguistic patterns, which has been shown to be more forgiving towards male authors than female authors in the SOC genre.
 
 ## Weaknesses 
 
@@ -772,27 +752,25 @@ With the large amount of different literary texts need processing, it's hard to 
 
 ### Decontextualized Words and Limiting Literature Selection
 
-Throughout our analysis, words are singled out and analyzed without contexts which could have affected their intended meanings, especially in such a complex genre such as SOC. For instance, the commonly repeated words \textit{time}, \textit{mind} or \textit{life} in our selected SOC texts might mean something entirely different when combined with other words. Paradoxically, these words may be insignificant to the SOC texts in question themselves as they're only small units of large literary texts that often have convoluted and complex themes. Therefore word frequency analysis might have excluded nuances when analyzing the contexts behind mental health themes and their relationship to SOC literature.
-
-In addition, the limiting SOC text editions or SOC literature from Project Gutenberg also disallow us from obtaining large sample of SOC literature to analyze their relationship to mental health themes [@gutenberg]. Previously mentioned, since Project Gutenberg only accepts works in the public domain, their archive of literature includes solely old, Western and canonical works that might have missed a diverse range of other SOC texts or other editions that could have garnered better insights into our analysis. In addition, not all SOC texts in the archive are available to be transcribed into datasets due to licensing issues, further limiting our analysis.
+Throughout our analysis, words are singled out and analyzed without contexts which could have affected their intended meanings, especially in such a complex genre such as SOC. For instance, the commonly repeated words \textit{time}, \textit{mind} or \textit{life} in our selected SOC texts might mean something entirely different when combined with other words. Paradoxically, these words may be insignificant to the SOC texts in question themselves as they're only small units of already expansive literary works that often have complex themes. Therefore, word frequency analysis might have not been nuanced when analyzing the contexts behind mental health themes and their relationship to SOC literature. In addition, not all SOC texts in the archive are available to be transcribed into datasets due to licensing issues, further limiting our analysis.
 
 ### Reliance on A Small Number of Sentiment Indices
 
-To ensure a thorough sentiment analysis of SOC texts, this paper has leveraged three widely used sentiment indices, namely Bing, NRC and AFINN. However, a sole dependence on the emotional metrics of these three indices might not be nuanced enough. This is because to categorize words into a specific emotion is an arduous and complex tasks as emotions are spectral and words are mainly context-based. In addition, some of the indices used might not ensure valid data analysis. For instance, @tbl-frequency shows that, using the NRC index, the word \textit{accomplished} can carry two different emotions: joy and positive. This flexible categorization can very much skew the results of the sentiment analysis, bringing an emotion more to the forefront than the others.
+To ensure a thorough sentiment analysis of SOC texts, this paper has leveraged three widely used sentiment indices, namely Bing, NRC and AFINN. However, a sole dependence on the emotional metrics of these three indices might not be nuanced enough. This is because to categorize words into a specific emotion is an arduous and complex tasks, as emotions aren't easily quantifiable and words are mainly context-based. In addition, some of the indices used might not ensure valid data analysis. For instance, @tbl-frequency shows that, using the NRC index, the word \textit{accomplished} can mean two different emotions: joy and positive. This flexible categorization can very much skew the results of the sentiment analysis, bringing one emotion more to the forefront than others.
 
 ## Moving Forward and Next Steps
 
 Moving forward, to gain a deeper understanding of the relationship between SOC literature and mental health themes, more diverse and better natural language processing (NLP) indices, methods and processes must be used to conduct a more accurate analysis.
 
-As mentioned, relying on three sentiment indices are not enough to accurately capture the emotional sentiments of the words used in SOC literature due to how context-based words are, thus more relevant indices should be incorporated into the analysis.
+As mentioned, relying on three sentiment indices are not enough to accurately capture the emotional sentiments of the words used in SOC literature due to how context-based words are. More relevant indices then should be incorporated into the analysis.
 
 In addition, due to the abstract nature of SOC texts, using advanced NLP models is more effective for analysis rather than focusing solely on small linguistic units such as words or word frequency. Topic modeling, for example, is a technique in NLP used to uncover abstract topics within texts like SOC literature. Leveraging algorithms like Latent Dirichlet Allocation (LDA) and Non-negative Matrix Factorization (NMF), topic modeling helps identify patterns of co-occurring words within SOC literature, grouping them into clusters that represent coherent themes or topics that can be relevant to our mental health analysis of the SOC genre.
 
-Lastly, due to the qualitative nature of SOC literature, using a more mixed methods approach, combining both quantitative and qualitative data analysis, will offer a more comprehensive understanding of both the broader mental health trends and the literary genre itself.
+Lastly, due to the qualitative nature of SOC literature, using a more mixed methods approach-combining both quantitative and qualitative data analysis-will offer a more comprehensive understanding of the broader mental health trends and the literary genre itself.
 
 # Conclusion
 
-This study analyzes stream of consciousness (SOC) literature's linguistic patterns, revealing its  portrayal of mental health themes. Through our analysis of works by Joyce, Woolf, Proust, Mansfield, and Eliot, we uncover that SOC literature is largely negative or sadness-inclined with a philosophical and temporal undertones due to its exploration of unconscious cognition. While our quantitative analysis provides insights into the genre's relationship with mental health themes, it's important to recognize its limitations in capturing the richness of SOC language. This study therefore asks for further exploration into the relationship between SOC literature and mental health discourse by using more advanced NLP methods. We hypothesize that this can provide deeper insights into the genre, and the reasons for its growth in the West's late 19th to mid-20th century society.
+This study analyzes stream of consciousness (SOC) literature's linguistic patterns, revealing its  portrayal of mental health themes. Through our analysis of works by Joyce, Woolf, Proust, Mansfield, and Eliot, we uncover that SOC literature is largely negative or sadness-inclined with a philosophical and temporal undertones due to its exploration of unconscious cognition. In addition, expression and sentiment-wise, female authors' writing is more restricted compared to male authors, revealing gendered differences in SOC literature. While our quantitative analysis provides insights into the genre's relationship with mental health themes, it's important to recognize its limitations in capturing the richness of SOC language. Therefore, moving forward, using more advanced NLP methods will better benefit our exploration of the relationship between SOC literature and mental health themes. We hypothesize that this can provide deeper insights into the genre, and the reasons for its growth in Western society during late 19th to mid-20th century.
 
 \newpage
 
