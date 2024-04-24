@@ -324,7 +324,7 @@ frequency_long |>
 
 ```
 
-@tbl-boxplot captures the text data garnered and their emotional connotations using the AFINN lexicon. Overseeing the entire dataset, @tbl-boxplot demonstrates that, for all distinct word frequency, the median sentiment value is -2 on the scale between -5 and 5. More specifically, words that appear most frequently, or words with the frequency of 0.0008511%, have the most negative connotation of -2.33 on the scale between -5 and 5 in the AFINN sentiment index. This summary statistic further shows how SOC literature mostly associates with words that carry more negative or even extreme connotations often associated with mental health themes, and topics such as depression, disassociation or schizophrenia [@pathology], a central argument that we will further discuss in [Results].
+@tbl-boxplot captures the text data garnered and their emotional connotations using the AFINN lexicon. Overseeing the entire dataset, @tbl-boxplot demonstrates that, for all distinct word frequency, the median sentiment value is a negative -2 on the scale between -5 and 5. More specifically, words that appear most frequently, or words with the frequency of 0.0008511%, have the most negative connotation of a -2.33 mean on the scale between -5 and 5 in the AFINN sentiment index. This summary statistic further shows how SOC literature mostly associates with words that carry  negative or even extreme connotations often associated with mental health themes, and topics such as depression, disassociation or schizophrenia [@pathology], a central argument that we will further discuss in [Results].
 
 ## Data Limitations
 
