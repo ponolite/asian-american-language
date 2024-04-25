@@ -97,7 +97,7 @@ In terms of measuring 'Sentiment Value', all three general-purpose lexicons are 
 
 After the survey results are garnered, researchers average the answers to sort each surveyed word into pre-defined categories, specifically '-5 to 5' for 'AFINN', 'postive' or 'negative' for 'bing', and 'anger' or 'fear' for 'nrc'. With the continuous work of compiling these lexicons spanning years and decades [@sentiment] comes these functions: `get_sentiments("bing")` and `get_sentiments("nrc")` and `get_sentiments("afinn")`. We can then use `inner_join` with these lexicons to categorize our existing datasets of SOC texts into pre-defined sentiment value. Systematic and data-driven, these measurement methods ensure that all lexicons faithfully reflects each word's emotionality.
 
-However, this paper does recognize how reductive this quantification of language can be. When it comes to understand such social and human artifacts as language or literary texts, much is dependent on their context. As such, this paper will further discuss these weaknesses of the datasets under [Discussion].
+However, this paper does recognize how reductive this quantification of language can be. When it comes to understand such social and human artifacts as language, much depends on their context. As such, this paper will further discuss these weaknesses of the datasets under [Discussion].
 
 ## Source Data: Project Gutenberg
 
@@ -803,13 +803,13 @@ all_books |>
 
 ```
 
-## Combined Bibliographies of Nine Selected Stream of Consciousness Texts
+## Combined Bibliographies from Five Authors
 
 ```{r}
 #| echo: false
 #| eval: true
 #| label: tbl-combined
-#| tbl-cap: "Sample Combined Bibliographies of 9 Selected Stream of Consciousness Texts"
+#| tbl-cap: "Sample Combined Bibliographies of Stream of Consciousness Texts from Five Authors"
 #| warning: false
 
 combined_books |>
