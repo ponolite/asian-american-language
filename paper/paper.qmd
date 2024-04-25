@@ -519,7 +519,7 @@ graph_from_data_frame(d = combined_correlations, #create graphs of networks of w
 #| warning: false
 #| label: fig-word-networks
 #| layout-ncol: 2
-#| fig-cap: "Word Networks Measured by Frequency and Correlation when Combining All Stream of Consciousness Texts"
+#| fig-cap: "Word Networks Measured by Frequency and Correlation when Combining All SOC Texts"
 #| fig-subcap: ["250 Frequency, 0.2 Correlation", "300 Frequency, 0.4 Correlation", "350 Frequency, 0.6 Correlation", "400 Frequency, 0.8 Correlation"] 
 
 # Generate word networks based on previously created functions
