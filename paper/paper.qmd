@@ -357,7 +357,7 @@ In terms of word frequency, most words depicted in the nine selected SOC texts a
 #| warning: false
 #| label: fig-sentiment-frequency
 #| layout-ncol: 2
-#| fig-cap: "Boxplots of Sentiment Scores by Author (Bing & NRC)"
+#| fig-cap: "Boxplots of Sentiment Scores by Word Frequency (Bing & NRC)"
 #| fig-subcap: ["Bing lexicon", "NRC lexicon"]
 
 
