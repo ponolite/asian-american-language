@@ -357,7 +357,7 @@ In terms of word frequency, most words depicted in the nine selected SOC texts a
 #| warning: false
 #| label: fig-sentiment-frequency
 #| layout-ncol: 2
-#| fig-cap: "Overall Word Frequency and Sentiment Analysis"
+#| fig-cap: "Boxplots of Sentiment Scores by Author (Bing & NRC)"
 #| fig-subcap: ["Bing lexicon", "NRC lexicon"]
 
 
@@ -377,7 +377,7 @@ frequency_long <- na.omit(frequency_long)
 # Create boxplots
 ggplot(frequency_long, aes(x = frequency, y = value, fill = sentiment_binary)) +
   geom_boxplot() +
-  labs(title = "Boxplot of Sentiment Scores by Author (Bing)",
+  labs(
        x = "Word Frequency Percentage",
        y = "Sentiment Value (AFINN)",
        fill = "Sentiment") +
@@ -387,7 +387,7 @@ ggplot(frequency_long, aes(x = frequency, y = value, fill = sentiment_binary)) +
 
 ggplot(frequency_long, aes(x = frequency, y = value, fill = sentiment)) +
   geom_boxplot() +
-  labs(title = "Boxplot of Sentiment Scores by Author (NRC)",
+  labs(
        x = "Word Frequency Percentage",
        y = "Sentiment Value (AFINN)",
        fill = "Sentiment") +
