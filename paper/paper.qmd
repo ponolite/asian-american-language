@@ -213,31 +213,31 @@ portrait_words |> head(20) |>
 ggplot(aes(x = n, y = reorder(word, n))) +
   geom_bar(stat = "identity", fill = "steelblue4") +
   geom_text(aes(label = n), hjust = -0.3, vjust = 0.5, color = "grey40", size = 3) +
-  labs(x = "Frequency", y = "Word")
+  labs(x = "Count", y = "Word")
 
 dalloway_words |> head(20) |>
 ggplot(aes(x = n, y = reorder(word, n))) +
   geom_bar(stat = "identity", fill = "steelblue4") +
   geom_text(aes(label = n), hjust = -0.3, vjust = 0.5, color = "grey40", size = 3) +
-  labs(x = "Frequency", y = "Word")
+  labs(x = "Count", y = "Word")
 
 swann_words |> head(20) |>
 ggplot(aes(x = n, y = reorder(word, n))) +
   geom_bar(stat = "identity", fill = "steelblue4") +
   geom_text(aes(label = n), hjust = -0.3, vjust = 0.5, color = "grey40", size = 3) +
-  labs(x = "Frequency", y = "Word")
+  labs(x = "Count", y = "Word")
 
 prufrock_words |> head(20) |>
 ggplot(aes(x = n, y = reorder(word, n))) +
   geom_bar(stat = "identity", fill = "steelblue4") +
   geom_text(aes(label = n), hjust = -0.3, vjust = 0.5, color = "grey40", size = 3) +
-  labs(x = "Frequency", y = "Word")
+  labs(x = "Count", y = "Word")
 
 bliss_words |> head(20) |>
 ggplot(aes(x = n, y = reorder(word, n))) +
   geom_bar(stat = "identity", fill = "steelblue4") +
   geom_text(aes(label = n), hjust = -0.3, vjust = 0.5, color = "grey40", size = 3) +
-  labs(x = "Frequency", y = "Word") 
+  labs(x = "Count", y = "Word") 
 
 
 ```
