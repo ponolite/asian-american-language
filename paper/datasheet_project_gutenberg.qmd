@@ -93,7 +93,7 @@ from systems, although it is unclear whether these laws apply to the works in th
 # Preprocessing/cleaning/labeling
 
 1. *Was any preprocessing/cleaning/labeling of the data done (for example, discretization or bucketing, tokenization, part-of-speech tagging, SIFT feature extraction, removal of instances, processing of missing values)? If so, please provide a description. If not, you may skip the remaining questions in this section.*
-	- No preprocessing/cleaning/labeling on the data was done by Project Gutenbeg.
+	- No preprocessing/cleaning/labeling on the data was done by Project Gutenbeg as all archived texts are digitized versions of printed books. They are not new editions.
 2. *Was the "raw" data saved in addition to the preprocessed/cleaned/labeled data (for example, to support unanticipated future uses)? If so, please provide a link or other access point to the "raw" data.*
 	- N/A
 3. *Is the software that was used to preprocess/clean/label the data available? If so, please provide a link or other access point.*
